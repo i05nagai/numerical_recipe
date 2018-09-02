@@ -1,0 +1,26 @@
+#
+# cmake
+#
+cmake
+/CmakeCache.txt
+/CmakeFiles
+/Makefile
+/cmake_install.cmake
+/tags
+/CTestTestfile.cmake
+/Testing
+*.Po
+.dirstamp
+
+#
+/lib*
+
+#
+# bazel
+#
+/bazel-bazel-test
+/bazel-bin
+/bazel-genfiles
+/bazel-out
+/bazel-testlogs
+/bazel-*
