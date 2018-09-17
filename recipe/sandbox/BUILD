@@ -22,6 +22,7 @@ cc_test(
         "-std=c++11",
     ],
     deps = [
+    	 ":sandbox",
         "@gtest",
     ],
 )
