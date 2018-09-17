@@ -1,20 +1,20 @@
 #!/bin/bash
 
 do_buildifier(){
-  BUILD_FILES=$(find . -name 'BUILD*')
-  NUM_BUILD_FILES=$(echo ${BUILD_FILES} | wc -w)
+  local BUILD_FILES=$(find . -name 'BUILD*')
+  local NUM_BUILD_FILES=$(echo ${BUILD_FILES} | wc -w)
 
   echo "Running do_buildifier on ${NUM_BUILD_FILES} files"
   echo ""
 
-  BUILDIFIER_START_TIME=$(date +'%s')
-  BUILDIFIER_OUTPUT_FILE="$(mktemp)_buildifier_output.log"
+  local BUILDIFIER_START_TIME=$(date +'%s')
+  local BUILDIFIER_OUTPUT_FILE="$(mktemp)_buildifier_output.log"
 
   rm -rf ${BUILDIFIER_OUTPUT_FILE}
 
   buildifier -showlog -v -mode=check \
     ${BUILD_FILES} 2>&1 | tee ${BUILDIFIER_OUTPUT_FILE}
-  BUILDIFIER_END_TIME=$(date +'%s')
+  local BUILDIFIER_END_TIME=$(date +'%s')
 
   echo ""
   echo "buildifier took $((BUILDIFIER_END_TIME - BUILDIFIER_START_TIME)) s"
@@ -83,9 +83,7 @@ do_clang_format_check() {
       return 0
     fi
   elif [[ -z "$1" ]]; then
-    # TODO (yongtang): Always pass --incremental until all files have
-    # been sanitized gradually. Then this --incremental could be removed.
-    CLANG_SRC_FILES=$(get_clang_files_to_check --incremental)
+    CLANG_SRC_FILES=$(get_clang_files_to_check)
   else
     echo "Invalid syntax for invoking do_clang_format_check"
     echo "Usage: do_clang_format_check [--incremental]"
@@ -96,15 +94,15 @@ do_clang_format_check() {
 
   success=1
   for filename in $CLANG_SRC_FILES; do
-    $CLANG_FORMAT --style=google $filename | diff $filename - > /dev/null
-    if [ ! $? -eq 0 ]; then
+    local diff=$($CLANG_FORMAT --style=google $filename | diff $filename -)
+    if [[ "$diff" != "" ]]; then
       success=0
       echo File $filename is not properly formatted with "clang-format "\
 "--style=google"
     fi
   done
 
-  if [ $success == 0 ]; then
+  if [[ $success == 0 ]]; then
     echo Clang format check fails.
     exit 1
   fi
