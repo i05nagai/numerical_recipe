@@ -2,8 +2,6 @@
 
 namespace recipe {
 namespace sandbox {
-  int hoge() {
-    return 1;
-  }
-} // namespace sandbox
-} // namespace recipe
+int hoge() { return 1; }
+}  // namespace sandbox
+}  // namespace recipe
