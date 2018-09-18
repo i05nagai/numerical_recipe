@@ -11,6 +11,7 @@ ls -la
 # install
 #
 ${PATH_TO_ROOT}/ci/travis/install_bazel.sh
+${PATH_TO_ROOT}/ci/travis/install_clang_format.sh
 ${PATH_TO_ROOT}/ci/travis/install_gcc.sh
 ${PATH_TO_ROOT}/ci/travis/install_valgrind.sh
 

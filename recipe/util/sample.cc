@@ -2,8 +2,6 @@
 
 namespace recipe {
 namespace util {
-  int hoge() {
-    return 1;
-  }
-} // namespace util
-} // namespace recipe
+int hoge() { return 1; }
+}  // namespace util
+}  // namespace recipe
