@@ -11,6 +11,7 @@ cc_library(
         "-std=c++11",
     ],
     deps = [
+        "@glog",
     ],
 )
 
