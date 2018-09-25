@@ -53,13 +53,13 @@ To format all of code in the repository, you can run the script on the root of t
 Check whether format error exists or not
 
 ```
-buildifier -showlog -mode=check $(find . -type f \( -iname BUILD -or -iname BUILD.bazel \))
+buildifier -showlog -mode=check $(find . -type f -name BUILD -or -name 'BUILD.*' -or -name BUILD.bazel)
 ```
 
 Fix format error in-place
 
 ```
-buildifier -showlog -mode=fix $(find . -type f \( -iname BUILD -or -iname BUILD.bazel \))
+buildifier -showlog -mode=fix $(find . -type f -name BUILD -or -name 'BUILD.*' -or -name BUILD.bazel)
 ```
 
 ## Logging
