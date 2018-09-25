@@ -5,6 +5,7 @@ namespace recipe {
 namespace util {
 int hoge() {
   LOG(INFO) << "file";
-  return 1; }
+  return 1;
+}
 }  // namespace util
 }  // namespace recipe
