@@ -1,3 +1,10 @@
+# for glog
+git_repository(
+    name   = "com_github_gflags_gflags",
+    commit = "f8a0efe03aa69b3336d8e228b37d4ccb17324b88",
+    remote = "https://github.com/gflags/gflags.git",
+)
+
 # the glog files.
 # bazel build @glog//:glog
 new_git_repository(
