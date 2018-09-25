@@ -62,6 +62,10 @@ Fix format error in-place
 buildifier -showlog -mode=fix $(find . -type f \( -iname BUILD -or -iname BUILD.bazel \))
 ```
 
+## Logging
+We use [google/glog](https://github.com/google/glog) for logging. See [documentation](http://rpg.ifi.uzh.ch/docs/glog.html).
+The log message will be logged to `/tmp/<program name>.<hostname>.<user name>.log.<severity level>.<date>.<time>.<pid>`. (e.g., "/tmp/hello_world.example.com.hamaji.log.INFO.20080709-222411.10474")
+
 ## TODO
 
 * [x] lint
@@ -82,14 +86,14 @@ buildifier -showlog -mode=fix $(find . -type f \( -iname BUILD -or -iname BUILD.
 * [ ] coverage report
     * coveralls/codecov
 * [ ] documentation
-        * sphinx
+    * sphinx
 * [ ] API document
-        * doxygen + sphinx
+    * doxygen + sphinx
 * [ ] benchmarking
-        * [google/benchmark: A microbenchmark support library](https://github.com/google/benchmark)
+    * [google/benchmark: A microbenchmark support library](https://github.com/google/benchmark)
 * [ ] checking memory leak
     * valgrind
-* [ ] logging
+* [x] logging
     * [google/glog: C\+\+ implementation of the Google logging module](https://github.com/google/glog)
 * [ ] packaging
 * CI
