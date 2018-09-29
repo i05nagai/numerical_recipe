@@ -101,6 +101,7 @@ The log message will be logged to `/tmp/<program name>.<hostname>.<user name>.lo
         * [x] check code format
         * [x] build libary, examples and benchmarks
         * [x] run unittests
+        * [x] notify to Slack
     * [ ] Circle CI
 * templates
     * [ ] issue templates

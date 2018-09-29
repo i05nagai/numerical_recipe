@@ -9,60 +9,66 @@ dist: trusty
 language: cpp
 matrix:
   include:
-    # for test coverage
-    - os: linux
-      compiler: gcc
-      env:
-        - BUILD_TYPE=Coverage
-      addons:
-        apt:
-          packages:
-            - lcov
-    - os: linux
-      compiler: gcc
-      env:
-        - BUILD_TYPE=Debug
-      addons:
-        apt:
-          sources:
-            # List of whitelisted in travis packages for ubuntu-precise can be found here:
-            #   https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
-            # List of whitelisted in travis apt-sources:
-            #   https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
-            - ubuntu-toolchain-r-test
-          packages:
-            - libc6-i386
-            - libc6-dbg
-    - os: linux
-      compiler: clang++
-      env:
-        - BUILD_TYPE=Debug
-      addons:
-        apt:
-          sources:
-            # List of whitelisted in travis packages for ubuntu-precise can be found here:
-            #   https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
-            # List of whitelisted in travis apt-sources:
-            #   https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
-            - ubuntu-toolchain-r-test
-          packages:
-            - libc6-i386
-            - libc6-dbg
-    - os: osx
-      compiler: gcc
-      env:
-        - BUILD_TYPE=Debug
-    - os: osx
-      compiler: clang++
-      # addons:
-      env:
-        - BUILD_TYPE=Debug
+  # for test coverage
+  - os: linux
+    compiler: gcc
+    env:
+    - BUILD_TYPE=Coverage
+    addons:
+      apt:
+        packages:
+        - lcov
+  - os: linux
+    compiler: gcc
+    env:
+    - BUILD_TYPE=Debug
+    addons:
+      apt:
+        sources:
+        # List of whitelisted in travis packages for ubuntu-precise can be found here:
+        #   https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
+        # List of whitelisted in travis apt-sources:
+        #   https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
+        - ubuntu-toolchain-r-test
+        packages:
+        - libc6-i386
+        - libc6-dbg
+  - os: linux
+    compiler: clang++
+    env:
+    - BUILD_TYPE=Debug
+    addons:
+      apt:
+        sources:
+        # List of whitelisted in travis packages for ubuntu-precise can be found here:
+        #   https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
+        # List of whitelisted in travis apt-sources:
+        #   https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
+        - ubuntu-toolchain-r-test
+        packages:
+        - libc6-i386
+        - libc6-dbg
+  - os: osx
+    compiler: gcc
+    env:
+    - BUILD_TYPE=Debug
+  - os: osx
+    compiler: clang++
+    # addons:
+    env:
+    - BUILD_TYPE=Debug
 install:
-  - ci/travis/install.sh
+- ci/travis/install.sh
 script:
-  - ci/build/check_sanity.sh
-  - ci/build/build.sh
+- ci/build/check_sanity.sh
+- ci/build/build.sh
 after_success:
-  - ci/travis/after_success.sh
+- ci/travis/after_success.sh
 notifications:
   email: false
+  slack:
+    rooms:
+    - secure: gnEr2rHvCc4yy6Pm7hCoCh+59u+xa+BjfqQeXyvKI52i7W9l52XRYi9Rfjz6eYnsBoVS5XE+CjMXJkOfw8WC2WArlPCruKOalUPQEZNXglfQN/CiIYvak6lqHa+LQiRDnw2S2ko70mEE1jhMs42NadFgz0hXLIZWXJfD0K01/lLIe1+3Bl4jYmzA50jTKOANNUb+TylQX1UziAU7Gzds1umPSe9MtGQQ5VKNb/aYFhncefoRMEQlebZtgp1Zk/lBnAPJuJs+mqDXDu39kuE5pY2qr5QGWLR0+CYwaah1UCB/rRsKuWmW8mC52o2dbkloIuc48fRZRkgF7E41pbczx554BFtRpdhIt7NtLcVXsAfLeBFTPatP5L/ddWDYm1FJybqzvl+0r8RpmbO6R1lmHt30WAcCufVUbdVum2g/wLgLsxOMVcp24h0ErT9gVKIhrcVndCG/QuJedinPvL+aHvvLGbJdU/ux4Zl0x7nVEya1fG/90+61M8gA57+GkplxMqCs+S+uIKftgirXPozJ+fybrG0fJWRuzbb7jggby2vRgj+PhQ4N8O3ubYm1AErYxfKfEJCz404NyAmnYWGNg+35EcYvAHYRZBHFxVSPxLBEfGXY3bzuhLtJEP64bzlw8ELzb2z3ao4IyCT0XE5WOo3bnWeAo+qQ+A56PoKVuuI=
+    on_success: change
+    on_failure: always
+    on_pull_requests: false
