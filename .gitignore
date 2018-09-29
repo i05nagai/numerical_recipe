@@ -24,3 +24,12 @@ cmake
 /bazel-out
 /bazel-testlogs
 /bazel-*
+
+#
+# ruby
+# Currently, this is only for travis CLI to manage ".travis.yml"
+#
+/Gemfile
+/Gemfile.lock
+/.bundle
+/vendor
