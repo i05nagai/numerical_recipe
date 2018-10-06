@@ -18,6 +18,19 @@ cc_library(
     ],
 )
 
+cc_library(
+    name = "lu_decomposition",
+    srcs = ["lu_decomposition.cc"],
+    hdrs = ["lu_decomposition.h"],
+    deps = [
+        ":vector",
+        ":matrix",
+    ],
+    copts = [
+        "-std=c++11",
+    ],
+)
+
 cc_test(
     name = "vector_test",
     srcs = ["vector_test.cc"],
@@ -40,6 +53,19 @@ cc_test(
     ],
     deps = [
         ":matrix",
+        "@gtest",
+    ],
+)
+
+cc_test(
+    name = "lu_decomposition_test",
+    srcs = ["lu_decomposition_test.cc"],
+    copts = [
+        "-Iexternal/gtest/include",
+        "-std=c++11",
+    ],
+    deps = [
+        ":lu_decomposition",
         "@gtest",
     ],
 )
