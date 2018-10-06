@@ -3,13 +3,11 @@
 
 namespace recipe {
 namespace util {
-static void BenchmarkBar(benchmark::State& state)
-{
-  while(state.KeepRunning()) {
+static void BenchmarkBar(benchmark::State& state) {
+  while (state.KeepRunning()) {
     benchmark::DoNotOptimize(Bar());
   }
 }
 BENCHMARK(BenchmarkBar);
-} // namespace util
-} // namespace recipe
-
+}  // namespace util
+}  // namespace recipe

@@ -3,15 +3,16 @@
 
 namespace recipe {
 namespace integrate {
-static void BenchmarkFoobar(benchmark::State& state)
-{
-  while(state.KeepRunning()) {
+static void BenchmarkFoobar(benchmark::State& state) {
+  while (state.KeepRunning()) {
     benchmark::DoNotOptimize(Foobar(state.range(0)));
   }
 }
+// clang-format off
 BENCHMARK(BenchmarkFoobar)
   ->Arg(100)
   ->Arg(1000)
   ->Arg(10000);
-} // namespace integrate
-} // namespace recipe
+// clang-format on
+}  // namespace integrate
+}  // namespace recipe

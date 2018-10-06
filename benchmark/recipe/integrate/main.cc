@@ -3,5 +3,5 @@
 namespace recipe {
 namespace integrate {
 BENCHMARK_MAIN();
-} // namespace integrate
-} // namespace recipe
+}  // namespace integrate
+}  // namespace recipe

@@ -3,7 +3,5 @@
 namespace recipe {
 namespace util {
 BENCHMARK_MAIN();
-} // namespace util
-} // namespace recipe
-
-
+}  // namespace util
+}  // namespace recipe

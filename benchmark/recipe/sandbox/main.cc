@@ -3,5 +3,5 @@
 namespace recipe {
 namespace sandbox {
 BENCHMARK_MAIN();
-} // namespace sandbox
-} // namespace recipe
+}  // namespace sandbox
+}  // namespace recipe

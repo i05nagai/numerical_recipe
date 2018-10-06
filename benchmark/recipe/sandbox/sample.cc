@@ -3,13 +3,11 @@
 
 namespace recipe {
 namespace sandbox {
-static void BenchmarkFoo(benchmark::State& state)
-{
-  while(state.KeepRunning()) {
+static void BenchmarkFoo(benchmark::State& state) {
+  while (state.KeepRunning()) {
     benchmark::DoNotOptimize(Foo());
   }
 }
 BENCHMARK(BenchmarkFoo);
-} // namespace sandbox
-} // namespace recipe
-
+}  // namespace sandbox
+}  // namespace recipe
