@@ -2,23 +2,64 @@
 To build the library, you need to run
 
 ```
+bazel build //recipe/...
+```
+
+You can build only specific sub packages
+
+```
 bazel build //recipe/integrate:integrate
+bazel build //recipe/sandbox:sandbox
 bazel build //recipe/util:util
 ```
 
+Debug build
+
+```
+bazel build //recipe --compilation_mode=dbg
+```
+
 ## Test
-Run all tests
+We use gtest for testing. Take a look at official documents:
+
+* [Google test primer](https://github.com/google/googletest/blob/master/googletest/docs/primer.md)
+* [Gtest advanced document](https://github.com/google/googletest/blob/master/googletest/docs/advanced.md)
+
+You can run all tests with command
 
 ```
 bazel test "//recipe/..."
 ```
 
+Executing tests for specific subpackages is also possible
+
 ```
 bazel test //recipe/integrate:test
+bazel build //recipe/sandbox:sandbox
 bazel test //recipe/util:test
 ```
 
+## Benchmark
+Run benchmarks with debug build options
+
+```
+bazel run --compilation_mode=dbg "//benchmark/..."
+```
+
+Run benchmarks with optimized(release) build options
+
+```
+bazel run --compilation_mode=opt "//benchmark/..."
+```
+
+If you want to run all benchmarks,
+
+```
+./tools/run_benchmark.sh
+```
+
 ## Formatter/Linter
+We follow [Google C\+\+ Style Guide](https://google.github.io/styleguide/cppguide.html).
 
 ### C++
 We use `clang-format` for formatting code.
@@ -89,7 +130,7 @@ The log message will be logged to `/tmp/<program name>.<hostname>.<user name>.lo
     * sphinx
 * [ ] API document
     * doxygen + sphinx
-* [ ] benchmarking
+* [x] benchmarking
     * [google/benchmark: A microbenchmark support library](https://github.com/google/benchmark)
 * [ ] checking memory leak
     * valgrind
