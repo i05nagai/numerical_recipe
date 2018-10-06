@@ -49,7 +49,7 @@ LU OuterProductLUWithPartialPivot(const Matrix& a) {
         piv_ind = t;
       }
     }
-    piv[k] = piv_ind;
+    std::swap(piv[k], piv[piv_ind]);
 
     if (piv[k] != k) {
       // interchange rows
@@ -109,14 +109,12 @@ Vector LU::Solve(const Vector& b) const {
   Vector x(n);
 
   // forward substitution
-  std::swap(bb(0), bb(piv[0]));
-  x(0) = bb(0);
+  x(0) = bb(piv[0]);
   for (int i = 1; i < n; i++) {
     double sum = 0;
     for (int j = 0; j < i; j++) sum += lu_mat(i, j) * x(j);
 
-    std::swap(bb(i), bb(piv[i]));
-    x(i) = bb(i) - sum;
+    x(i) = bb(piv[i]) - sum;
   }
 
   // backsubstitution
