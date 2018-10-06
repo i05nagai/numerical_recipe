@@ -2,6 +2,6 @@
 
 namespace recipe {
 namespace util {
-int hoge();
+int Bar();
 }  // namespace util
 }  // namespace recipe

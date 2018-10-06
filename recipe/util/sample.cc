@@ -3,8 +3,8 @@
 
 namespace recipe {
 namespace util {
-int hoge() {
-  LOG(INFO) << "file";
+int Bar() {
+  DLOG(INFO) << "file";
   return 1;
 }
 }  // namespace util

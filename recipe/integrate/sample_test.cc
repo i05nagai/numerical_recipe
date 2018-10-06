@@ -3,8 +3,8 @@
 
 namespace recipe {
 namespace integrate {
-TEST(hoge_test, simple) {
-  const int actual = hoge();
+TEST(sample_Foobar_test, simple) {
+  const int actual = Foobar(1);
   EXPECT_EQ(1, actual);
 }
 }  // namespace integrate

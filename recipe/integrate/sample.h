@@ -2,6 +2,6 @@
 
 namespace recipe {
 namespace integrate {
-int hoge();
+int Foobar(const int x);
 }  // namespace integrate
 }  // namespace recipe

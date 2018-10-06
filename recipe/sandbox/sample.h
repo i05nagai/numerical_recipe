@@ -2,6 +2,6 @@
 
 namespace recipe {
 namespace sandbox {
-int hoge();
+int Foo();
 }  // namespace sandbox
 }  // namespace recipe
