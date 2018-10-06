@@ -1,12 +1,16 @@
 #!/bin/bash
 
-if [[ "${BUILD_TYPE}" == "Coverage" -a "${TRAVIS_OS_NAME}" == "linux" ]]; then
+set -e
+set -o pipefail
+set -o nounset
+
+if [[ `echo "${BUILD_TARGET}" | grep -E '(Coverage$|Coverage,)'` && "${TRAVIS_OS_NAME}" == "linux" ]]; then
+  # -g
   pwd;
   coveralls \
     --verbose \
     --include recipe \
-    --exclude submodule \
     --gcov-options '\-lp' \
     --root . \
-    --build-root build;
+    --build-root bazel-out/darwin-dbg/bin/recipe
 fi
