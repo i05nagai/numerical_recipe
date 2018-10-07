@@ -9,7 +9,7 @@ cc_binary(
     ],
     linkstatic = 1,
     deps = [
-        "//recipe/integrate:integrate",
+        "//recipe/integrate",
         "@benchmark",
     ],
 )

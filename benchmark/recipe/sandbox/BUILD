@@ -9,7 +9,7 @@ cc_binary(
     ],
     linkstatic = 1,
     deps = [
-        "//recipe/sandbox:sandbox",
+        "//recipe/sandbox",
         "@benchmark",
     ],
 )
