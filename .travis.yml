@@ -45,7 +45,8 @@ matrix:
   - os: linux
     compiler: clang++
     env:
-    - BUILD_TYPE=Debug
+    - BUILD_TYPE=Release
+    - BUILD_TARGET=Benchmark
     addons:
       apt:
         sources:
