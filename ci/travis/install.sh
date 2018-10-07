@@ -19,7 +19,7 @@ ${PATH_TO_ROOT}/ci/travis/install_valgrind.sh
 # coverage report
 # we only measure coverage on Linux
 #
-if [[ "${BUILD_TYPE}" == "Coverage" && "${TRAVIS_OS_NAME}" == "linux" ]]; then
+if [[ `echo "${BUILD_TARGET}" | grep -E '(Coverage$|Coverage,)'` && "${TRAVIS_OS_NAME}" == "linux" ]]; then
   PATH=~/.local/bin:${PATH};
   pip install --user --upgrade pip;
   pip install --user cpp-coveralls;

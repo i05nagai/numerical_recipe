@@ -3,8 +3,8 @@
 
 namespace recipe {
 namespace util {
-TEST(hoge_test, simple) {
-  const int actual = hoge();
+TEST(sample_bar_test, simple) {
+  const int actual = Bar();
   EXPECT_EQ(1, actual);
 }
 }  // namespace util

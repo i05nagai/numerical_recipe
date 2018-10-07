@@ -1,7 +1,7 @@
-#pragma once
+#include <benchmark/benchmark.h>
 
 namespace recipe {
 namespace integrate {
-int Foobar(const int x);
+BENCHMARK_MAIN();
 }  // namespace integrate
 }  // namespace recipe

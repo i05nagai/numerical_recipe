@@ -1,7 +1,7 @@
 #!/bin/bash
 
 do_buildifier(){
-  local BUILD_FILES=$(find . -name 'BUILD*')
+  local BUILD_FILES=$(find . -type f -name BUILD -or -name 'BUILD.*' -or -name BUILD.bazel)
   local NUM_BUILD_FILES=$(echo ${BUILD_FILES} | wc -w)
 
   echo "Running do_buildifier on ${NUM_BUILD_FILES} files"
@@ -63,7 +63,7 @@ get_clang_files_to_check() {
 
     echo "${CLANG_FILES}"
   else
-    find recipe -name '*.h' -o -name '*.cc'
+    find benchmark recipe -name '*.h' -o -name '*.cc'
   fi
 }
 

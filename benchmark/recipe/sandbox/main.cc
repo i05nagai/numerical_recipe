@@ -1,7 +1,7 @@
-#include "recipe/sandbox/sample.h"
+#include <benchmark/benchmark.h>
 
 namespace recipe {
 namespace sandbox {
-int Foo() { return 1; }
+BENCHMARK_MAIN();
 }  // namespace sandbox
 }  // namespace recipe

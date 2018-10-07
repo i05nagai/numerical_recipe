@@ -1,8 +1,15 @@
 #
 # env
 # * BUILD_TYPE
-#   * Coverage
 #   * Debug
+#   * Release
+#
+# * BUILD_TARGET
+#   * comma separated values
+#   * available values are:
+#     * Coverage
+#     * Benchmark
+#   * e.g. BUILD_TARGET="Coverage,Benchmark"
 #
 sudo: required
 dist: trusty
@@ -13,7 +20,8 @@ matrix:
   - os: linux
     compiler: gcc
     env:
-    - BUILD_TYPE=Coverage
+    - BUILD_TYPE=Debug
+    - BUILD_TARGET=Coverage
     addons:
       apt:
         packages:
@@ -21,7 +29,8 @@ matrix:
   - os: linux
     compiler: gcc
     env:
-    - BUILD_TYPE=Debug
+    - BUILD_TYPE=Release
+    - BUILD_TARGET=Benchmark
     addons:
       apt:
         sources:
@@ -36,7 +45,8 @@ matrix:
   - os: linux
     compiler: clang++
     env:
-    - BUILD_TYPE=Debug
+    - BUILD_TYPE=Release
+    - BUILD_TARGET=Benchmark
     addons:
       apt:
         sources:

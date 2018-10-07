@@ -1,7 +1,7 @@
-#pragma once
+#include <benchmark/benchmark.h>
 
 namespace recipe {
 namespace util {
-int Bar();
+BENCHMARK_MAIN();
 }  // namespace util
 }  // namespace recipe
