@@ -1,6 +1,9 @@
 #!/bin/bash
 
 set -e
+if [ ! -z "${RECIPE_DEBUG}" ]; then
+  set -x
+fi
 
 PATH_TO_REPOSITORY=$(cd $(dirname ${0});cd ../..;pwd)
 
