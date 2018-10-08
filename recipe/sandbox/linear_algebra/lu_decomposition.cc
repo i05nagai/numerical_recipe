@@ -19,7 +19,7 @@ LU OuterProductLU(const Matrix& a) {
   int n = lu_mat.ncol();
 
   for (int k = 0; k < n - 1; k++) {
-    if (lu_mat(k, k) == 0)
+    if (abs(lu_mat(k, k)) < 1e-20)
       throw std::runtime_error("failed to LU decomposition");
 
     for (int i = k + 1; i < n; i++) {
@@ -62,7 +62,8 @@ LU OuterProductLUWithPartialPivot(const Matrix& a) {
         std::swap(lu_mat(k, j), lu_mat(piv[k], j));
       }
     }
-    if (lu_mat(k, k) == 0) throw std::runtime_error("matrix is singular!!");
+    if (abs(lu_mat(k, k)) < 1e-20)
+      throw std::runtime_error("matrix is singular!!");
 
     for (int i = k + 1; i < n; i++) {
       lu_mat(i, k) /= lu_mat(k, k);
@@ -89,7 +90,7 @@ LU CroutLU(const Matrix& a) {
       lu_mat(i, j) -= sum;
     }
 
-    if (lu_mat(j, j) == 0)
+    if (abs(lu_mat(j, j)) < 1e-20)
       throw std::runtime_error("failed to LU decomposition");
 
     // update L
