@@ -9,8 +9,7 @@ TEST(Vector, CopyConstructor) {
   Vector v(3);
   Vector vv(v);
 
-  EXPECT_EQ(v(0), vv(0));
-  EXPECT_EQ(v.size(), vv.size());
+  EXPECT_EQ(v, vv);
 }
 
 TEST(Vector, Size) {
@@ -25,7 +24,7 @@ TEST(Vector, Operator) {
   EXPECT_EQ(1.0, v(0));
 
   Vector vv = v;
-  EXPECT_EQ(v(0), vv(0));
+  EXPECT_EQ(v, vv);
 
   EXPECT_DEATH(v(-1), "Assertion failed*");
   EXPECT_DEATH(v(3), "Assertion failed*");

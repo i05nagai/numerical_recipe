@@ -17,6 +17,7 @@ class Vector {
   double operator()(int i) const;
   double& operator()(int i);
   Vector& operator=(const Vector& v);
+  bool operator==(const Vector& v) const;
 
   int size() const { return size_; }
 };

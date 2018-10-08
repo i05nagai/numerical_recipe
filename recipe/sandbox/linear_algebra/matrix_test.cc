@@ -7,9 +7,9 @@ namespace linear_algebra {
 
 TEST(Matrix, CopyConstructor) {
   Matrix m(2, 3);
-  Matrix b(m);
+  Matrix mm(m);
 
-  EXPECT_EQ(m(0, 0), b(0, 0));
+  EXPECT_EQ(m, mm);
 }
 
 TEST(Matrix, Shape) {
@@ -26,7 +26,7 @@ TEST(Matrix, Operator) {
   EXPECT_EQ(1.0, m(0, 0));
 
   Matrix mm = m;
-  EXPECT_EQ(m(0, 0), mm(0, 0));
+  EXPECT_EQ(m, mm);
 
   EXPECT_DEATH(m(-1, 0), "Assertion failed*");
   EXPECT_DEATH(m(0, 3), "Assertion failed*");

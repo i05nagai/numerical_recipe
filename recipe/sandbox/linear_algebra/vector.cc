@@ -14,8 +14,6 @@ Vector::Vector(const Vector& v) : size_(v.size_), data_(new double[v.size_]) {
   for (int i = 0; i < size_; i++) data_[i] = v.data_[i];
 }
 
-// Vector::~Vector() { delete[] data_; };
-
 double Vector::operator()(int i) const {
   assert(0 <= i && i < size_);
   return data_[i];
@@ -31,6 +29,15 @@ Vector& Vector::operator=(const Vector& v) {
   for (int i = 0; i < size_; i++) data_[i] = v.data_[i];
 
   return *this;
+}
+
+bool Vector::operator==(const Vector& v) const {
+  if (size_ != v.size_) return false;
+
+  for (int i = 0; i < size_; i++) {
+    if (data_[i] != v.data_[i]) return false;
+  }
+  return true;
 }
 
 }  // namespace linear_algebra

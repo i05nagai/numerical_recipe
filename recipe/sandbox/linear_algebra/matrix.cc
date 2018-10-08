@@ -40,6 +40,15 @@ Matrix& Matrix::operator=(const Matrix& m) {
   return *this;
 }
 
+bool Matrix::operator==(const Matrix& m) const {
+  if ((nrow_ != m.nrow_) || (ncol_ != m.ncol_)) return false;
+
+  for (int i = 0; i < nrow_ * ncol_; i++) {
+    if (data_[i] != m.data_[i]) return false;
+  }
+  return true;
+}
+
 }  // namespace linear_algebra
 }  // namespace sandbox
 }  // namespace recipe

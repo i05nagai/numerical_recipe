@@ -18,6 +18,7 @@ class Matrix {
   double operator()(int i, int j) const;
   double& operator()(int i, int j);
   Matrix& operator=(const Matrix& m);
+  bool operator==(const Matrix& m) const;
 
   int nrow() const { return nrow_; }
   int ncol() const { return ncol_; }
