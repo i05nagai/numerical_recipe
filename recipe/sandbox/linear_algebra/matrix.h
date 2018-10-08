@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 
 namespace recipe {
 namespace sandbox {
@@ -8,12 +9,11 @@ class Matrix {
  private:
   int nrow_;
   int ncol_;
-  double* data_;
+  std::unique_ptr<double[]> data_;
 
  public:
   Matrix(const int nrows, const int ncols);
   Matrix(const Matrix& m);
-  ~Matrix();
 
   double operator()(int i, int j) const;
   double& operator()(int i, int j);

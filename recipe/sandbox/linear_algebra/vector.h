@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 
 namespace recipe {
 namespace sandbox {
@@ -7,12 +8,11 @@ namespace linear_algebra {
 class Vector {
  private:
   int size_;
-  double* data_;
+  std::unique_ptr<double[]> data_;
 
  public:
   Vector(int size);
   Vector(const Vector& v);
-  ~Vector();
 
   double operator()(int i) const;
   double& operator()(int i);

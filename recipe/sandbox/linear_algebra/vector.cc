@@ -14,7 +14,7 @@ Vector::Vector(const Vector& v) : size_(v.size_), data_(new double[v.size_]) {
   for (int i = 0; i < size_; i++) data_[i] = v.data_[i];
 }
 
-Vector::~Vector() { delete[] data_; };
+// Vector::~Vector() { delete[] data_; };
 
 double Vector::operator()(int i) const {
   assert(0 <= i && i < size_);
@@ -27,7 +27,7 @@ double& Vector::operator()(int i) {
 
 Vector& Vector::operator=(const Vector& v) {
   size_ = v.size_;
-  data_ = new double[size_];
+  data_ = std::unique_ptr<double[]>(new double[size_]);
   for (int i = 0; i < size_; i++) data_[i] = v.data_[i];
 
   return *this;
