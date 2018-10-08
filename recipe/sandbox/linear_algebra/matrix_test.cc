@@ -19,7 +19,7 @@ TEST(Matrix, Shape) {
   EXPECT_EQ(3, m.ncol());
 }
 
-TEST(Matrix, Operator) {
+TEST(Matrix, AssignmentOperator) {
   Matrix m(2, 3);
   m(0, 0) = 1.0;
 
@@ -27,6 +27,10 @@ TEST(Matrix, Operator) {
 
   Matrix mm = m;
   EXPECT_EQ(m, mm);
+}
+
+TEST(Vector, AssertIndexOutOfRange) {
+  Matrix m(2, 3);
 
   EXPECT_DEATH(m(-1, 0), "Assertion failed*");
   EXPECT_DEATH(m(0, 3), "Assertion failed*");

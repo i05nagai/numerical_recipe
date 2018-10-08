@@ -17,7 +17,7 @@ TEST(Vector, Size) {
   EXPECT_EQ(4, v.size());
 }
 
-TEST(Vector, Operator) {
+TEST(Vector, AssignmentOperator) {
   Vector v(3);
   v(0) = 1.0;
 
@@ -25,6 +25,10 @@ TEST(Vector, Operator) {
 
   Vector vv = v;
   EXPECT_EQ(v, vv);
+}
+
+TEST(Vector, AssertIndexOutOfRange) {
+  Vector v(3);
 
   EXPECT_DEATH(v(-1), "Assertion failed*");
   EXPECT_DEATH(v(3), "Assertion failed*");
