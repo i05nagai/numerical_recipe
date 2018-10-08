@@ -33,7 +33,6 @@ std::vector<std::tuple<Matrix, Vector, Vector>> TestCases() {
 
   // sample1
   Matrix a1 = Matrix(3, 3);
-  a1(3, 3);
   a1(0, 0) = 2;
   a1(0, 1) = -1;
   a1(0, 2) = 3;
@@ -143,7 +142,7 @@ TEST(LUDecomposition, Stability) {
   expected(1) = 1;
 
   EXPECT_NE_VECTOR_ELEM(OuterProductLU(m).Solve(b), expected);
-  EXPECT_NE_VECTOR_ELEM(OuterProductLU(m).Solve(b), expected);
+  EXPECT_NE_VECTOR_ELEM(CroutLU(m).Solve(b), expected);
   EXPECT_EQ_VECTOR(OuterProductLUWithPartialPivot(m).Solve(b), expected);
 }
 
