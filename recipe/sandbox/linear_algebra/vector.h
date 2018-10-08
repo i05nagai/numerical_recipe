@@ -6,11 +6,11 @@ namespace linear_algebra {
 
 class Vector {
  private:
-  int len;
-  double* data;
+  int size_;
+  double* data_;
 
  public:
-  Vector(int length);
+  Vector(int size);
   Vector(const Vector& v);
   ~Vector();
 
@@ -18,7 +18,7 @@ class Vector {
   double& operator()(int i);
   Vector& operator=(const Vector& v);
 
-  int Length() const { return len; }
+  int size() const { return size_; }
 };
 
 }  // namespace linear_algebra

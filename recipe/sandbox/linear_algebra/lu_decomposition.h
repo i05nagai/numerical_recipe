@@ -10,16 +10,16 @@ namespace linear_algebra {
 
 class LU {
  private:
-  const Matrix lu;
-  const std::vector<int> piv;
+  const Matrix lu_;
+  const std::vector<int> pivot_index_;
 
  public:
-  LU(const Matrix& lu_mat, const std::vector<int>& piv_ind);
+  LU(const Matrix& lu, const std::vector<int>& pivot_index);
   ~LU(){};
   Vector Solve(const Vector& b) const;
 
-  const Matrix& get_lu() const { return lu; };
-  const std::vector<int> get_piv() const { return piv; };
+  const Matrix& lu() const { return lu_; };
+  const std::vector<int> pivot_index() const { return pivot_index_; };
 };
 
 LU OuterProductLU(const Matrix& a);

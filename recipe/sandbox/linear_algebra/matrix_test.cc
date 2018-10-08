@@ -15,8 +15,8 @@ TEST(Matrix, CopyConstructor) {
 TEST(Matrix, Shape) {
   Matrix m(2, 3);
 
-  EXPECT_EQ(2, m.NRow());
-  EXPECT_EQ(3, m.NCol());
+  EXPECT_EQ(2, m.nrow());
+  EXPECT_EQ(3, m.ncol());
 }
 
 TEST(Matrix, Operator) {

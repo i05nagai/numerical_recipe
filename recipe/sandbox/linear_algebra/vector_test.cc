@@ -10,12 +10,12 @@ TEST(Vector, CopyConstructor) {
   Vector vv(v);
 
   EXPECT_EQ(v(0), vv(0));
-  EXPECT_EQ(v.Length(), vv.Length());
+  EXPECT_EQ(v.size(), vv.size());
 }
 
-TEST(Vector, Length) {
+TEST(Vector, Size) {
   Vector v(4);
-  EXPECT_EQ(4, v.Length());
+  EXPECT_EQ(4, v.size());
 }
 
 TEST(Vector, Operator) {

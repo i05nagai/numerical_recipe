@@ -8,12 +8,12 @@ namespace recipe {
 namespace sandbox {
 namespace linear_algebra {
 
-LU::LU(const Matrix& lu_mat, const std::vector<int>& piv_ind)
-    : lu(lu_mat), piv(piv_ind) {}
+LU::LU(const Matrix& lu, const std::vector<int>& pivot_index)
+    : lu_(lu), pivot_index_(pivot_index) {}
 
 LU OuterProductLU(const Matrix& a) {
   Matrix lu_mat(a);
-  int n = lu_mat.NCol();
+  int n = lu_mat.ncol();
 
   for (int k = 0; k < n - 1; k++) {
     if (lu_mat(k, k) == 0)
@@ -27,7 +27,7 @@ LU OuterProductLU(const Matrix& a) {
     }
   }
 
-  std::vector<int> piv(lu_mat.NRow());
+  std::vector<int> piv(lu_mat.nrow());
   std::iota(piv.begin(), piv.end(), 0);
 
   return LU(lu_mat, piv);
@@ -35,10 +35,10 @@ LU OuterProductLU(const Matrix& a) {
 
 LU OuterProductLUWithPartialPivot(const Matrix& a) {
   Matrix lu_mat(a);
-  std::vector<int> piv(lu_mat.NRow());
+  std::vector<int> piv(lu_mat.nrow());
   std::iota(piv.begin(), piv.end(), 0);
 
-  int n = lu_mat.NRow();
+  int n = lu_mat.nrow();
   for (int k = 0; k < n - 1; k++) {
     // partial pivoting
     double piv_max = abs(lu_mat(k, k));
@@ -72,7 +72,7 @@ LU OuterProductLUWithPartialPivot(const Matrix& a) {
 
 LU CroutLU(const Matrix& a) {
   Matrix lu_mat(a);
-  int n = lu_mat.NRow();
+  int n = lu_mat.nrow();
 
   for (int j = 0; j < n; j++) {
     // update U
@@ -94,17 +94,17 @@ LU CroutLU(const Matrix& a) {
     }
   }
 
-  std::vector<int> piv(lu_mat.NRow());
+  std::vector<int> piv(lu_mat.nrow());
   std::iota(piv.begin(), piv.end(), 0);
 
   return LU(lu_mat, piv);
 }
 
 Vector LU::Solve(const Vector& b) const {
-  const Matrix lu_mat = get_lu();
-  const std::vector<int> piv = get_piv();
+  const Matrix lu_mat = lu();
+  const std::vector<int> piv = pivot_index();
 
-  int n = b.Length();
+  int n = b.size();
   Vector bb = b;
   Vector x(n);
 

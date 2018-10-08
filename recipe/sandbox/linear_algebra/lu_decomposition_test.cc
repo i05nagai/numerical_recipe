@@ -10,18 +10,18 @@ namespace sandbox {
 namespace linear_algebra {
 
 void EXPECT_EQ_VECTOR(const Vector& a, const Vector& b) {
-  EXPECT_EQ(a.Length(), b.Length());
+  EXPECT_EQ(a.size(), b.size());
 
-  for (int i = 0; i < a.Length(); i++) {
+  for (int i = 0; i < a.size(); i++) {
     EXPECT_NEAR(a(i), b(i), 1e-6);
   }
 }
 
 void EXPECT_NE_VECTOR_ELEM(const Vector& a, const Vector& b) {
-  EXPECT_EQ(a.Length(), b.Length());
+  EXPECT_EQ(a.size(), b.size());
 
   bool ne_flg = false;
-  for (int i = 0; i < a.Length(); i++) {
+  for (int i = 0; i < a.size(); i++) {
     if (abs(a(i) - b(i)) > 1e-6) ne_flg = true;
   }
 
@@ -115,7 +115,7 @@ TEST(LUDecomposition, NeedPivoting) {
 TEST(LUDecomposition, Solve) {
   std::vector<std::tuple<Matrix, Vector, Vector>> cases = TestCases();
 
-  for (auto it = cases.begin(); it != cases.end(); it++) {
+  for (auto it = cases.begin(); it != cases.end(); ++it) {
     auto a = std::get<0>(*it);
     auto b = std::get<1>(*it);
     auto expected = std::get<2>(*it);

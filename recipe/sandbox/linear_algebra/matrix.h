@@ -6,9 +6,9 @@ namespace linear_algebra {
 
 class Matrix {
  private:
-  int nrow;
-  int ncol;
-  double* data;
+  int nrow_;
+  int ncol_;
+  double* data_;
 
  public:
   Matrix(const int nrows, const int ncols);
@@ -19,8 +19,8 @@ class Matrix {
   double& operator()(int i, int j);
   Matrix& operator=(const Matrix& m);
 
-  int NRow() const { return nrow; }
-  int NCol() const { return ncol; }
+  int nrow() const { return nrow_; }
+  int ncol() const { return ncol_; }
 };
 
 }  // namespace linear_algebra
