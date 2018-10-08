@@ -27,6 +27,9 @@ TEST(Matrix, Operator) {
 
   Matrix mm = m;
   EXPECT_EQ(m(0, 0), mm(0, 0));
+
+  EXPECT_DEATH(m(-1, 0), "Assertion failed*");
+  EXPECT_DEATH(m(0, 3), "Assertion failed*");
 }
 
 }  // namespace linear_algebra

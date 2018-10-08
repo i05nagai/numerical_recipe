@@ -1,4 +1,5 @@
 #include "recipe/sandbox/linear_algebra/vector.h"
+#include <cassert>
 #include <iostream>
 
 namespace recipe {
@@ -15,8 +16,14 @@ Vector::Vector(const Vector& v) : size_(v.size_), data_(new double[v.size_]) {
 
 Vector::~Vector() { delete[] data_; };
 
-double Vector::operator()(int i) const { return data_[i]; }
-double& Vector::operator()(int i) { return data_[i]; }
+double Vector::operator()(int i) const {
+  assert(0 <= i && i < size_);
+  return data_[i];
+}
+double& Vector::operator()(int i) {
+  assert(0 <= i && i < size_);
+  return data_[i];
+}
 
 Vector& Vector::operator=(const Vector& v) {
   size_ = v.size_;

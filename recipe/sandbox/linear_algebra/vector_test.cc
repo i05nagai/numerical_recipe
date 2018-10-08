@@ -26,6 +26,9 @@ TEST(Vector, Operator) {
 
   Vector vv = v;
   EXPECT_EQ(v(0), vv(0));
+
+  EXPECT_DEATH(v(-1), "Assertion failed*");
+  EXPECT_DEATH(v(3), "Assertion failed*");
 }
 
 }  // namespace linear_algebra

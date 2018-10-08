@@ -1,4 +1,5 @@
 #include "recipe/sandbox/linear_algebra/matrix.h"
+#include <cassert>
 #include <iostream>
 
 namespace recipe {
@@ -17,9 +18,15 @@ Matrix::Matrix(const Matrix& m)
 
 Matrix::~Matrix() { delete[] data_; }
 
-double Matrix::operator()(int i, int j) const { return data_[i * ncol_ + j]; }
+double Matrix::operator()(int i, int j) const {
+  assert(0 <= i && i < nrow_ && 0 <= j && j < ncol_);
+  return data_[i * ncol_ + j];
+}
 
-double& Matrix::operator()(int i, int j) { return data_[i * ncol_ + j]; }
+double& Matrix::operator()(int i, int j) {
+  assert(0 <= i && i < nrow_ && 0 <= j && j < ncol_);
+  return data_[i * ncol_ + j];
+}
 
 Matrix& Matrix::operator=(const Matrix& m) {
   nrow_ = m.nrow_;

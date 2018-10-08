@@ -1,4 +1,5 @@
 #include "recipe/sandbox/linear_algebra/lu_decomposition.h"
+#include <cassert>
 #include <cmath>
 #include <iostream>
 #include <numeric>
@@ -12,6 +13,8 @@ LU::LU(const Matrix& lu, const std::vector<int>& pivot_index)
     : lu_(lu), pivot_index_(pivot_index) {}
 
 LU OuterProductLU(const Matrix& a) {
+  assert(a.nrow() == a.ncol());
+
   Matrix lu_mat(a);
   int n = lu_mat.ncol();
 
@@ -34,6 +37,8 @@ LU OuterProductLU(const Matrix& a) {
 }
 
 LU OuterProductLUWithPartialPivot(const Matrix& a) {
+  assert(a.nrow() == a.ncol());
+
   Matrix lu_mat(a);
   std::vector<int> piv(lu_mat.nrow());
   std::iota(piv.begin(), piv.end(), 0);
@@ -71,6 +76,8 @@ LU OuterProductLUWithPartialPivot(const Matrix& a) {
 }
 
 LU CroutLU(const Matrix& a) {
+  assert(a.nrow() == a.ncol());
+
   Matrix lu_mat(a);
   int n = lu_mat.nrow();
 
@@ -105,6 +112,8 @@ Vector LU::Solve(const Vector& b) const {
   const std::vector<int> piv = pivot_index();
 
   int n = b.size();
+  assert(lu_mat.ncol() == n);
+
   Vector bb = b;
   Vector x(n);
 
