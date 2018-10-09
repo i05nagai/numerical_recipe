@@ -39,7 +39,7 @@ TEST(LUDecomposition, NeedPivoting) {
   EXPECT_NO_THROW(OuterProductLUWithPartialPivot(m));
 }
 
-/*
+#ifndef NDEBUG
 TEST(LUDecomposition, AssertInputIsSquareMatrix) {
   Matrix m = Matrix(3, 4);
 
@@ -59,7 +59,8 @@ TEST(LUDecomposition, AssertMatrixAndVectorIsCompatible) {
   EXPECT_DEATH(OuterProductLU(m).Solve(b), "Assertion failed*");
   EXPECT_DEATH(CroutLU(m).Solve(b), "Assertion failed*");
   EXPECT_DEATH(OuterProductLUWithPartialPivot(m).Solve(b), "Assertion failed*");
-}*/
+}
+#endif
 
 std::tuple<Matrix, Vector, Vector> GetTestData1() {
   Matrix a = Matrix(3, 3);
