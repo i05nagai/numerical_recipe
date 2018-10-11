@@ -43,9 +43,11 @@ TEST(LUDecomposition, NeedPivoting) {
 TEST(LUDecomposition, AssertInputIsSquareMatrix) {
   Matrix m = Matrix(3, 4);
 
-  EXPECT_DEATH(OuterProductLU(m), "Assertion failed*");
-  EXPECT_DEATH(CroutLU(m), "Assertion failed*");
-  EXPECT_DEATH(OuterProductLUWithPartialPivot(m), "Assertion failed*");
+  // In g++-4.9, the message sent by assert macro starts with `Assertion msg`
+  // e.g. Assertion `a.nrow() == a.ncol()' failed
+  EXPECT_DEATH(OuterProductLU(m), "Assertion *");
+  EXPECT_DEATH(CroutLU(m), "Assertion *");
+  EXPECT_DEATH(OuterProductLUWithPartialPivot(m), "Assertion *");
 }
 
 TEST(LUDecomposition, AssertMatrixAndVectorIsCompatible) {
@@ -56,9 +58,11 @@ TEST(LUDecomposition, AssertMatrixAndVectorIsCompatible) {
   m(1, 1) = 0;
   Vector b = Vector(3);
 
-  EXPECT_DEATH(OuterProductLU(m).Solve(b), "Assertion failed*");
-  EXPECT_DEATH(CroutLU(m).Solve(b), "Assertion failed*");
-  EXPECT_DEATH(OuterProductLUWithPartialPivot(m).Solve(b), "Assertion failed*");
+  // In g++-4.9, the message sent by assert macro starts with `Assertion msg`
+  // e.g. Assertion `a.nrow() == a.ncol()' failed
+  EXPECT_DEATH(OuterProductLU(m).Solve(b), "Assertion *");
+  EXPECT_DEATH(CroutLU(m).Solve(b), "Assertion *");
+  EXPECT_DEATH(OuterProductLUWithPartialPivot(m).Solve(b), "Assertion *");
 }
 #endif
 
