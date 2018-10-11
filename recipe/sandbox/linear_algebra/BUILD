@@ -22,13 +22,13 @@ cc_library(
     name = "lu_decomposition",
     srcs = ["lu_decomposition.cc"],
     hdrs = ["lu_decomposition.h"],
-    deps = [
-        ":vector",
-        ":matrix",
-        "@glog",
-    ],
     copts = [
         "-std=c++11",
+    ],
+    deps = [
+        ":matrix",
+        ":vector",
+        "@glog",
     ],
 )
 
