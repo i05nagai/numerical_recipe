@@ -22,7 +22,7 @@ void EXPECT_NE_VECTOR_ELEM(const Vector& a, const Vector& b) {
 
   bool ne_flg = false;
   for (int i = 0; i < a.size(); i++) {
-    if (abs(a(i) - b(i)) > 1e-6) ne_flg = true;
+    if (std::abs(a(i) - b(i)) > 1e-6) ne_flg = true;
   }
 
   EXPECT_TRUE(ne_flg);
@@ -139,6 +139,24 @@ std::tuple<Matrix, Vector, Vector> GetTestDataLessStable() {
   return std::make_tuple(a, b, expected);
 }
 
+std::tuple<Matrix, Vector, Vector> GetTestDataLessStable2() {
+  Matrix a = Matrix(2, 2);
+  a(0, 0) = 1e-20;
+  a(0, 1) = 5e-20;
+  a(1, 0) = 2e-20;
+  a(1, 1) = 5e-20;
+
+  Vector b(2);
+  b(0) = 1;
+  b(1) = 0;
+
+  Vector expected(2);
+  expected(0) = -1e+20;
+  expected(1) = 4e+19;
+
+  return std::make_tuple(a, b, expected);
+}
+
 //
 // OuterProductLU
 //
@@ -168,10 +186,26 @@ TEST(LUDecomposition, SolveOuterProductLU3) {
 
 TEST(LUDecomposition, SolveOuterProductLUStability) {
   std::tuple<Matrix, Vector, Vector> data = GetTestDataLessStable();
-  const auto& a = std::get<0>(data);
+  const auto& mat = std::get<0>(data);
+  const auto& b = std::get<1>(data);
+
+  // the expected values are not the same values of 
+  // the actual solution of the equation because of loss of significance
+  Vector expected(2);
+  expected(0) = 0.0;
+  expected(1) = 1.0;
+
+  EXPECT_EQ_VECTOR(OuterProductLU(mat).Solve(b), expected);
+}
+
+TEST(LUDecomposition, SolveOuterProductLUStability2) {
+  std::tuple<Matrix, Vector, Vector> data = GetTestDataLessStable2();
+  const auto& mat = std::get<0>(data);
   const auto& b = std::get<1>(data);
   const auto& expected = std::get<2>(data);
-  EXPECT_EQ_VECTOR(OuterProductLU(a).Solve(b), expected);
+
+  // Divisor is very small, but the decomposition work properly
+  EXPECT_EQ_VECTOR(OuterProductLU(mat).Solve(b), expected);
 }
 
 //
@@ -205,8 +239,25 @@ TEST(LUDecomposition, SolveCroutLUStability) {
   std::tuple<Matrix, Vector, Vector> data = GetTestDataLessStable();
   const auto& a = std::get<0>(data);
   const auto& b = std::get<1>(data);
-  const auto& expected = std::get<2>(data);
+  // const auto& expected = std::get<2>(data);
+
+  // the expected values are not the same values of 
+  // the actual solution of the equation because of loss of significance
+  Vector expected(2);
+  expected(0) = 0.0;
+  expected(1) = 1.0;
+
   EXPECT_EQ_VECTOR(CroutLU(a).Solve(b), expected);
+}
+
+TEST(LUDecomposition, SolveCroutLUStability2) {
+  std::tuple<Matrix, Vector, Vector> data = GetTestDataLessStable2();
+  const auto& mat = std::get<0>(data);
+  const auto& b = std::get<1>(data);
+  const auto& expected = std::get<2>(data);
+
+  // Divisor is very small, but the decomposition work properly
+  EXPECT_EQ_VECTOR(CroutLU(mat).Solve(b), expected);
 }
 
 //

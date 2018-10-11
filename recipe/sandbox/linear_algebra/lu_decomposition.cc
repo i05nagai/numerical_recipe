@@ -4,6 +4,8 @@
 #include <iostream>
 #include <numeric>
 #include <stdexcept>
+#include <limits>
+#include <glog/logging.h>
 
 namespace recipe {
 namespace sandbox {
@@ -19,8 +21,22 @@ LU OuterProductLU(const Matrix& a) {
   int n = lu_mat.ncol();
 
   for (int k = 0; k < n - 1; k++) {
-    if (std::abs(lu_mat(k, k)) < 1e-20)
+    // the condition is to avoid zero division
+    if (0.0 == lu_mat(k, k))
       throw std::runtime_error("failed to LU decomposition");
+
+    // TODO(i05nagai):
+    // the condition is not precise to find inaccurate decomposition.
+    if (std::abs(lu_mat(k, k)) < std::numeric_limits<double>::epsilon()) {
+      // TODO(i05nagai): The error messages can be more descriptive.
+      // We should clarify how to make the decomposition more stable.
+      LOG(WARNING) << "The " << k << "-th divisor ("
+        << lu_mat(k, k) << ") is too small."
+        " This may result in inaccurate decomposition."
+        " You need to check the values in the decomposed matrix or"
+        " consider the decomposition algorithms using pivoting."
+        ;
+    }
 
     for (int i = k + 1; i < n; i++) {
       lu_mat(i, k) /= lu_mat(k, k);
@@ -30,7 +46,7 @@ LU OuterProductLU(const Matrix& a) {
     }
   }
 
-  std::vector<int> piv(lu_mat.nrow());
+  std::vector<int> piv(n);
   std::iota(piv.begin(), piv.end(), 0);
 
   return LU(lu_mat, piv);
@@ -90,8 +106,21 @@ LU CroutLU(const Matrix& a) {
       lu_mat(i, j) -= sum;
     }
 
-    if (std::abs(lu_mat(j, j)) < 1e-20)
+    if (lu_mat(j, j) == 0.0)
       throw std::runtime_error("failed to LU decomposition");
+
+    // TODO(i05nagai):
+    // the condition is not precise to find inaccurate decomposition.
+    if (std::abs(lu_mat(j, j)) < std::numeric_limits<double>::epsilon()) {
+      // TODO(i05nagai): The error messages can be more descriptive.
+      // We should clarify how to make the decomposition more stable.
+      LOG(WARNING) << "The " << j << "-th divisor ("
+        << lu_mat(j, j) << ") is too small."
+        " This may result in inaccurate decomposition."
+        " You need to check the values in the decomposed matrix or"
+        " consider the decomposition algorithms using pivoting."
+        ;
+    }
 
     // update L
     for (int i = j + 1; i < n; i++) {
@@ -109,16 +138,19 @@ LU CroutLU(const Matrix& a) {
 }
 
 Vector LU::Solve(const Vector& b) const {
-  const Matrix lu_mat = lu();
-  const std::vector<int> piv = pivot_index();
+  const Matrix lu_mat(lu_);
+  const std::vector<int> piv = pivot_index_;
 
   int n = b.size();
   assert(lu_mat.ncol() == n);
 
-  Vector bb = b;
   Vector x(n);
+  Vector bb(b);
+  // LUx=b
+  // y=Ux
 
   // forward substitution
+  // Solve Ly=b with respect to y
   x(0) = bb(piv[0]);
   for (int i = 1; i < n; i++) {
     double sum = 0;
@@ -128,6 +160,7 @@ Vector LU::Solve(const Vector& b) const {
   }
 
   // backsubstitution
+  // Solve Ux=y with respect to x
   x(n - 1) /= lu_mat(n - 1, n - 1);
   for (int i = n - 2; i >= 0; i--) {
     double sum = 0;

@@ -25,6 +25,7 @@ cc_library(
     deps = [
         ":vector",
         ":matrix",
+        "@glog",
     ],
     copts = [
         "-std=c++11",
