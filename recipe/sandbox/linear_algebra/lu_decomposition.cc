@@ -1,11 +1,11 @@
 #include "recipe/sandbox/linear_algebra/lu_decomposition.h"
+#include <glog/logging.h>
 #include <cassert>
 #include <cmath>
 #include <iostream>
+#include <limits>
 #include <numeric>
 #include <stdexcept>
-#include <limits>
-#include <glog/logging.h>
 
 namespace recipe {
 namespace sandbox {
@@ -30,12 +30,12 @@ LU OuterProductLU(const Matrix& a) {
     if (std::abs(lu_mat(k, k)) < std::numeric_limits<double>::epsilon()) {
       // TODO(i05nagai): The error messages can be more descriptive.
       // We should clarify how to make the decomposition more stable.
-      LOG(WARNING) << "The " << k << "-th divisor ("
-        << lu_mat(k, k) << ") is too small."
-        " This may result in inaccurate decomposition."
-        " You need to check the values in the decomposed matrix or"
-        " consider the decomposition algorithms using pivoting."
-        ;
+      LOG(WARNING)
+          << "The " << k << "-th divisor (" << lu_mat(k, k)
+          << ") is too small."
+             " This may result in inaccurate decomposition."
+             " You need to check the values in the decomposed matrix or"
+             " consider the decomposition algorithms using pivoting.";
     }
 
     for (int i = k + 1; i < n; i++) {
@@ -114,12 +114,12 @@ LU CroutLU(const Matrix& a) {
     if (std::abs(lu_mat(j, j)) < std::numeric_limits<double>::epsilon()) {
       // TODO(i05nagai): The error messages can be more descriptive.
       // We should clarify how to make the decomposition more stable.
-      LOG(WARNING) << "The " << j << "-th divisor ("
-        << lu_mat(j, j) << ") is too small."
-        " This may result in inaccurate decomposition."
-        " You need to check the values in the decomposed matrix or"
-        " consider the decomposition algorithms using pivoting."
-        ;
+      LOG(WARNING)
+          << "The " << j << "-th divisor (" << lu_mat(j, j)
+          << ") is too small."
+             " This may result in inaccurate decomposition."
+             " You need to check the values in the decomposed matrix or"
+             " consider the decomposition algorithms using pivoting.";
     }
 
     // update L

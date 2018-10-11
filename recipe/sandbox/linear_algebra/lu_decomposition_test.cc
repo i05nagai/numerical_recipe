@@ -189,7 +189,7 @@ TEST(LUDecomposition, SolveOuterProductLUStability) {
   const auto& mat = std::get<0>(data);
   const auto& b = std::get<1>(data);
 
-  // the expected values are not the same values of 
+  // the expected values are not the same values of
   // the actual solution of the equation because of loss of significance
   Vector expected(2);
   expected(0) = 0.0;
@@ -241,7 +241,7 @@ TEST(LUDecomposition, SolveCroutLUStability) {
   const auto& b = std::get<1>(data);
   // const auto& expected = std::get<2>(data);
 
-  // the expected values are not the same values of 
+  // the expected values are not the same values of
   // the actual solution of the equation because of loss of significance
   Vector expected(2);
   expected(0) = 0.0;
