@@ -28,15 +28,15 @@ We use gtest for testing. Take a look at official documents:
 You can run all tests with command
 
 ```
-bazel test "//recipe/..."
+bazel test --test_output=errors "//recipe/..."
 ```
 
 Executing tests for specific subpackages is also possible
 
 ```
-bazel test //recipe/integrate:test
-bazel build //recipe/sandbox:sandbox
-bazel test //recipe/util:test
+bazel test --test_output=errors //recipe/integrate:test
+bazel test --test_output=errors //recipe/sandbox:sandbox
+bazel test --test_output=errors //recipe/util:test
 ```
 
 ## Benchmark
