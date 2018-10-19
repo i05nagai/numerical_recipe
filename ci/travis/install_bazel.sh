@@ -1,19 +1,22 @@
 #!/bin/bash
 
 set -e
+if [[ ! -z ${RECIPE_DEBUG+x} ]]; then
+  set -x
+fi
 
-if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-  brew cask install homebrew/cask-versions/java8
-  brew install bazel
+PATH_TO_CI=$(cd $(dirname ${0});cd ..;pwd)
+source ${PATH_TO_CI}/_lib/install_bazel.sh
+
+if [[ "$TRAVIS_OS_NAME" == "" ]]; then
+  echo "\$TRAVIS_OS_NAME is not set."
+  exit 1
 fi
 
 if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-  sudo apt-get install -y --force-yes openjdk-8-jdk
-  sudo add-apt-repository -y ppa:webupd8team/java
-  sudo apt-get update
-  sudo apt-get install -y oracle-java8-installer
-  echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
-  curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
-  sudo apt-get update
-  sudo apt-get install -y bazel
+  _use_sudo=1 install_bazel_linux
+fi
+
+if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+  install_bazel_osx
 fi

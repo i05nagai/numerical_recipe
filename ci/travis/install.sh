@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ ! -z ${RECIPE_DEBUG+x} ]]; then
+  set -x
+fi
+
 PATH_TO_SCRIPT=$( cd ${0%/*} && pwd -P )
 PATH_TO_ROOT=$( cd "$PATH_TO_SCRIPT/../.." && pwd -P )
 
@@ -9,11 +13,12 @@ ls -la
 
 #
 # install
+# sourcing is required to export some variables
 #
-${PATH_TO_ROOT}/ci/travis/install_bazel.sh
-${PATH_TO_ROOT}/ci/travis/install_clang_format.sh
-${PATH_TO_ROOT}/ci/travis/install_gcc.sh
-${PATH_TO_ROOT}/ci/travis/install_valgrind.sh
+source ${PATH_TO_ROOT}/ci/travis/install_bazel.sh
+source ${PATH_TO_ROOT}/ci/travis/install_clang_format.sh
+source ${PATH_TO_ROOT}/ci/travis/install_gcc.sh
+# ${PATH_TO_ROOT}/ci/travis/install_valgrind.sh
 
 #
 # coverage report
