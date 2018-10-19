@@ -1,17 +1,12 @@
 ## Dockerfiles for debugging gcc-4.9/g++-4.9
-Build docker images.
+Build docker images with the command
 
 ```
-docker build -t recipe/gcc:4.9 .
+./docker_build.sh
 ```
 
-Run docker container
+Run docker container and attach to it
 
 ```
-docker run \
-    --rm \
-    -it \
-    --volume ${PATH_TO_REPOSITORY}:/tmp/repository \
-    --workdir /tmp/repository \
-    /bin/bash
+./docker_run.sh
 ```
