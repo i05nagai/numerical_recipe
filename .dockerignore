@@ -1,0 +1,27 @@
+#
+# bazel
+#
+bazel-bazel-test
+bazel-bin
+bazel-genfiles
+bazel-out
+bazel-testlogs
+bazel-*
+
+#
+# ruby
+# Currently, this is only for travis CLI to manage ".travis.yml"
+#
+/Gemfile
+/Gemfile.lock
+/.bundle
+/vendor
+
+#
+# editor
+#
+.vscode
+
+#
+# repository specific
+#

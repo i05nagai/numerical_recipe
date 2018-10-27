@@ -3,6 +3,9 @@
 set -e
 set -o pipefail
 set -o nounset
+if [[ ! -z ${RECIPE_DEBUG+x} ]]; then
+  set -x
+fi
 
 if [[ `echo "${BUILD_TARGET}" | grep -E '(Coverage$|Coverage,)'` && "${TRAVIS_OS_NAME}" == "linux" ]]; then
   # -g

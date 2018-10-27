@@ -16,6 +16,11 @@ cmake
 /lib*
 
 #
+# editor
+#
+.vscode
+
+#
 # bazel
 #
 /bazel-bazel-test

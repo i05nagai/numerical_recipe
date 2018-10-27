@@ -28,15 +28,15 @@ We use gtest for testing. Take a look at official documents:
 You can run all tests with command
 
 ```
-bazel test "//recipe/..."
+bazel test --test_output=errors "//recipe/..."
 ```
 
 Executing tests for specific subpackages is also possible
 
 ```
-bazel test //recipe/integrate:test
-bazel build //recipe/sandbox:sandbox
-bazel test //recipe/util:test
+bazel test --test_output=errors //recipe/integrate:test
+bazel test --test_output=errors //recipe/sandbox:sandbox
+bazel test --test_output=errors //recipe/util:test
 ```
 
 ## Benchmark
@@ -106,6 +106,13 @@ buildifier -showlog -mode=fix $(find . -type f -name BUILD -or -name 'BUILD.*' -
 ## Logging
 We use [google/glog](https://github.com/google/glog) for logging. See [documentation](http://rpg.ifi.uzh.ch/docs/glog.html).
 The log message will be logged to `/tmp/<program name>.<hostname>.<user name>.log.<severity level>.<date>.<time>.<pid>`. (e.g., "/tmp/hello_world.example.com.hamaji.log.INFO.20080709-222411.10474")
+
+## Debugging
+We support the `gcc` compiler and `clang` compiler now so that we run all tests with both compilers in CI environments.
+Running multiple compilers in the same machine is sometimes annoying developers because of their dependency.
+For debugging in another compiler, we provide docker images.
+See `tools/docker/gcc` for the GCC compiler.
+
 
 ## TODO
 
