@@ -19,6 +19,7 @@ run_test() {
   bazel \
     --output_base=$HOME/.cache/bazel \
     test \
+    --test_output=errors \
     ${BAZEL_OPTION} \
     "//recipe/..."
 }
