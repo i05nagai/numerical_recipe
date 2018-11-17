@@ -13,9 +13,6 @@ cmake
 .dirstamp
 
 #
-/lib*
-
-#
 # editor
 #
 .vscode
@@ -38,3 +35,17 @@ cmake
 /Gemfile.lock
 /.bundle
 /vendor
+
+#
+# sphinx and doxygen
+#
+doxygen_sqlite3.db
+
+
+#
+# project specific
+#
+/docs/xml
+/docs/_build/.doctrees
+/docs/_build/doctrees
+/lib*

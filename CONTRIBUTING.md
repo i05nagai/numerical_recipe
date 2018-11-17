@@ -39,6 +39,16 @@ bazel test --test_output=errors //recipe/sandbox:sandbox
 bazel test --test_output=errors //recipe/util:test
 ```
 
+## Documentation
+To generate documetns, run the following command:
+
+```
+./tools/docker/sphinx/docker_run_generate_docs.sh
+```
+
+The documents are generated under `docs/_build/`.
+To see the documents, you need to open `docs/_build/index.html` with your browser.
+
 ## Benchmark
 Run benchmarks with debug build options
 
@@ -133,10 +143,10 @@ See `tools/docker/gcc` for the GCC compiler.
     * [google/googletest: Google Test](https://github.com/google/googletest)
 * [ ] coverage report
     * coveralls/codecov
-* [ ] documentation
+* [x] documentation
     * sphinx
-* [ ] API document
-    * doxygen + sphinx
+* [x] API document
+    * doxygen + sphinx + sphinx-breathe
 * [x] benchmarking
     * [google/benchmark: A microbenchmark support library](https://github.com/google/benchmark)
 * [ ] checking memory leak
