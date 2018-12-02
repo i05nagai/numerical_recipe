@@ -24,8 +24,10 @@ install_bazel_linux()
     ${SUDO} apt-get update
   fi
 
+  # bazel's git_repository rule requires git
   ${SUDO} apt-get install -y \
     software-properties-common \
+    git \
     curl
 
   # install JDK
