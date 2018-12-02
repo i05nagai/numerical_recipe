@@ -1,4 +1,12 @@
 #
+# from bazel 0.20.0, the following rules are deprecated,
+# so explicit load is required
+#
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "new_git_repository")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+
+#
 # glog
 #
 git_repository(
@@ -18,18 +26,20 @@ new_git_repository(
 #
 # gtest
 # bazel build @gtest//:gtest
+# Since 1.8.1, gtest contains BUILD.bazel in the archive
 #
-new_http_archive(
+http_archive(
     name = "gtest",
-    url = "https://github.com/google/googletest/archive/release-1.8.0.zip",
-    build_file = "//ci/bazel:BUILD.gtest",
+    url = "https://github.com/abseil/googletest/archive/release-1.8.0.zip",
     strip_prefix = "googletest-release-1.8.0/googletest",
+    build_file = "//ci/bazel:BUILD.gtest",
 )
 
 #
 # google/benchmark
+# bazel build @benchmark//:benchmark
 #
-new_http_archive(
+http_archive(
     name = "benchmark",
     build_file = "//ci/bazel:BUILD.benchmark",
     sha256 = "f8e525db3c42efc9c7f3bc5176a8fa893a9a9920bbd08cef30fb56a51854d60d",
