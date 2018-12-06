@@ -11,8 +11,8 @@ std::unique_ptr<double[]> MatrixTimesVectorPlusVector(const double* mat_a,
                                                       const double* vec_x,
                                                       const double* vec_y) {
   std::unique_ptr<double[]> data(new double[row_size]);
-  // x has colsize
-  // y has row_size
+  // The size of x is col_size
+  // The size of y is row_size
   for (int row = 0; row < row_size; ++row) {
     data[row] = vec_y[row];
     for (int col = 0; col < col_size; ++col) {
@@ -29,8 +29,8 @@ std::unique_ptr<double[]> MatrixTimesVectorMinusVector(const double* mat_a,
                                                        const double* vec_x,
                                                        const double* vec_y) {
   std::unique_ptr<double[]> data(new double[row_size]);
-  // x has colsize
-  // y has row_size
+  // The size of x is col_size
+  // The size of y is row_size
   for (int row = 0; row < row_size; ++row) {
     data[row] = -vec_y[row];
     for (int col = 0; col < col_size; ++col) {
@@ -45,8 +45,8 @@ std::unique_ptr<double[]> MinusMatrixTimesVectorPlusVector(
     const double* mat_a, const int row_size, const int col_size,
     const double* vec_x, const double* vec_y) {
   std::unique_ptr<double[]> data(new double[row_size]);
-  // x has colsize
-  // y has row_size
+  // The size of x is col_size
+  // The size of y is row_size
   for (int row = 0; row < row_size; ++row) {
     data[row] = vec_y[row];
     for (int col = 0; col < col_size; ++col) {
