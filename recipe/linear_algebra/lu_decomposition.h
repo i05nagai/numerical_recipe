@@ -13,8 +13,8 @@ namespace linear_algebra {
 ///   as a result of `GaussianEliminationOuterProductBandDiagonal`
 ///   or other LU decomposition algorithms.
 ///   `mat_lu` must be squared matrix.
-/// @param mat_size row or col length of `mat_lu`.
-/// @param vec_b the size of $b$.
+/// @param mat_size row or column length of `mat_lu`.
+/// @param vec_b $b$.
 ///
 void SolveLinearEquationWithLU(const double* mat_lu, const int mat_size,
                                double* vec_b);
