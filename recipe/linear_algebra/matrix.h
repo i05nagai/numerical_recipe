@@ -35,6 +35,7 @@ class Matrix {
   Matrix& operator=(const Matrix& other);
   bool operator==(const Matrix& other) const;
   double* Get() { return data_.get(); };
+  const double* Get() const { return data_.get(); };
   inline int NumRow() const { return num_row_; }
   inline int NumCol() const { return num_col_; }
 };

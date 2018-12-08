@@ -2,9 +2,14 @@
 #include <gtest/gtest.h>
 #include <cmath>
 #include "recipe/linear_algebra/matrix.h"
+#include "recipe/linear_algebra/vector.h"
 #include "recipe/test_util/gtest_assertion.h"
 
 #define EXPECT_MATRIX_ELEMENT_NEAR(expect, actual, abs_error)             \
+  EXPECT_PRED_FORMAT3(recipe::linear_algebra::IsElementNearEqual, expect, \
+                      actual, abs_error)
+
+#define EXPECT_VECTOR_ELEMENT_NEAR(expect, actual, abs_error)             \
   EXPECT_PRED_FORMAT3(recipe::linear_algebra::IsElementNearEqual, expect, \
                       actual, abs_error)
 
@@ -39,6 +44,32 @@ inline ::testing::AssertionResult IsElementNearEqual(
                << expr2 << " evaluates to " << val2 << ", and\n"
                << abs_error_expr << " evaluates to " << abs_error << ".";
       }
+    }
+  }
+  return ::testing::AssertionSuccess();
+}
+
+inline ::testing::AssertionResult IsElementNearEqual(
+    const char* expr1, const char* expr2, const char* abs_error_expr,
+    const Vector& vec1, const Vector& vec2, const double abs_error) {
+  if (vec1.Size() != vec2.Size()) {
+    return ::testing::AssertionFailure()
+           << "size is not the same." << std::endl
+           << "expect.Size: " << vec1.Size() << std::endl
+           << "actual.Size: " << vec2.Size();
+  }
+  for (size_t row = 0; row < vec1.Size(); ++row) {
+    const double val1 = vec1(row);
+    const double val2 = vec2(row);
+    const double diff = std::fabs(val1 - val2);
+    if (diff > abs_error) {
+      return ::testing::AssertionFailure()
+             << "The difference between " << expr1 << " and " << expr2 << " is "
+             << diff << ", which exceeds " << abs_error_expr << ", where\n"
+             << expr1 << "(" << row << ") evaluates to " << val1 << ",\n"
+             << expr2 << "(" << row << ") evaluates to " << val2 << ", and\n"
+             << abs_error_expr << "(abs_error) evaluates to " << abs_error
+             << ".";
     }
   }
   return ::testing::AssertionSuccess();
