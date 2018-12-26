@@ -25,9 +25,10 @@ source ${PATH_TO_ROOT}/ci/travis/install_gcc.sh
 # we only measure coverage on Linux
 #
 if [[ `echo "${BUILD_TARGET}" | grep -E '(Coverage$|Coverage,)'` && "${TRAVIS_OS_NAME}" == "linux" ]]; then
-  PATH=~/.local/bin:${PATH};
-  pip install --user --upgrade pip;
-  pip install --user cpp-coveralls;
+  export PATH=~/.local/bin:${PATH};
+  # pip install --user --upgrade pip;
+  # pip install --user cpp-coveralls;
+  source ${PATH_TO_ROOT}/ci/travis/install_coveralls.sh
 fi
 
 echo ${PATH}
