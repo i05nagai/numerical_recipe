@@ -101,6 +101,12 @@ To format all of code in the repository, you can run the script on the root of t
 ```
 
 ### bazel
+For OSX,
+
+```
+brew install buildifier
+```
+
 Check whether format error exists or not
 
 ```
@@ -123,6 +129,17 @@ Running multiple compilers in the same machine is sometimes annoying developers 
 For debugging in another compiler, we provide docker images.
 See `tools/docker/gcc` for the GCC compiler.
 
+## Coverage
+You need to install `gcov` and `lcov` to measure test coverages.
+We recommend to use the docker image.
+
+```
+./tools/docker/gcc/docker_build_ubuntu1604.sh
+./tools/docker/gcc/docker_run_ubuntu1604.sh
+bazel coverage //recipe/... --compilation_mode=dbg
+```
+
+There is no visualization of the result of the test coverage for now.
 
 ## TODO
 
@@ -141,8 +158,9 @@ See `tools/docker/gcc` for the GCC compiler.
     * [ ] benchmarks
 * [x] run unit tests
     * [google/googletest: Google Test](https://github.com/google/googletest)
-* [ ] coverage report
-    * coveralls/codecov
+* [x] coverage report
+    * coveralls
+        * currently, codeclimate does not support C++ repository.
 * [x] documentation
     * sphinx
 * [x] API document
