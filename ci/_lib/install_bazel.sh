@@ -25,9 +25,11 @@ install_bazel_linux()
   fi
 
   # bazel's git_repository rule requires git
+  # if you run bazel-coverage command, you need to install lcov and gcov
   ${SUDO} apt-get install -y \
     software-properties-common \
     git \
+    lcov \
     curl
 
   # install JDK
@@ -57,5 +59,6 @@ install_bazel_osx()
   fi
 
   brew cask install homebrew/cask-versions/java8
-  brew install bazel
+  brew install \
+    bazel
 }
