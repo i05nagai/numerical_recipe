@@ -24,6 +24,15 @@ run_test() {
     "//recipe/..."
 }
 
+run_coverage() {
+  bazel \
+    --output_base=$HOME/.cache/bazel \
+    coverage \
+    --test_output=errors \
+    ${BAZEL_OPTION} \
+    "//recipe/..."
+}
+
 run_benchmark() {
   ${PATH_TO_REPOSITORY}/tools/run_benchmark.sh
 }
@@ -54,11 +63,13 @@ fi
 # build and test
 #
 run_build
-run_test
 
 if is_covereage; then
-  # take coverage
-  echo "TODO: take coverage"
+  # bazel-coverage run tests so we can exclude to execute bazel-test
+  run_coverage
 elif is_benchmark; then
+  run_test
   run_benchmark
+else
+  run_test
 fi
