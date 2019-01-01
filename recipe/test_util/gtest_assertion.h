@@ -45,6 +45,10 @@
 
 namespace recipe {
 namespace test_util {
+
+//
+// Compare two vectors
+//
 template <typename T>
 inline ::testing::AssertionResult IsElementEqual(const std::vector<T>& v1,
                                                  const std::vector<T>& v2) {
@@ -83,9 +87,12 @@ inline ::testing::AssertionResult IsElementEqual(
   return ::testing::AssertionSuccess();
 }
 
+//
+// Compare two double pointers with size.
+// 
 inline ::testing::AssertionResult IsElementEqual(
     const char* expr1, const char* expr2, const char* size_expr,
-    const std::unique_ptr<double[]>& v1, const std::unique_ptr<double[]>& v2,
+    const double* v1, const double* v2,
     const int size) {
   for (size_t i = 0; i < size; ++i) {
     const ::testing::internal::FloatingPoint<double> value1(v1[i]);
@@ -98,6 +105,27 @@ inline ::testing::AssertionResult IsElementEqual(
     }
   }
   return ::testing::AssertionSuccess();
+}
+
+inline ::testing::AssertionResult IsElementEqual(
+    const char* expr1, const char* expr2, const char* size_expr,
+    const double* v1, const std::unique_ptr<double[]>& v2,
+    const int size) {
+  return IsElementEqual(expr1, expr2, size_expr, v1, v2.get(), size);
+}
+
+inline ::testing::AssertionResult IsElementEqual(
+    const char* expr1, const char* expr2, const char* size_expr,
+    const std::unique_ptr<double[]>& v1, const double* v2,
+    const int size) {
+  return IsElementEqual(expr1, expr2, size_expr, v1.get(), v2, size);
+}
+
+inline ::testing::AssertionResult IsElementEqual(
+    const char* expr1, const char* expr2, const char* size_expr,
+    const std::unique_ptr<double[]>& v1, const std::unique_ptr<double[]>& v2,
+    const int size) {
+  return IsElementEqual(expr1, expr2, size_expr, v1.get(), v2.get(), size);
 }
 
 }  // namespace test_util
