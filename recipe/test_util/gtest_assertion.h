@@ -3,13 +3,43 @@
 #include <memory>
 #include <vector>
 
+/// @brief an assertion compares two vectors.
+/// Two vectors must have the same values.
+/// 
+/// Example
+/// =======
+/// 
+/// ```
+///   std::vector<double> expect(5, 1);
+///   std::vector<double> actual(5, 1);
+///   EXPECT_ARRAY_ELEMENT_EQ(expect, actual);
+/// ```
 #define EXPECT_VECTOR_ELEMENT_EQ(expect, actual) \
   EXPECT_TRUE(recipe::test_util::IsElementEqual(expect, actual));
 
-#define EXPECT_VECTOR_ELEMENT_EQ_WITH_INDEX(expect, actual, index) \
-  EXPECT_TRUE(recipe::test_util::IsElementEqual(expect, actual))   \
-      << "failed at " << index;
-
+/// @brief an assertion compares two arrays.
+/// Two arrays must have the same values of the elements.
+/// 
+/// Example
+/// =======
+/// 
+/// ```
+///   std::unique_ptr<double[]> expect(new double[5]);
+///   std::unique_ptr<double[]> actual(new double[5]);
+///   EXPECT_ARRAY_ELEMENT_EQ(expect, actual, 5);
+///   
+///   double expect[] = {1, 2, 3};
+///   double actual[] = {1, 2, 3};
+///   EXPECT_ARRAY_ELEMENT_EQ(expect, actual, 3);
+///   
+///   double expect[] = {1, 2, 3};
+///   std::unique_ptr<double[]> actual(new double[3]);
+///   EXPECT_ARRAY_ELEMENT_EQ(expect, actual, 3);
+///   
+///   std::unique_ptr<double[]> expect(new double[3]);
+///   double actual[] = {1, 2, 3};
+///   EXPECT_ARRAY_ELEMENT_EQ(expect, actual, 3);
+/// ```
 #define EXPECT_ARRAY_ELEMENT_EQ(expect, actual, size) \
   EXPECT_PRED_FORMAT3(recipe::test_util::IsElementEqual, expect, actual, size)
 
