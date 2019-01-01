@@ -1,4 +1,5 @@
 #include "recipe/linear_algebra/operator_binary.h"
+#include "recipe/linear_algebra/operator_unary.h"
 #include <gtest/gtest.h>
 #include "recipe/linear_algebra/test_util/gtest_assertion.h"
 #include "recipe/linear_algebra/test_util/test_data.h"
@@ -49,6 +50,16 @@ TEST(MultiplyTest, MatrixArrayTimesMatrixArray) {
       // clang-format on
   });
   EXPECT_ARRAY_ELEMENT_EQ(expect, actual, row_size);
+}
+
+TEST(InnerProductTest, EnsureRelationToNorm) {
+  const int size = 3;
+  std::unique_ptr<double[]> vec = TestData::GetRandomDoublePointer(size);
+  const double actual = InnerProduct(vec.get(), vec.get(), size);
+  // norm
+  const double norm = NormEuclid(vec.get(), size);
+  const double expect = norm * norm;
+  EXPECT_NEAR(expect, actual, std::numeric_limits<double>::epsilon());
 }
 }  // namespace linear_algebra
 }  // namespace recipe

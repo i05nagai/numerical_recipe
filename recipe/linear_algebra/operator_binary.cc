@@ -34,6 +34,15 @@ std::unique_ptr<double[]> Multiply(
   return data;
 }
 
+double InnerProduct(const double* vec_lhs, const double* vec_rhs, const int size)
+{
+  double sum = 0.0;
+  for (int i = 0; i < size; ++i) {
+    sum += vec_lhs[i] * vec_rhs[i];
+  }
+  return sum;
+}
+
 Vector Multiply(const Matrix& mat, const Vector& vec) {
   assert(mat.NumRow() == vec.Size());
   const int row_size = mat.NumRow();
