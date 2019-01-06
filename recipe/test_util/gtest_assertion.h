@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 #include <memory>
 #include <vector>
+#include <cmath>
 
 /// @brief an assertion compares two vectors.
 /// Two vectors must have the same values.
@@ -42,6 +43,33 @@
 /// ```
 #define EXPECT_ARRAY_ELEMENT_EQ(expect, actual, size) \
   EXPECT_PRED_FORMAT3(recipe::test_util::IsElementEqual, expect, actual, size)
+
+/// @brief an assertion compares two arrays.
+/// Two arrays must have the same values of the elements.
+/// 
+/// Example
+/// =======
+/// 
+/// ```
+///   double expect[] = {1, 2, 3};
+///   double actual[] = {1, 2, 3};
+///   EXPECT_ARRAY_ELEMENT_NEAR(expect, actual, 3, 1e-10);
+/// ```
+#define EXPECT_ARRAY_ELEMENT_NEAR(expect, actual, size, abs_error) \
+  EXPECT_PRED_FORMAT4(recipe::test_util::IsElementNearEqual, expect, actual, size, abs_error)
+
+/// @brief an assertion checkes whether the statement passes.
+/// The message of `assert` function varies between compilers.
+///
+/// Example
+/// =======
+/// 
+/// ```
+///   EXPECT_ASSERT_FAIL(assert(1 != 1)); // Pass
+///   EXPECT_ASSERT_FAIL(assert(1 == 1)); // Fail
+/// ```
+#define EXPECT_ASSERT_FAIL(statement) \
+  EXPECT_DEATH(statement, "Assert")
 
 namespace recipe {
 namespace test_util {
@@ -126,6 +154,49 @@ inline ::testing::AssertionResult IsElementEqual(
     const std::unique_ptr<double[]>& v1, const std::unique_ptr<double[]>& v2,
     const int size) {
   return IsElementEqual(expr1, expr2, size_expr, v1.get(), v2.get(), size);
+}
+
+//
+// IsElementNearEqual
+//
+
+inline ::testing::AssertionResult IsElementNearEqual(
+    const char* expr1, const char* expr2, const char* size_expr, const char* abs_error_expr,
+    const double* vec1, const double* vec2, const int size, const double abs_error) {
+  for (int i = 0; i < size; ++i) {
+    const double diff = std::fabs(vec1[i] - vec2[i]);
+    if (diff > abs_error) {
+      return ::testing::AssertionFailure()
+             << "The difference between " << expr1 << " and " << expr2
+             << " at " << i << "-th index is " << diff
+             << ", which exceeds " << abs_error_expr << ", where\n"
+             << expr1 << " evaluates to " << vec1[i] << ",\n"
+             << expr2 << " evaluates to " << vec2[i] << ", and\n"
+             << abs_error_expr << " evaluates to " << abs_error << ".";
+    }
+  }
+  return ::testing::AssertionSuccess();
+}
+
+inline ::testing::AssertionResult IsElementNearEqual(
+    const char* expr1, const char* expr2, const char* size_expr, const char* abs_error_expr,
+    const std::unique_ptr<double[]>& vec1, const double* vec2, const int size, const double abs_error) {
+  return IsElementNearEqual(
+      expr1, expr2, size_expr, abs_error_expr, vec1.get(), vec2, size, abs_error);
+}
+
+inline ::testing::AssertionResult IsElementNearEqual(
+    const char* expr1, const char* expr2, const char* size_expr, const char* abs_error_expr,
+    const double* vec1, const std::unique_ptr<double[]>& vec2, const int size, const double abs_error) {
+  return IsElementNearEqual(
+      expr1, expr2, size_expr, abs_error_expr, vec1, vec2.get(), size, abs_error);
+}
+
+inline ::testing::AssertionResult IsElementNearEqual(
+    const char* expr1, const char* expr2, const char* size_expr, const char* abs_error_expr,
+    const std::unique_ptr<double[]>& vec1, const std::unique_ptr<double[]>& vec2, const int size, const double abs_error) {
+  return IsElementNearEqual(
+      expr1, expr2, size_expr, abs_error_expr, vec1.get(), vec2.get(), size, abs_error);
 }
 
 }  // namespace test_util
