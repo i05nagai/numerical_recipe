@@ -9,7 +9,11 @@ double NormEuclid(const double* vec, const int size) {
     sum += vec[i] * vec[i];
   }
   return std::sqrt(sum);
-  ;
+}
+
+double NormEuclid(const Vector vec)
+{
+  return NormEuclid(vec.Get(), vec.Size());
 }
 }  // namespace linear_algebra
 }  // namespace recipe
