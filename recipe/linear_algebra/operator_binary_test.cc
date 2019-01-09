@@ -30,14 +30,14 @@ TEST(MultiplyTest, MatrixArrayTimesMatrixArray) {
   const int col_size = 2;
   std::unique_ptr<double[]> mat_lhs = MakeDoubleArray({
       // clang-format off
-                                                 1, 2,
-                                                 3, 4,
+       1, 2,
+       3, 4,
       // clang-format on
   });
   std::unique_ptr<double[]> mat_rhs = MakeDoubleArray({
       // clang-format off
-                                                 2, -1,
-                                                 1, -2,
+         2, -1,
+         1, -2,
       // clang-format on
   });
   std::unique_ptr<double[]> actual = Multiply(
@@ -50,6 +50,31 @@ TEST(MultiplyTest, MatrixArrayTimesMatrixArray) {
       // clang-format on
   });
   EXPECT_ARRAY_ELEMENT_EQ(expect, actual, row_size);
+}
+
+TEST(MultiplyLeftTransposeTest, BidiagonalExample) {
+  const int row_size = 4;
+  const int col_size = 5;
+  double mat[] = {
+    // clang-format off
+     1, 2, 0, 0, 0,
+     0, 3, 4, 0, 0,
+     0, 0, 5, 6, 0,
+     0, 0, 0, 7, 8,
+    // clang-format on
+  };
+  std::unique_ptr<double[]> actual = MultiplyLeftTranspose(
+      mat, row_size, col_size, mat, row_size, col_size);
+  double expect[] = {
+     // clang-format off
+     1, 2,  0,  0,  0,
+     2, 13, 12, 0,  0,
+     0, 12, 41, 30, 0,
+     0, 0,  30, 85, 56,
+     0, 0,  0,  56, 64,
+     // clang-format on
+  };
+  EXPECT_ARRAY_ELEMENT_EQ(expect, actual, col_size * col_size);
 }
 
 TEST(InnerProductTest, EnsureRelationToNorm) {
