@@ -17,6 +17,7 @@ class Matrix {
   std::unique_ptr<double[]> data_;
 
  public:
+  Matrix();
   /// @brief Create matrix without initialization.
   ///
   /// @param num_row
@@ -109,6 +110,24 @@ void GetColumnVector(
     double* vec,
     const int col_index,
     const int row_offset,
+    const int vec_size,
+    const size_t row_size,
+    const size_t col_size);
+
+/// @brief
+///
+/// @param mat matrix $A$.
+/// @param vec obtained column vector $v$.
+/// @param row_index takes a value from 0 to col_size - 1.
+/// @param col_offset takes a value from 0 to row_size - 1.
+/// @param row_size matrix row size $m$.
+/// @param col_size matrix col size $n$.
+/// 
+void GetRowVector(
+    const double* mat,
+    double* vec,
+    const int row_index,
+    const int col_offset,
     const int vec_size,
     const size_t row_size,
     const size_t col_size);

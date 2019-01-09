@@ -99,19 +99,53 @@ TEST(AssignMatrixTest, AssertCase) {
 }
 #endif
 
-TEST(MatrixTest, MakeMatrixTest) {
-  Matrix actual = MakeMatrix(
-      // clang-format off
-      {
-      {1, 2, 3,},
-      {4, 5, 6,},
-      {7, 8, 9,},
-      // clang-format on
-      });
+TEST(MakeMatrixTest, SquaredMatrixExample) {
+  Matrix actual = MakeMatrix({
+    // clang-format off
+    {1, 2, 3,},
+    {4, 5, 6,},
+    {7, 8, 9,},
+    // clang-format on
+  });
   Matrix expect(3, 3);
   for (int row = 0; row < 3; ++row) {
     for (int col = 0; col < 3; ++col) {
       expect(row, col) = row * 3 + col + 1;
+    }
+  }
+  EXPECT_EQ(expect, actual);
+}
+
+TEST(MakeMatrixTest, NonSquaredMatrixExample0) {
+  Matrix actual = MakeMatrix({
+    // clang-format off
+    {1, 2, 3,},
+    {4, 5, 6,},
+    {7, 8, 9,},
+    {10, 11, 12},
+    // clang-format on
+  });
+  Matrix expect(4, 3);
+  for (int row = 0; row < 4; ++row) {
+    for (int col = 0; col < 3; ++col) {
+      expect(row, col) = row * 3 + col + 1;
+    }
+  }
+  EXPECT_EQ(expect, actual);
+}
+
+TEST(MakeMatrixTest, NonSquaredMatrixExample1) {
+  Matrix actual = MakeMatrix({
+    // clang-format off
+    {1, 2, 3, 4},
+    {5, 6, 7, 8},
+    {9, 10, 11, 12},
+    // clang-format on
+  });
+  Matrix expect(3, 4);
+  for (int row = 0; row < expect.NumRow(); ++row) {
+    for (int col = 0; col < expect.NumCol(); ++col) {
+      expect(row, col) = row * expect.NumCol() + col + 1;
     }
   }
   EXPECT_EQ(expect, actual);
@@ -141,82 +175,143 @@ TEST(MatrixTest, AssertIndexOutOfRange) {
 //
 // GetColumnVector
 //
-Matrix GetColumnVectorSimpleExample() {
-  return MakeMatrix({
-  // clang-format off
-  {1, 2, 3},
-  {4, 5, 6},
-  {7, 8, 9},
-  // clang-format on
-  });
-}
+class GetColumnVectorTest : public ::testing::Test {
+ protected:
+  void SetUp() override {
+    data0_ = MakeMatrix({
+      // clang-format off
+      {1, 2, 3},
+      {4, 5, 6},
+      {7, 8, 9},
+      // clang-format on
+    });
+  }
+  void TearDown() override {
+  }
+  Matrix data0_;
+};
 
-TEST(GetColumnVectorTest, Example0) {
-  Matrix mat = GetColumnVectorSimpleExample();
+TEST_F(GetColumnVectorTest, Example0) {
   Vector vec(2);
   const int col_index = 0;
   const int row_offset = 1;
   const int vec_size = vec.Size();
-  const int row_size = mat.NumRow();
-  const int col_size = mat.NumCol();
   GetColumnVector(
-      mat.Get(), vec.Get(), col_index, row_offset, vec_size, row_size, col_size);
+      data0_.Get(), vec.Get(), col_index, row_offset, vec_size, data0_.NumRow(), data0_.NumCol());
   const Vector expect = MakeVector({4, 7});
   EXPECT_EQ(expect, vec);
 }
 
-TEST(GetColumnVectorTest, Example1) {
-  Matrix mat = GetColumnVectorSimpleExample();
+TEST_F(GetColumnVectorTest, Example1) {
   Vector vec(3);
   const int col_index = 2;
   const int row_offset = 0;
   const int vec_size = vec.Size();
-  const int row_size = mat.NumRow();
-  const int col_size = mat.NumCol();
   GetColumnVector(
-      mat.Get(), vec.Get(), col_index, row_offset, vec_size, row_size, col_size);
+      data0_.Get(), vec.Get(), col_index, row_offset, vec_size, data0_.NumRow(), data0_.NumCol());
   const Vector expect = MakeVector({3, 6, 9});
   EXPECT_EQ(expect, vec);
 }
 
 #ifndef NDEBUG
-  TEST(GetColumnVectorTest, ColIndexIsLargerThanMatrixSize) {
-    Matrix mat = GetColumnVectorSimpleExample();
+  TEST_F(GetColumnVectorTest, ColIndexIsLargerThanMatrixSize) {
     Vector vec(3);
     const int col_index = 3;
     const int row_offset = 0;
     const int vec_size = vec.Size();
-    const int row_size = mat.NumRow();
-    const int col_size = mat.NumCol();
 
-    EXPECT_DEATH(GetColumnVector(mat.Get(), vec.Get(), col_index, row_offset, vec_size, row_size, col_size), "Assertion");
+    EXPECT_ASSERT_FAIL(GetColumnVector(data0_.Get(), vec.Get(), col_index, row_offset, vec_size, data0_.NumRow(), data0_.NumCol()));
   }
 
-  TEST(GetColumnVectorTest, RowOffsetIsLargerThanMatrixSize) {
-    Matrix mat = GetColumnVectorSimpleExample();
+  TEST_F(GetColumnVectorTest, RowOffsetIsLargerThanMatrixSize) {
     Vector vec(3);
     const int col_index = 2;
     const int row_offset = 3;
     const int vec_size = vec.Size();
-    const int row_size = mat.NumRow();
-    const int col_size = mat.NumCol();
 
-    EXPECT_DEATH(GetColumnVector(mat.Get(), vec.Get(), col_index, row_offset, vec_size, row_size, col_size), "Assertion");
+    EXPECT_ASSERT_FAIL(GetColumnVector(data0_.Get(), vec.Get(), col_index, row_offset, vec_size, data0_.NumRow(), data0_.NumCol()));
   }
 
-  TEST(GetColumnVectorTest, VecSizeIsLargerThanMatrixSize) {
-    Matrix mat = GetColumnVectorSimpleExample();
+  TEST_F(GetColumnVectorTest, VecSizeIsLargerThanMatrixSize) {
     Vector vec(4);
     const int col_index = 2;
     const int row_offset = 0;
     const int vec_size = vec.Size();
-    const int row_size = mat.NumRow();
-    const int col_size = mat.NumCol();
 
-    EXPECT_DEATH(GetColumnVector(mat.Get(), vec.Get(), col_index, row_offset, vec_size, row_size, col_size), "Assertion");
+    EXPECT_ASSERT_FAIL(GetColumnVector(data0_.Get(), vec.Get(), col_index, row_offset, vec_size, data0_.NumRow(), data0_.NumCol()));
   }
 #endif // #ifndef NDEBUG
 
+//
+// GetRowVector
+//
+
+class GetRowVectorTest: public ::testing::Test {
+ protected:
+  void SetUp() override {
+    data0_ = MakeMatrix({
+      // clang-format off
+      {1, 2, 3},
+      {4, 5, 6},
+      {7, 8, 9},
+      // clang-format on
+    });
+  }
+  void TearDown() override {
+  }
+  Matrix data0_;
+};
+
+TEST_F(GetRowVectorTest, Example0) {
+  Vector vec(2);
+  const int row_index = 0;
+  const int col_offset = 1;
+  const int vec_size = vec.Size();
+  GetRowVector(
+      data0_.Get(), vec.Get(), row_index, col_offset, vec_size, data0_.NumRow(), data0_.NumCol());
+  const Vector expect = MakeVector({2, 3});
+  EXPECT_EQ(expect, vec);
+}
+
+TEST_F(GetRowVectorTest, Example1) {
+  Vector vec(3);
+  const int row_index = 2;
+  const int col_offset = 0;
+  const int vec_size = vec.Size();
+  GetRowVector(
+      data0_.Get(), vec.Get(), row_index, col_offset, vec_size, data0_.NumRow(), data0_.NumCol());
+  const Vector expect = MakeVector({7, 8, 9});
+  EXPECT_EQ(expect, vec);
+}
+
+#ifndef NDEBUG
+  TEST_F(GetRowVectorTest, RowIndexIsLargerThanMatrixSize) {
+    Vector vec(3);
+    const int row_index = 3;
+    const int col_offset = 0;
+    const int vec_size = vec.Size();
+
+    EXPECT_ASSERT_FAIL(GetRowVector(data0_.Get(), vec.Get(), row_index, col_offset, vec_size, data0_.NumRow(), data0_.NumCol()));
+  }
+
+  TEST_F(GetRowVectorTest, ColOffsetIsLargerThanMatrixSize) {
+    Vector vec(3);
+    const int row_index = 2;
+    const int col_offset = 3;
+    const int vec_size = vec.Size();
+
+    EXPECT_ASSERT_FAIL(GetRowVector(data0_.Get(), vec.Get(), row_index, col_offset, vec_size, data0_.NumRow(), data0_.NumCol()));
+  }
+
+  TEST_F(GetRowVectorTest, VecSizeIsLargerThanMatrixSize) {
+    Vector vec(4);
+    const int row_index = 2;
+    const int col_offset = 0;
+    const int vec_size = vec.Size();
+
+    EXPECT_ASSERT_FAIL(GetRowVector(data0_.Get(), vec.Get(), row_index, col_offset, vec_size, data0_.NumRow(), data0_.NumCol()));
+  }
+#endif // #ifndef NDEBUG
 
 }  // namespace linear_algebra
 }  // namespace recipe

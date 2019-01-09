@@ -6,6 +6,9 @@
 namespace recipe {
 namespace linear_algebra {
 
+Matrix::Matrix()
+    : num_row_(0), num_col_(0), data_(nullptr) {}
+
 Matrix::Matrix(const int num_row, const int num_col,
                std::unique_ptr<double[]> data)
     : num_row_(num_row), num_col_(num_col), data_(std::move(data)) {}
@@ -144,8 +147,28 @@ void GetColumnVector(
   assert(0 <= row_offset && row_offset < row_size);
   assert(0 <= col_index && col_index < col_size);
   assert(vec_size <= (row_size - row_offset));
-  for (int i = 0; i < vec_size; ++i) {
-    vec[i] = mat[(row_offset + i) * col_size + col_index];
+  for (int row = 0; row < vec_size; ++row) {
+    vec[row] = mat[(row_offset + row) * col_size + col_index];
+  }
+}
+
+void GetRowVector(
+    const double* mat,
+    double* vec,
+    const int row_index,
+    const int col_offset,
+    const int vec_size,
+    const size_t row_size,
+    const size_t col_size)
+{
+  // col_size(mat) - col_offset >= vec_size
+  // row_index in [0, row_size(mat))
+  // col_offset in [0, col_size(mat))
+  assert(0 <= col_offset && col_offset < col_size);
+  assert(0 <= row_index && row_index < row_size);
+  assert(vec_size <= (col_size - col_offset));
+  for (int col = 0; col < vec_size; ++col) {
+    vec[col] = mat[row_index * col_size + col + col_offset];
   }
 }
 
