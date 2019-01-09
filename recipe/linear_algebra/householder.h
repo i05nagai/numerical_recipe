@@ -57,5 +57,49 @@ void ComputeHouseholderVector(
 Matrix ComputeHouseholderMatrix(
     const Vector householder_vec,
     const double householder_coeff);
+
+/// @brief 
+///
+///
+/// @param mat_a
+/// @param row_size
+/// @param col_size
+/// @param householder_vec
+/// @param householder_coeff
+/// @param vec_size
+/// 
+void MultiplyHouseholderMatrixFromLeft(
+    double* mat_a,
+    const int row_size,
+    const int col_size,
+    const double* householder_vec,
+    const double householder_coeff,
+    const int vec_size);
+
+/// @brief 
+///
+/// @param mat_a
+/// @param row_size
+/// @param col_size
+/// 
+void ComputeHouseholderBidiagonalization(
+    double* mat_a, const int row_size, const int col_size);
+
+// TODO(i05naga): not implemented yet
+std::unique_ptr<double[]> ConvertHouseholderBidiagonalizationToU(
+    const double* mat_a, const int row_size, const int col_size);
+// TODO(i05naga): not implemented yet
+std::unique_ptr<double[]> ConvertHouseholderBidiagonalizationToV(
+    const double* mat_a, const int row_size, const int col_size);
+/// @brief Extract the bidiagonal matrix $B$ from the result of 
+/// `ComputeHouseholderBidiagonalization`.
+///
+/// @param mat_a
+/// @param row_size
+/// @param col_size
+/// 
+std::unique_ptr<double[]> ConvertHouseholderBidiagonalizationToB(
+    const double* mat_a, const int row_size, const int col_size);
+
 }  // namespace linear_algebra
 }  // namespace recipe
