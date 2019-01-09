@@ -55,6 +55,7 @@ TEST(ComputeHouseholderQRTest, Example0) {
                           col_size);
 }
 
+#ifndef NDEBUG
 TEST(ComputeHouseholderQRTest, Assert) {
   std::unique_ptr<double[]> mat_a = MakeDoubleArray({
       // clang-format off
@@ -69,6 +70,7 @@ TEST(ComputeHouseholderQRTest, Assert) {
   // acutal is householder_vector
   EXPECT_ASSERT_FAIL(ComputeHouseholderQR(mat_a.get(), row_size, col_size));
 }
+#endif
 
 TEST(ConvertHouseholderQRToQTest, Example0) {
   std::unique_ptr<double[]> mat_a = MakeDoubleArray({

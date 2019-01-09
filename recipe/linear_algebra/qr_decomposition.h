@@ -8,38 +8,6 @@ namespace linear_algebra {
 
 /// @brief
 ///
-/// `col_index` is 0 and `row_offset` is 2.
-///
-/// $$
-/// \left(
-///     \begin{array}{ccccc}
-///         a_{0}^{0}   & a_{1}^{0} & \cdots &        & a_{0}^{n-1}
-///         \\
-///         a_{0}^{1}   &           &        & \cdots & \vdots
-///         \\
-///         \vdots      &           &        & \ddots &
-///         \\
-///                     & \vdots    & \ddots & \ddots &
-///         \\
-///         a_{m-1}^{0} & \cdots    &        &        & a_{m-1}^{n-1}
-///     \end{array}
-/// \right)
-/// $$
-///
-/// $$
-/// v
-/// =
-/// \left(
-///     \begin{array}{c}
-///         a_{c_{0}}^{r_{0}}
-///         \\
-///         \vdots
-///         \\
-///         a_{c_{0}}^{r_{0} + }
-///     \end{array}
-/// \right)
-/// $$
-///
 /// @param mat_a
 /// @param row_size
 /// @param col_size
