@@ -17,12 +17,6 @@
   EXPECT_PRED_FORMAT3(recipe::linear_algebra::IsElementNearEqual, expect, \
                       actual, abs_error)
 
-// @brief 
-//
-// #define EXPECT_VECTOR_ELEMENT_DOUBLE_EQ(expect, actual)                   \
-//  EXPECT_PRED_FORMAT2(recipe::linear_algebra::IsElementEqual, expect, \
-//                      actual)
-
 namespace recipe {
 namespace linear_algebra {
 //
