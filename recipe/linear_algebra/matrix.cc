@@ -6,8 +6,7 @@
 namespace recipe {
 namespace linear_algebra {
 
-Matrix::Matrix()
-    : num_row_(0), num_col_(0), data_(nullptr) {}
+Matrix::Matrix() : num_row_(0), num_col_(0), data_(nullptr) {}
 
 Matrix::Matrix(const int num_row, const int num_col,
                std::unique_ptr<double[]> data)
@@ -26,9 +25,8 @@ Matrix::Matrix(const Matrix& other)
             data_.get());
 }
 
-Matrix Matrix::Slice(
-    const int row_from, const int row_to, const int col_from, const int col_to) const
-{
+Matrix Matrix::Slice(const int row_from, const int row_to, const int col_from,
+                     const int col_to) const {
   assert(0 <= row_from && row_from <= row_to && row_to < num_row_);
   assert(0 <= col_from && col_from <= col_to && col_to < num_col_);
 
@@ -74,12 +72,8 @@ bool Matrix::operator==(const Matrix& other) const {
 // Free functions
 //
 
-void AssignMatrix(
-    Matrix* assignee,
-    const Matrix& assigner,
-    const int row_offset,
-    const int col_offset)
-{
+void AssignMatrix(Matrix* assignee, const Matrix& assigner,
+                  const int row_offset, const int col_offset) {
   assert(0 <= row_offset && row_offset < assignee->NumRow());
   assert(0 <= col_offset && col_offset < assignee->NumCol());
 
@@ -92,12 +86,8 @@ void AssignMatrix(
   }
 }
 
-void AssignVector(
-    Matrix* assignee,
-    const Vector& assigner,
-    const int row_offset,
-    const int col_offset)
-{
+void AssignVector(Matrix* assignee, const Vector& assigner,
+                  const int row_offset, const int col_offset) {
   assert(0 <= row_offset && row_offset < assignee->NumRow());
   assert(0 <= col_offset && col_offset < assignee->NumCol());
 
@@ -132,15 +122,9 @@ Matrix MakeIdentityMatrix(const int size) {
   return Matrix(size, size, std::move(data));
 }
 
-void GetColumnVector(
-    const double* mat,
-    double* vec,
-    const int col_index,
-    const int row_offset,
-    const int vec_size,
-    const size_t row_size,
-    const size_t col_size)
-{
+void GetColumnVector(const double* mat, double* vec, const int col_index,
+                     const int row_offset, const int vec_size,
+                     const size_t row_size, const size_t col_size) {
   // row_size(mat) - row_offset >= vec_size
   // col_index in [0, col_size(mat))
   // row_offset in [0, row_size(mat))
@@ -152,15 +136,9 @@ void GetColumnVector(
   }
 }
 
-void GetRowVector(
-    const double* mat,
-    double* vec,
-    const int row_index,
-    const int col_offset,
-    const int vec_size,
-    const size_t row_size,
-    const size_t col_size)
-{
+void GetRowVector(const double* mat, double* vec, const int row_index,
+                  const int col_offset, const int vec_size,
+                  const size_t row_size, const size_t col_size) {
   // col_size(mat) - col_offset >= vec_size
   // row_index in [0, row_size(mat))
   // col_offset in [0, col_size(mat))

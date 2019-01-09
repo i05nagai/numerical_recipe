@@ -5,14 +5,14 @@
 #include "recipe/linear_algebra/vector.h"
 #include "recipe/test_util/gtest_assertion.h"
 
-/// @brief 
-/// 
+/// @brief
+///
 #define EXPECT_MATRIX_ELEMENT_NEAR(expect, actual, abs_error)             \
   EXPECT_PRED_FORMAT3(recipe::linear_algebra::IsElementNearEqual, expect, \
                       actual, abs_error)
 
-/// @brief 
-/// 
+/// @brief
+///
 #define EXPECT_VECTOR_ELEMENT_NEAR(expect, actual, abs_error)             \
   EXPECT_PRED_FORMAT3(recipe::linear_algebra::IsElementNearEqual, expect, \
                       actual, abs_error)

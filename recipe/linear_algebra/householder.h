@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
 #include "recipe/linear_algebra/matrix.h"
-#include "recipe/linear_algebra/vector.h"
 #include "recipe/linear_algebra/util.h"
+#include "recipe/linear_algebra/vector.h"
 
 namespace recipe {
 namespace linear_algebra {
@@ -15,7 +15,7 @@ namespace linear_algebra {
 ///   =
 ///   \\|x\\|_{2} e_{1}
 /// $$
-/// 
+///
 /// where $(e_{i})$ is a standard basis of euclid space
 /// and $v = (1, v^{2}, \\ldots, v^{2})$.
 ///
@@ -23,12 +23,10 @@ namespace linear_algebra {
 /// @param size_vec size of vector $x$ and $v$.
 /// @param householder_vec Householder vector $v$.
 /// @param householder_coeff Householder coefficient $\\beta$.
-/// 
-void ComputeHouseholderVector(
-    const double* vec_x,
-    const int size_vec,
-    double* householder_vec,
-    double* householder_coeff);
+///
+void ComputeHouseholderVector(const double* vec_x, const int size_vec,
+                              double* householder_vec,
+                              double* householder_coeff);
 
 /// @brief Compute Householder matrix
 ///
@@ -45,20 +43,16 @@ void ComputeHouseholderVector(
 /// @return array of matrix $M$ whose values are stored in row majored order.
 ///
 std::unique_ptr<double[]> ComputeHouseholderMatrix(
-    const double* householder_vec,
-    const double householder_coeff,
+    const double* householder_vec, const double householder_coeff,
     const int size);
 
-void ComputeHouseholderVector(
-    const Vector vec_x,
-    Vector* householder_vec,
-    double* householder_coeff);
+void ComputeHouseholderVector(const Vector vec_x, Vector* householder_vec,
+                              double* householder_coeff);
 
-Matrix ComputeHouseholderMatrix(
-    const Vector householder_vec,
-    const double householder_coeff);
+Matrix ComputeHouseholderMatrix(const Vector householder_vec,
+                                const double householder_coeff);
 
-/// @brief 
+/// @brief
 ///
 ///
 /// @param mat_a
@@ -67,23 +61,21 @@ Matrix ComputeHouseholderMatrix(
 /// @param householder_vec
 /// @param householder_coeff
 /// @param vec_size
-/// 
-void MultiplyHouseholderMatrixFromLeft(
-    double* mat_a,
-    const int row_size,
-    const int col_size,
-    const double* householder_vec,
-    const double householder_coeff,
-    const int vec_size);
+///
+void MultiplyHouseholderMatrixFromLeft(double* mat_a, const int row_size,
+                                       const int col_size,
+                                       const double* householder_vec,
+                                       const double householder_coeff,
+                                       const int vec_size);
 
-/// @brief 
+/// @brief
 ///
 /// @param mat_a
 /// @param row_size
 /// @param col_size
-/// 
-void ComputeHouseholderBidiagonalization(
-    double* mat_a, const int row_size, const int col_size);
+///
+void ComputeHouseholderBidiagonalization(double* mat_a, const int row_size,
+                                         const int col_size);
 
 // TODO(i05naga): not implemented yet
 std::unique_ptr<double[]> ConvertHouseholderBidiagonalizationToU(
@@ -91,13 +83,13 @@ std::unique_ptr<double[]> ConvertHouseholderBidiagonalizationToU(
 // TODO(i05naga): not implemented yet
 std::unique_ptr<double[]> ConvertHouseholderBidiagonalizationToV(
     const double* mat_a, const int row_size, const int col_size);
-/// @brief Extract the bidiagonal matrix $B$ from the result of 
+/// @brief Extract the bidiagonal matrix $B$ from the result of
 /// `ComputeHouseholderBidiagonalization`.
 ///
 /// @param mat_a
 /// @param row_size
 /// @param col_size
-/// 
+///
 std::unique_ptr<double[]> ConvertHouseholderBidiagonalizationToB(
     const double* mat_a, const int row_size, const int col_size);
 

@@ -15,8 +15,9 @@ namespace linear_algebra {
 // HouseholderQR
 //
 
-std::unique_ptr<double[]>
-ComputeHouseholderQR(double* mat_a, const int row_size, const int col_size) {
+std::unique_ptr<double[]> ComputeHouseholderQR(double* mat_a,
+                                               const int row_size,
+                                               const int col_size) {
   assert(row_size >= col_size);
   // to compute Q explicitly
   std::unique_ptr<double[]> householder_coeffs(new double[col_size]);
@@ -28,7 +29,8 @@ ComputeHouseholderQR(double* mat_a, const int row_size, const int col_size) {
     householder_coeffs[j] = 0.0;
     // compute householder vector
     GetColumnVector(mat_a, vec_col, j, j, vec_size, row_size, col_size);
-    ComputeHouseholderVector(vec_col, vec_size, householder_vec, &householder_coeffs[j]);
+    ComputeHouseholderVector(vec_col, vec_size, householder_vec,
+                             &householder_coeffs[j]);
     // compute householder matrix
     std::unique_ptr<double[]> householder_mat = ComputeHouseholderMatrix(
         householder_vec, householder_coeffs[j], vec_size);
@@ -36,18 +38,19 @@ ComputeHouseholderQR(double* mat_a, const int row_size, const int col_size) {
     // (I - beta vv^{T}) A[j:(row_size-1), j:(col_size-1)]
     double mat_temp[row_size * col_size];
     for (int row = j; row < row_size; ++row) {
-      for (int col = j; col< col_size; ++col) {
+      for (int col = j; col < col_size; ++col) {
         double sum = 0.0;
         for (int k = 0; k < vec_size; ++k) {
-          sum += (MATRIX(householder_mat, vec_size, row - j, k)
-                  * MATRIX(mat_a, col_size, j + k, col));
+          sum += (MATRIX(householder_mat, vec_size, row - j, k) *
+                  MATRIX(mat_a, col_size, j + k, col));
         }
         MATRIX(mat_temp, col_size, row, col) = sum;
       }
     }
     for (int row = j; row < row_size; ++row) {
       for (int col = j; col < col_size; ++col) {
-        MATRIX(mat_a, col_size, row, col) = MATRIX(mat_temp, col_size, row, col);
+        MATRIX(mat_a, col_size, row, col) =
+            MATRIX(mat_temp, col_size, row, col);
       }
     }
 
@@ -64,32 +67,27 @@ ComputeHouseholderQR(double* mat_a, const int row_size, const int col_size) {
 
 // Compute
 // mat(row_from:row_to, col_from, col_to)
-std::unique_ptr<double[]> Multiply(
-    const double* householder_vec,
-    const double householder_coeff,
-    const double* mat_a,
-    const int row_size,
-    const int col_size,
-    const int row_from,
-    const int row_to,
-    const int col_from,
-    const int col_to)
-{
+std::unique_ptr<double[]> Multiply(const double* householder_vec,
+                                   const double householder_coeff,
+                                   const double* mat_a, const int row_size,
+                                   const int col_size, const int row_from,
+                                   const int row_to, const int col_from,
+                                   const int col_to) {
   // householder_vec == r_size
-  // 
+  //
   // size for returned matrix
   const int r_size = row_to - row_from + 1;
   const int c_size = col_to - col_from + 1;
   // (I - coeff * vec vec^{T})
-  std::unique_ptr<double[]> householder_mat = ComputeHouseholderMatrix(
-      householder_vec, householder_coeff, r_size);
+  std::unique_ptr<double[]> householder_mat =
+      ComputeHouseholderMatrix(householder_vec, householder_coeff, r_size);
   std::unique_ptr<double[]> data(new double[r_size * c_size]);
   for (int row = 0; row < r_size; ++row) {
     for (int col = 0; col < c_size; ++col) {
       double sum = 0.0;
       for (int k = 0; k < r_size; ++k) {
-        sum += (MATRIX(householder_mat, r_size, k, col)
-                * MATRIX(mat_a, col_size, row_from + k, col_from + col));
+        sum += (MATRIX(householder_mat, r_size, k, col) *
+                MATRIX(mat_a, col_size, row_from + k, col_from + col));
       }
       MATRIX(data, col_size, row, col) = sum;
     }
@@ -97,11 +95,8 @@ std::unique_ptr<double[]> Multiply(
   return data;
 }
 
-std::unique_ptr<double[]>
-ConvertHouseholderQRToR(
-    const double* mat_qr,
-    const double* householder_coeffs,
-    const int row_size,
+std::unique_ptr<double[]> ConvertHouseholderQRToR(
+    const double* mat_qr, const double* householder_coeffs, const int row_size,
     const int col_size) {
   std::unique_ptr<double[]> mat_r(new double[row_size * col_size]);
   std::fill(mat_r.get(), mat_r.get() + row_size * col_size, 0.0);
@@ -115,11 +110,8 @@ ConvertHouseholderQRToR(
   return mat_r;
 }
 
-std::unique_ptr<double[]>
-ConvertHouseholderQRToQ(
-    const double* mat_qr,
-    const double* householder_coeffs,
-    const int row_size,
+std::unique_ptr<double[]> ConvertHouseholderQRToQ(
+    const double* mat_qr, const double* householder_coeffs, const int row_size,
     const int col_size) {
   // TODO(i05nagai): Support row_size < col_size
   assert(row_size >= col_size);
@@ -153,33 +145,29 @@ ConvertHouseholderQRToQ(
       for (int col = 0; col < vec_size; ++col) {
         double sum = 0.0;
         for (int k = 0; k < vec_size; ++k) {
-          sum += (MATRIX(householder_mat, vec_size, row, k)
-                  * MATRIX(mat_q, q_col_size, j + k, col + j));
+          sum += (MATRIX(householder_mat, vec_size, row, k) *
+                  MATRIX(mat_q, q_col_size, j + k, col + j));
         }
         MATRIX(mat_q_temp, vec_size, row, col) = sum;
       }
     }
     for (int row = 0; row < vec_size; ++row) {
       for (int col = 0; col < vec_size; ++col) {
-        MATRIX(mat_q, q_col_size, row + j, col + j)
-          = MATRIX(mat_q_temp, vec_size, row, col);
+        MATRIX(mat_q, q_col_size, row + j, col + j) =
+            MATRIX(mat_q_temp, vec_size, row, col);
       }
     }
   }
   return mat_q;
 }
 
-std::pair<std::unique_ptr<double[]>,std::unique_ptr<double[]>>
-ConvertHouseholderQRToQR(
-    const double* mat_qr,
-    const double* householder_coeffs,
-    const int row_size,
-    const int col_size)
-{
-  std::unique_ptr<double[]> mat_r = ConvertHouseholderQRToR(
-      mat_qr, householder_coeffs, row_size, col_size);
-  std::unique_ptr<double[]> mat_q = ConvertHouseholderQRToQ(
-      mat_qr, householder_coeffs, row_size, col_size);
+std::pair<std::unique_ptr<double[]>, std::unique_ptr<double[]>>
+ConvertHouseholderQRToQR(const double* mat_qr, const double* householder_coeffs,
+                         const int row_size, const int col_size) {
+  std::unique_ptr<double[]> mat_r =
+      ConvertHouseholderQRToR(mat_qr, householder_coeffs, row_size, col_size);
+  std::unique_ptr<double[]> mat_q =
+      ConvertHouseholderQRToQ(mat_qr, householder_coeffs, row_size, col_size);
   return std::make_pair(std::move(mat_q), std::move(mat_r));
 }
 
@@ -189,4 +177,3 @@ ConvertHouseholderQRToQR(
 
 }  // namespace linear_algebra
 }  // namespace recipe
-

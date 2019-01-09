@@ -16,16 +16,13 @@ TEST(NormEuclidTest, Example) {
 
 TEST(TransposeTest, Example) {
   double mat[] = {
-    1, 2, 3,
-    4, 5, 6,
+      1, 2, 3, 4, 5, 6,
   };
   const int row_size = 2;
   const int col_size = 3;
   const std::unique_ptr<double[]> actual = Transpose(mat, row_size, col_size);
   double expect[] = {
-    1, 4,
-    2, 5,
-    3, 6,
+      1, 4, 2, 5, 3, 6,
   };
   EXPECT_ARRAY_ELEMENT_EQ(expect, actual, row_size * col_size);
 }

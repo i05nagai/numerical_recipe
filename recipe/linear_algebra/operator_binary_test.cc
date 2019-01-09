@@ -1,6 +1,6 @@
 #include "recipe/linear_algebra/operator_binary.h"
-#include "recipe/linear_algebra/operator_unary.h"
 #include <gtest/gtest.h>
+#include "recipe/linear_algebra/operator_unary.h"
 #include "recipe/linear_algebra/test_util/gtest_assertion.h"
 #include "recipe/linear_algebra/test_util/test_data.h"
 #include "recipe/linear_algebra/util.h"
@@ -56,23 +56,23 @@ TEST(MultiplyLeftTransposeTest, BidiagonalExample) {
   const int row_size = 4;
   const int col_size = 5;
   double mat[] = {
-    // clang-format off
+      // clang-format off
      1, 2, 0, 0, 0,
      0, 3, 4, 0, 0,
      0, 0, 5, 6, 0,
      0, 0, 0, 7, 8,
-    // clang-format on
+      // clang-format on
   };
-  std::unique_ptr<double[]> actual = MultiplyLeftTranspose(
-      mat, row_size, col_size, mat, row_size, col_size);
+  std::unique_ptr<double[]> actual =
+      MultiplyLeftTranspose(mat, row_size, col_size, mat, row_size, col_size);
   double expect[] = {
-     // clang-format off
+      // clang-format off
      1, 2,  0,  0,  0,
      2, 13, 12, 0,  0,
      0, 12, 41, 30, 0,
      0, 0,  30, 85, 56,
      0, 0,  0,  56, 64,
-     // clang-format on
+      // clang-format on
   };
   EXPECT_ARRAY_ELEMENT_EQ(expect, actual, col_size * col_size);
 }

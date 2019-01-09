@@ -32,8 +32,8 @@ class Matrix {
   ///
   Matrix(const int num_row, const int num_col, std::unique_ptr<double[]> data);
   Matrix(const Matrix& other);
-  Matrix Slice(
-      const int row_from, const int row_to, const int col_from, const int col_to) const;
+  Matrix Slice(const int row_from, const int row_to, const int col_from,
+               const int col_to) const;
   double operator()(const int row, const int col) const;
   double& operator()(const int row, const int col);
   Matrix& operator=(const Matrix& other);
@@ -50,12 +50,9 @@ class Matrix {
 /// @param assigner
 /// @param row_offset
 /// @param col_offset
-/// 
-void AssignMatrix(
-    Matrix* assignee,
-    const Matrix& assigner,
-    const int row_offset,
-    const int col_offset);
+///
+void AssignMatrix(Matrix* assignee, const Matrix& assigner,
+                  const int row_offset, const int col_offset);
 
 /// @brief assigner must be smalelr than assignee.
 ///
@@ -63,12 +60,9 @@ void AssignMatrix(
 /// @param assigner
 /// @param row_offset
 /// @param col_offset
-/// 
-void AssignVector(
-    Matrix* assignee,
-    const Vector& assigner,
-    const int row_offset,
-    const int col_offset);
+///
+void AssignVector(Matrix* assignee, const Vector& assigner,
+                  const int row_offset, const int col_offset);
 
 /// @brief Create matrix from initalizer_list.
 ///
@@ -104,15 +98,10 @@ Matrix MakeIdentityMatrix(const int size);
 /// @param row_offset takes a value from 0 to row_size - 1.
 /// @param row_size matrix row size $m$.
 /// @param col_size matrix col size $n$.
-/// 
-void GetColumnVector(
-    const double* mat,
-    double* vec,
-    const int col_index,
-    const int row_offset,
-    const int vec_size,
-    const size_t row_size,
-    const size_t col_size);
+///
+void GetColumnVector(const double* mat, double* vec, const int col_index,
+                     const int row_offset, const int vec_size,
+                     const size_t row_size, const size_t col_size);
 
 /// @brief
 ///
@@ -122,15 +111,10 @@ void GetColumnVector(
 /// @param col_offset takes a value from 0 to row_size - 1.
 /// @param row_size matrix row size $m$.
 /// @param col_size matrix col size $n$.
-/// 
-void GetRowVector(
-    const double* mat,
-    double* vec,
-    const int row_index,
-    const int col_offset,
-    const int vec_size,
-    const size_t row_size,
-    const size_t col_size);
+///
+void GetRowVector(const double* mat, double* vec, const int row_index,
+                  const int col_offset, const int vec_size,
+                  const size_t row_size, const size_t col_size);
 
 std::ostream& operator<<(std::ostream& os, const Matrix& target);
 }  // namespace linear_algebra
