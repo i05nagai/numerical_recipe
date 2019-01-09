@@ -1,4 +1,4 @@
-Welcome to Numerical Recipe's documentation!
+Recipe's documentation.
 ============================================
 
 .. toctree::

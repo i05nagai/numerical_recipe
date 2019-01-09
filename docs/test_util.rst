@@ -28,3 +28,10 @@ Gtest assersions
    :project: recipe
    :path: ...
 
+.. doxygendefine:: EXPECT_ARRAY_ELEMENT_NEAR
+   :project: recipe
+   :path: ...
+
+.. doxygendefine:: EXPECT_ASSERT_FAIL
+   :project: recipe
+   :path: ...
