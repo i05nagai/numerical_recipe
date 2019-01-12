@@ -81,34 +81,5 @@ inline ::testing::AssertionResult IsElementNearEqual(
   }
   return ::testing::AssertionSuccess();
 }
-
-//
-// IsElementEqual
-//
-/*
-inline ::testing::AssertionResult IsElementEqual(
-    const char* expr1, const char* expr2,
-    const Vector& vec1, const Vector& vec2) {
-  if (vec1.Size() != vec2.Size()) {
-    return ::testing::AssertionFailure()
-           << "size is not the same." << std::endl
-           << "expect.Size: " << vec1.Size() << std::endl
-           << "actual.Size: " << vec2.Size();
-  }
-
-  for (size_t row = 0; row < vec1.Size(); ++row) {
-    const ::testing::internal::Double val1(vec1(row));
-    const ::testing::internal::Double val2(vec2(row));
-    if (!val1.AlmostEquals(val2)) {
-      return ::testing::AssertionFailure()
-             << expr1 << " and " << expr2 << " is not equal" << std::endl
-             << expr1 << "(" << row << ") evaluates to " << val1 << ","
-             << std::endl
-             << expr2 << "(" << row << ") evaluates to " << val2 << ".";
-    }
-  }
-  return ::testing::AssertionSuccess();
-}
-*/
 }  // namespace linear_algebra
 }  // namespace recipe

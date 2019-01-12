@@ -65,36 +65,6 @@ std::unique_ptr<double[]> ComputeHouseholderQR(double* mat_a,
   return householder_coeffs;
 }
 
-// Compute
-// mat(row_from:row_to, col_from, col_to)
-std::unique_ptr<double[]> Multiply(const double* householder_vec,
-                                   const double householder_coeff,
-                                   const double* mat_a, const int row_size,
-                                   const int col_size, const int row_from,
-                                   const int row_to, const int col_from,
-                                   const int col_to) {
-  // householder_vec == r_size
-  //
-  // size for returned matrix
-  const int r_size = row_to - row_from + 1;
-  const int c_size = col_to - col_from + 1;
-  // (I - coeff * vec vec^{T})
-  std::unique_ptr<double[]> householder_mat =
-      ComputeHouseholderMatrix(householder_vec, householder_coeff, r_size);
-  std::unique_ptr<double[]> data(new double[r_size * c_size]);
-  for (int row = 0; row < r_size; ++row) {
-    for (int col = 0; col < c_size; ++col) {
-      double sum = 0.0;
-      for (int k = 0; k < r_size; ++k) {
-        sum += (MATRIX(householder_mat, r_size, k, col) *
-                MATRIX(mat_a, col_size, row_from + k, col_from + col));
-      }
-      MATRIX(data, col_size, row, col) = sum;
-    }
-  }
-  return data;
-}
-
 std::unique_ptr<double[]> ConvertHouseholderQRToR(
     const double* mat_qr, const double* householder_coeffs, const int row_size,
     const int col_size) {
