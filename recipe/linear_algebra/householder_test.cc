@@ -89,13 +89,12 @@ TEST(ComputeHouseholderMatrixTest, Example0) {
   Matrix actual = ComputeHouseholderMatrix(householder_vec, householder_coeff);
   // expect
   const Matrix expect = MakeMatrix(
+      // clang-format off
       {{0.07761499999999999, 0.31046003284, 0.54330505747, 0.7761510044850001},
-       {0.31046003284, 0.8955041203065814, -0.1828677894634825,
-        -0.2612400096935792},
-       {0.54330505747, -0.1828677894634825, 0.6799813684389056,
-        -0.4571700169637637},
-       {0.7761510044850001, -0.2612400096935792, -0.4571700169637637,
-        0.3468991996150474}});
+       {0.31046003284, 0.8955041203065814, -0.1828677894634825, -0.2612400096935792},
+       {0.54330505747, -0.1828677894634825, 0.6799813684389056, -0.4571700169637637},
+       {0.7761510044850001, -0.2612400096935792, -0.4571700169637637, 0.3468991996150474}});
+  // clang-format on
   // compare
   EXPECT_MATRIX_ELEMENT_NEAR(expect, actual, 1e-15);
 }
@@ -199,7 +198,8 @@ TEST(ComputeHouseholderBidiagonalizationTest, AlreadyBidiagonal) {
     {0, 0, 0, 4},
       // clang-format on
   });
-  // FIXME
+  // FIXME: HouseholderBidiagonalization should work
+  // if a matrix is already bidiagonal.
   /*
   ComputeHouseholderBidiagonalization(mat_a.Get(), mat_a.NumRow(),
   mat_a.NumCol());

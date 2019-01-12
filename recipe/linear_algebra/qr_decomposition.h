@@ -6,13 +6,21 @@
 namespace recipe {
 namespace linear_algebra {
 
-/// @brief
+/// @brief Compute Householder QR decomposition.
+///  Matrix $A$ is overwritten by the algorithm.
+///  If you need matrix $Q$ and $R$, use
+///  @ref ConvertHouseholderQRToQ(
+///  const double*, const double*, const int, const int)
+/// "ConvertHouseholderQRToQ" and
+///  @ref ConvertHouseholderQRToR(
+///  const double*, const double*, const int, const int)
+/// "ConvertHouseholderQRToR".
 ///
-/// @param mat_a
+/// @param mat_a matrix $A$. $A$ is overwritten.
 /// @param row_size
 /// @param col_size
 ///
-/// @return
+/// @return A lit of Householder vectors used to compute $Q$.
 ///
 std::unique_ptr<double[]> ComputeHouseholderQR(double* mat_a,
                                                const int row_size,

@@ -19,7 +19,7 @@ std::unique_ptr<double[]> ComputeHouseholderQR(double* mat_a,
                                                const int row_size,
                                                const int col_size) {
   assert(row_size >= col_size);
-  // to compute Q explicitly
+  // to compute Q explicitly, coeffscients and householder vectors are necessary
   std::unique_ptr<double[]> householder_coeffs(new double[col_size]);
   double householder_vec[row_size];
   double vec_col[row_size];

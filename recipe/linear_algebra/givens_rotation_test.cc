@@ -17,7 +17,11 @@ TEST(ComputeGivensRotationParametersTest, Example) {
 
 TEST(MultiplyGivensRotationTest, MultiplyFromLeftExample) {
   double mat_a[] = {
-      1.0, -1.0, 4.0, 1.0, 4.0, -2.0, 1.0, 4.0, 2.0, 1.0, -1.0, 0.0,
+      // clang-format off
+      1.0, -1.0, 4.0, 1.0,
+      4.0, -2.0, 1.0, 4.0,
+      2.0, 1.0, -1.0, 0.0,
+      // clang-format on
   };
   const int row_size = 4;
   const int col_size = 3;
@@ -29,25 +33,22 @@ TEST(MultiplyGivensRotationTest, MultiplyFromLeftExample) {
                          row_size, col_size);
 
   double expect[] = {
-      1.0,
-      -1.0,
-      4.0,
-      1.0,
-      4.0,
-      -2.0,
-      2.0 / std::sqrt(2.0),
-      3.0 / std::sqrt(2.0),
-      2.0 / std::sqrt(2.0),
-      0.0,
-      -5.0 / std::sqrt(2.0),
-      -2.0 / std::sqrt(2.0),
+      // clang-format off
+      1.0, -1.0, 4.0, 1.0,
+      4.0, -2.0, 2.0 / std::sqrt(2.0), 3.0 / std::sqrt(2.0),
+      2.0 / std::sqrt(2.0), 0.0, -5.0 / std::sqrt(2.0), -2.0 / std::sqrt(2.0),
+      // clang-format on
   };
   EXPECT_ARRAY_ELEMENT_EQ(expect, mat_a, row_size * col_size);
 }
 
 TEST(MultiplyGivensRotationTest, MultiplyFromRightExample) {
   double mat_a[] = {
-      1.0, -1.0, 4.0, 1.0, 4.0, -2.0, 1.0, 4.0, 2.0, 1.0, -1.0, 0.0,
+      // clang-format off
+      1.0, -1.0, 4.0, 1.0,
+      4.0, -2.0, 1.0, 4.0,
+      2.0, 1.0, -1.0, 0.0,
+      // clang-format on
   };
   const int row_size = 4;
   const int col_size = 3;
@@ -58,11 +59,13 @@ TEST(MultiplyGivensRotationTest, MultiplyFromRightExample) {
   MultiplyGivensRotation(mat_a, row_size, col_size, givens_index1,
                          givens_index2, givens_params);
 
+  const double sq17 = std::sqrt(17.0);
   double expect[] = {
-      1.0, (1.0 + 16.0) / std::sqrt(17.0), 0.0,
-      1.0, (-4.0 - 8.0) / std::sqrt(17.0), (-16.0 + 2.0) / std::sqrt(17.0),
-      1.0, (-4.0 + 8.0) / std::sqrt(17.0), (-16.0 - 2.0) / std::sqrt(17.0),
-      1.0, (1.0 - 0.0) / std::sqrt(17.0),  (4.0 + 0.0) / std::sqrt(17.0),
+      // clang-format off
+      1.0, (1.0 + 16.0) / sq17, 0.0, 1.0,
+      (-4.0 - 8.0) / sq17, (-16.0 + 2.0) / sq17, 1.0, (-4.0 + 8.0) / sq17,
+      (-16.0 - 2.0) / sq17, 1.0, (1.0 - 0.0) / sq17,  (4.0 + 0.0) / sq17,
+      // clang-format on
   };
   EXPECT_ARRAY_ELEMENT_EQ(expect, mat_a, row_size * col_size);
 }
