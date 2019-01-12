@@ -24,12 +24,12 @@ Linear Algebra
 * [ ] QR Decomposition
     * [x] Householder QR
     * [ ] Householder QR with pivotting
-    * [x] Givens QR
+    * [ ] Givens QR
     * [ ] Fast Givens QR
     * [ ] Gram-Schmidt
     * [ ] Modified Gram-Schmidt
 * [x] Householder Transformation
-  * [x] Householder Bidiagonalization
+    * [x] Householder Bidiagonalization
 * [x] Givens Rotation
 
 * Interpolation and Extrapolation
@@ -45,7 +45,7 @@ Linear Algebra
     * Elementary Algorithms
         * [ ] trapezoidal
     * [ ] Romberg Integration
-    * [o] Support Improper Integrals
+    * [ ] Support Improper Integrals
     * [ ] Quadrature by Variable Transformation
     * [ ] Gaussian Quadratures and Orthogonal Polynomials
     * [ ] Adaptive Quadrature
