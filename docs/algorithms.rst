@@ -8,19 +8,29 @@ Algorithms
 Linear Algebra
 ---------------
 
- * [ ] Gauss-Jordan Elimination
- * [ ] Gaussian Elimination with Backsubstitution
- * [ ] LU Decomposition and Its Applications
- * [ ] Tridiagonal and Band-Diagonal Systems of Equations
- * [x] Band-Diagonal Gaussian Elimination Outer Product
- * [x] Upper triangular systems of linear equations
- * [x] Lower triangular systems of linear equations
- * [ ] Iterative Improvement of a Solution to Linear Equations
- * [ ] Singular Value Decomposition
- * [ ] Sparse Linear Systems
- * [ ] Vandermonde Matrices and Toeplitz Matrices
- * [ ] Cholesky Decomposition
- * [ ] QR Decomposition
+* [ ] Gauss-Jordan Elimination
+* [ ] Gaussian Elimination with Backsubstitution
+* [ ] LU Decomposition and Its Applications
+* [ ] Tridiagonal and Band-Diagonal Systems of Equations
+* [x] Band-Diagonal Gaussian Elimination Outer Product
+* [x] Upper triangular systems of linear equations
+* [x] Lower triangular systems of linear equations
+* [ ] Iterative Improvement of a Solution to Linear Equations
+* [ ] Singular Value Decomposition
+    * [ ] Golub-Kahan SVD
+* [ ] Sparse Linear Systems
+* [ ] Vandermonde Matrices and Toeplitz Matrices
+* [ ] Cholesky Decomposition
+* [ ] QR Decomposition
+    * [x] Householder QR
+    * [ ] Householder QR with pivotting
+    * [ ] Givens QR
+    * [ ] Fast Givens QR
+    * [ ] Gram-Schmidt
+    * [ ] Modified Gram-Schmidt
+* [x] Householder Transformation
+    * [x] Householder Bidiagonalization
+* [x] Givens Rotation
 
 * Interpolation and Extrapolation
     * [ ] Polynomial Interpolation and Extrapolation
@@ -35,7 +45,7 @@ Linear Algebra
     * Elementary Algorithms
         * [ ] trapezoidal
     * [ ] Romberg Integration
-    * [o] Support Improper Integrals
+    * [ ] Support Improper Integrals
     * [ ] Quadrature by Variable Transformation
     * [ ] Gaussian Quadratures and Orthogonal Polynomials
     * [ ] Adaptive Quadrature

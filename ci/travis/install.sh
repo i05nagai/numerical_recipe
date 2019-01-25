@@ -11,6 +11,14 @@ echo $LANG
 echo $LC_ALL
 ls -la
 
+if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+  brew --version
+  # ignore auto-update failure
+  brew update || true
+  # disable auto-update
+  export HOMEBREW_NO_AUTO_UPDATE=1
+fi
+
 #
 # install
 # sourcing is required to export some variables

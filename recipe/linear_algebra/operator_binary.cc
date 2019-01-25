@@ -1,6 +1,7 @@
 #include "recipe/linear_algebra/operator_binary.h"
 #include <cassert>
 #include "recipe/linear_algebra/base.h"
+#include "recipe/linear_algebra/operator_unary.h"
 
 namespace recipe {
 namespace linear_algebra {
@@ -32,6 +33,26 @@ std::unique_ptr<double[]> Multiply(
     }
   }
   return data;
+}
+
+std::unique_ptr<double[]> MultiplyLeftTranspose(
+    const double* mat_lhs, const int row_size_lhs, const int col_size_lhs,
+    const double* mat_rhs, const int row_size_rhs, const int col_size_rhs) {
+  std::unique_ptr<double[]> mat_lhs_transposed =
+      Transpose(mat_lhs, row_size_lhs, col_size_lhs);
+  const int row_size_lhs_t = col_size_lhs;
+  const int col_size_lhs_t = row_size_lhs;
+  return Multiply(mat_lhs_transposed.get(), row_size_lhs_t, col_size_lhs_t,
+                  mat_rhs, row_size_rhs, col_size_rhs);
+}
+
+double InnerProduct(const double* vec_lhs, const double* vec_rhs,
+                    const int size) {
+  double sum = 0.0;
+  for (int i = 0; i < size; ++i) {
+    sum += vec_lhs[i] * vec_rhs[i];
+  }
+  return sum;
 }
 
 Vector Multiply(const Matrix& mat, const Vector& vec) {

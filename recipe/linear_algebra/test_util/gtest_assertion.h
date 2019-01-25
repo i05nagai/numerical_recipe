@@ -5,16 +5,23 @@
 #include "recipe/linear_algebra/vector.h"
 #include "recipe/test_util/gtest_assertion.h"
 
+/// @brief
+///
 #define EXPECT_MATRIX_ELEMENT_NEAR(expect, actual, abs_error)             \
   EXPECT_PRED_FORMAT3(recipe::linear_algebra::IsElementNearEqual, expect, \
                       actual, abs_error)
 
+/// @brief
+///
 #define EXPECT_VECTOR_ELEMENT_NEAR(expect, actual, abs_error)             \
   EXPECT_PRED_FORMAT3(recipe::linear_algebra::IsElementNearEqual, expect, \
                       actual, abs_error)
 
 namespace recipe {
 namespace linear_algebra {
+//
+// IsElementNearEqual
+//
 inline ::testing::AssertionResult IsElementNearEqual(
     const char* expr1, const char* expr2, const char* abs_error_expr,
     const Matrix& mat1, const Matrix& mat2, const double abs_error) {
@@ -74,6 +81,5 @@ inline ::testing::AssertionResult IsElementNearEqual(
   }
   return ::testing::AssertionSuccess();
 }
-
 }  // namespace linear_algebra
 }  // namespace recipe

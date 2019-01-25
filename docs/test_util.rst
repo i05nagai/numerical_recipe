@@ -15,3 +15,23 @@ Classes and functions to generate data for testing.
    :protected-members:
    :private-members:
    :undoc-members:
+
+
+Gtest assersions
+----------------
+
+.. doxygendefine:: EXPECT_VECTOR_ELEMENT_EQ
+   :project: recipe
+   :path: ...
+
+.. doxygendefine:: EXPECT_ARRAY_ELEMENT_EQ
+   :project: recipe
+   :path: ...
+
+.. doxygendefine:: EXPECT_ARRAY_ELEMENT_NEAR
+   :project: recipe
+   :path: ...
+
+.. doxygendefine:: EXPECT_ASSERT_FAIL
+   :project: recipe
+   :path: ...

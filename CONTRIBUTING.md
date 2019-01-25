@@ -35,7 +35,7 @@ Executing tests for specific subpackages is also possible
 
 ```
 bazel test --test_output=errors //recipe/integrate:test
-bazel test --test_output=errors //recipe/sandbox:sandbox
+bazel test --test_output=errors //recipe/sandbox:test
 bazel test --test_output=errors //recipe/util:test
 ```
 
