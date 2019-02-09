@@ -9,8 +9,10 @@ cc_library(
     hdrs = glob(["*.h"]),
     copts = [
         "-std=c++11",
+        "-Iexternal/eigen3",
     ],
     deps = [
+        "@eigen3",
     ],
 )
 

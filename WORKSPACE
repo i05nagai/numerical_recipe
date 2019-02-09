@@ -41,10 +41,25 @@ http_archive(
 #
 http_archive(
     name = "benchmark",
-    build_file = "//ci/bazel:BUILD.benchmark",
+    build_file = "//third_party/benchmark:BUILD",
     sha256 = "f8e525db3c42efc9c7f3bc5176a8fa893a9a9920bbd08cef30fb56a51854d60d",
     strip_prefix = "benchmark-1.4.1",
     urls = [
         "https://github.com/google/benchmark/archive/v1.4.1.tar.gz",
+    ],
+)
+
+#
+# eigen
+# bazel build @eigen3//:eigen3
+#
+http_archive(
+    name = "eigen3",
+    build_file = "//third_party/eigen3:BUILD",
+    sha256 = "aae7a680d141c978301dfae2c7945c06039f65849fcf64269595a9cdbba82638",
+    strip_prefix = "eigen-eigen-729d33d11c81",
+    urls = [
+        "https://mirror.bazel.build/bitbucket.org/eigen/eigen/get/729d33d11c81.tar.gz",
+        "https://bitbucket.org/eigen/eigen/get/729d33d11c81.tar.gz",
     ],
 )
