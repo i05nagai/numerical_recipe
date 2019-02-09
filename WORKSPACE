@@ -7,18 +7,19 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "new_git_repository")
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 #
-# glog
+# gflags
 #
 git_repository(
     name   = "com_github_gflags_gflags",
     commit = "f8a0efe03aa69b3336d8e228b37d4ccb17324b88",
     remote = "https://github.com/gflags/gflags.git",
 )
+
 # the glog files.
 # bazel build @glog//:glog
 new_git_repository(
     name   = "glog",
-    build_file = "//ci/bazel:BUILD.glog",
+    build_file = "//third_party/glog:BUILD",
     remote = "https://github.com/google/glog.git",
     tag = "v0.3.5",
 )
@@ -28,11 +29,9 @@ new_git_repository(
 # bazel build @gtest//:gtest
 # Since 1.8.1, gtest contains BUILD.bazel in the archive
 #
-http_archive(
-    name = "gtest",
-    url = "https://github.com/abseil/googletest/archive/release-1.8.0.zip",
+http_archive( name = "gtest", url = "https://github.com/abseil/googletest/archive/release-1.8.0.zip",
     strip_prefix = "googletest-release-1.8.0/googletest",
-    build_file = "//ci/bazel:BUILD.gtest",
+    build_file = "//third_party/gtest:BUILD",
 )
 
 #

@@ -1,3 +1,11 @@
+# https://github.com/google/googletest
+
+licenses([
+    "notice",  # BSD 3-Clause "New" or "Revised" License
+])
+
+exports_files(["LICENSE"])
+
 cc_library(
     name = "gtest",
     srcs = glob(
