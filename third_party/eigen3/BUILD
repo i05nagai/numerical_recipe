@@ -1,6 +1,5 @@
 #
 # This build file is imported from the Tensorflow repository.
-# Thus, this build file per se is licensed as Apache 2.0, which is license of Tensorflow.
 #
 
 # Description:
