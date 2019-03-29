@@ -1,12 +1,13 @@
 #include "recipe/sandbox/sample.h"
-#include "Eigen/Core"
 #include <iostream>
+#include "Eigen/Core"
 
 namespace recipe {
 namespace sandbox {
 int Foo() {
   // Eigen::Matrix<double, Dynamic, Dynamic, RowMajor> m1;
   // Eigen::Matrix<double, Dynamic, Dynamic, RowMajor> m2;
+  // clang-format off
   Eigen::Matrix4f m1;
   m1 <<
     1, 2, 3, 4,
@@ -31,6 +32,7 @@ int Foo() {
     5, 6, 7, 8,
     9, 10, 11, 12,
     13, 14, 15, 16;
+  // clang-format on
   Eigen::Vector4d v1(1, 2, 3, 4);
   // coeffwise product, implicit conversion from array to matrix.
   m1 = a1 * a2;
