@@ -37,9 +37,9 @@ TEST(RichardsonExtrapolation, AssertIntervalForTrapezoidal) {
 // monomial of 6th degrees from 0 to 1.
 TEST(RichardsonExtrTest, TrapezoidalWithMonomOf6thDegreeAsIntegrand) {
   unsigned int num_of_partition =
-      100;                   // denoted by N in the following comments.
-  double left_endpoint = 0;  // integraton from zero makes it easy to compute
-                             // the closed form for polynomial integrands.
+      100;                      // denoted by N in the following comments.
+  double left_endpoint = 0;     // integraton from zero makes it easy to compute
+                                // the closed form for polynomial integrands.
   double right_endpoint = 1.0;  // denoted by a.
 
   double approximator = recipe::quadrature::RichardsonExtrapolation(
@@ -57,9 +57,9 @@ TEST(RichardsonExtrTest, TrapezoidalWithMonomOf6thDegreeAsIntegrand) {
 // of 8th degrees from 0 to 1.
 TEST(RichardsonExtrTest, SimpsonWithMonomOf8thDegreeAsIntegrand) {
   unsigned int num_of_partition =
-      100;                   // denoted by N in the following comments.
-  double left_endpoint = 0;  // integraton from zero makes it easy to compute
-                             // the closed form for polynomial integrands.
+      100;                      // denoted by N in the following comments.
+  double left_endpoint = 0;     // integraton from zero makes it easy to compute
+                                // the closed form for polynomial integrands.
   double right_endpoint = 1.0;  // denoted by a.
 
   double approximator = recipe::quadrature::RichardsonExtrapolation(
