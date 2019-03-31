@@ -36,7 +36,7 @@ double RichardsonExtrapolation(QuadratureRule quadrature_rule,
           integrand, left_endpoint, right_endpoint, 2 * num_of_partition);
       break;
     }
-    default: { assert("An undefined quadrature rule was spesified."); }
+    default: { assert("An undefined quadrature rule was specified."); }
   }
   return (std::pow(2.0, approx_order) * approximator_of_half_step_size -
           approximator_of_normal_step_size) /
