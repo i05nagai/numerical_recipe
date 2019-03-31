@@ -28,6 +28,7 @@ TEST(SimpsonRuleTest, Example) {
   EXPECT_NEAR(res3, 0.6931471805, 1e-5);
 }
 
+#ifndef NDEBUG
 TEST(SimpsonRuleTest, AssertInterval) {
   const int lower_limit = 1;
   const int upper_limit = 0;
@@ -35,6 +36,7 @@ TEST(SimpsonRuleTest, AssertInterval) {
 
   EXPECT_ASSERT_FAIL(SimpsonRule(TestFunction1, lower_limit, upper_limit, n));
 }
+#endif
 
 TEST(TrapezoidalRuleTest, Example) {
   const int n = 100;
@@ -49,6 +51,7 @@ TEST(TrapezoidalRuleTest, Example) {
   EXPECT_NEAR(res3, 0.6931471805, 1e-5);
 }
 
+#ifndef NDEBUG
 TEST(TrapezoidalRuleTest, AssertInterval) {
   const int lower_limit = 1;
   const int upper_limit = 0;
@@ -57,6 +60,7 @@ TEST(TrapezoidalRuleTest, AssertInterval) {
   EXPECT_ASSERT_FAIL(
       TrapezoidalRule(TestFunction1, lower_limit, upper_limit, n));
 }
+#endif
 
 TEST(AccuracyTest, SimpsonRuleReturnsExactSolution) {
   const int n = 100;
