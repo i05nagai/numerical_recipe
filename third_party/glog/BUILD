@@ -1,3 +1,11 @@
+# https://github.com/google/glog
+
+licenses([
+    "notice",  # Google
+])
+
+exports_files(["COPYING"])
+
 cc_library(
     name = "glog",
     srcs = [
@@ -69,13 +77,13 @@ genrule(
         "src/glog/stl_logging.h",
         "src/glog/vlog_is_on.h",
     ],
-    tools = [
-        "configure",
-    ],
     cmd = "$(location :configure)" +
           "&& cp -v src/config.h $(location config.h) " +
           "&& cp -v src/glog/logging.h $(location src/glog/logging.h) " +
           "&& cp -v src/glog/raw_logging.h $(location src/glog/raw_logging.h) " +
           "&& cp -v src/glog/stl_logging.h $(location src/glog/stl_logging.h) " +
           "&& cp -v src/glog/vlog_is_on.h $(location src/glog/vlog_is_on.h) ",
+    tools = [
+        "configure",
+    ],
 )
