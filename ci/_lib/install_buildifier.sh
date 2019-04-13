@@ -41,7 +41,7 @@ install_buildifier_linux()
   ${SUDO} apt-get install -y \
         git \
         golang-1.10-go
-  ${SUDO} /usr/lib/go-1.10/bin/go get github.com/bazelbuild/buildtools/buildifier
+  ${SUDO} GOPATH="$GOPATH" PATH="$PATH" /usr/lib/go-1.10/bin/go get github.com/bazelbuild/buildtools/buildifier
 }
 
 #
