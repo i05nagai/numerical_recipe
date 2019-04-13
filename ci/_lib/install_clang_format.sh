@@ -24,9 +24,11 @@ install_clang_format_linux()
 
   UBUNTU_VERSION=`get_ubuntu_version`
   if [[ "$UBUNTU_VERSION" == "14.04" ]]; then
-    ${SUDO} apt-get install -y clang-format-3.9
+    ${SUDO} apt-get install -y clang-format-5.0
+    ${SUDO} ln -f -s /usr/bin/clang-format-5.0 /usr/bin/clang-format
   else
-    ${SUDO} apt-get install -y clang-format
+    ${SUDO} apt-get install -y clang-format-5.0
+    ${SUDO} ln -f -s /usr/bin/clang-format-5.0 /usr/bin/clang-format
   fi
   clang-format --version
 }

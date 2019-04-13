@@ -146,6 +146,7 @@ There is no visualization of the result of the test coverage for now.
 * [x] lint
     * [x] C++ format check
         * [ClangFormat — Clang 8 documentation](https://clang.llvm.org/docs/ClangFormat.html)
+        * Using clnag-fromat version 5.0
     * [x] bazel format check
         * [buildtools/buildifier at master · bazelbuild/buildtools](https://github.com/bazelbuild/buildtools/tree/master/buildifier)
 * build with cmake
