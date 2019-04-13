@@ -36,10 +36,9 @@ install_buildifier_linux()
     curl
   ${SUDO} mkdir -p \
       $GOPATH/bin
-  ${SUDO} add-apt-repository ppa:gophers/archive
+  ${SUDO} add-apt-repository ppa:gophers/archive < /dev/null
   ${SUDO} apt-get update
   ${SUDO} apt-get install -y \
-        curl \
         git \
         golang-1.10-go
   go get github.com/bazelbuild/buildtools/buildifier
