@@ -44,7 +44,7 @@ install_buildifier_linux()
         git \
         golang-1.10-go
   # go dep
-  ${SUDO} curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+  ${SUDO} curl https://raw.githubusercontent.com/golang/dep/master/install.sh | ${SUDO} sh
 
   ${SUDO} go get github.com/bazelbuild/buildtools/buildifier
 }
