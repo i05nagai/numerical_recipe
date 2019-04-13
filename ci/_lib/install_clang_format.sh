@@ -28,6 +28,7 @@ install_clang_format_linux()
   else
     ${SUDO} apt-get install -y clang-format
   fi
+  clang-format --version
 }
 
 #
