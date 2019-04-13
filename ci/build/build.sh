@@ -1,5 +1,9 @@
 #!/bin/bash
 
+cat /etc/group
+cat /etc/passwd
+id
+
 set -e
 if [ ! -z "${RECIPE_DEBUG}" ]; then
   set -x
