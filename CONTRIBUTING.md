@@ -97,7 +97,10 @@ diff <my_cc_file> /tmp/my_cc_file.cc
 To format all of code in the repository, you can run the script on the root of the repository by executing the command:
 
 ```
-./tools/formatter.sh
+# Build docker images for formatter. Behaviour of formatter depends on the version of formatter.
+./tools/docker/gcc/docker_build_ubuntu1604.sh
+# Run formatter with docker images
+./tools/docker_run_formatter.sh
 ```
 
 ### bazel
