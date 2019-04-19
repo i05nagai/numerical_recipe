@@ -29,7 +29,7 @@ install_clang_format_linux()
     ${SUDO} apt-add-repository "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main"
     ${SUDO} apt-get update
 
-    ${SUDO} apt-get install -y clang-format-5.0
+    ${SUDO} apt-get install -y --allow-unauthenticated clang-format-5.0
     ${SUDO} ln -f -s /usr/bin/clang-format-5.0 /usr/bin/clang-format
   else
     ${SUDO} apt-get install -y clang-format-5.0
