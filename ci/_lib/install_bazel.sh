@@ -58,7 +58,6 @@ install_bazel_osx()
     brew update
   fi
 
-  brew uninstall bazel
   # tap and install
   brew tap bazelbuild/tap
   brew tap-pin bazelbuild/tap
