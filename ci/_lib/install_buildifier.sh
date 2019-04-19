@@ -26,22 +26,22 @@ install_buildifier_linux()
   #
   # install golang
   #
-  export GOPATH="/opt/local/golang"
-  export PATH="$PATH:/usr/lib/go-1.10/bin:$GOPATH/bin"
-  echo 'export GOPATH="'$GOPATH'"' | ${SUDO} tee -a ${HOME}/.bashrc
-  echo 'export PATH="'$PATH'"' | ${SUDO} tee -a ${HOME}/.bashrc
+  # export GOPATH="/opt/local/golang"
+  # export PATH="$PATH:/usr/lib/go-1.10/bin:$GOPATH/bin"
+  # echo 'export GOPATH="'$GOPATH'"' | ${SUDO} tee -a ${HOME}/.bashrc
+  # echo 'export PATH="'$PATH'"' | ${SUDO} tee -a ${HOME}/.bashrc
 
-  ${SUDO} apt-get install -y \
-    software-properties-common \
-    curl
-  ${SUDO} mkdir -p \
-      $GOPATH/bin
-  ${SUDO} add-apt-repository ppa:gophers/archive < /dev/null
-  ${SUDO} apt-get update
-  ${SUDO} apt-get install -y \
-        git \
-        golang-1.10-go
-  ${SUDO} GOPATH="$GOPATH" PATH="$PATH" /usr/lib/go-1.10/bin/go get github.com/bazelbuild/buildtools/buildifier
+  # ${SUDO} apt-get install -y \
+  #   software-properties-common \
+  #   curl
+  # ${SUDO} mkdir -p \
+  #     $GOPATH/bin
+  # ${SUDO} add-apt-repository ppa:gophers/archive < /dev/null
+  # ${SUDO} apt-get update
+  # ${SUDO} GOPATH="$GOPATH" PATH="$PATH" apt-get install -y \
+  #       git \
+  #       golang-1.10-go
+  # ${SUDO} GOPATH="$GOPATH" PATH="$PATH" /usr/lib/go-1.10/bin/go get github.com/bazelbuild/buildtools/buildifier
 }
 
 #
