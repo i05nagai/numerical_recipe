@@ -26,7 +26,7 @@ install_clang_format_linux()
   if [[ "$UBUNTU_VERSION" == "14.04" ]]; then
     # to install newer version
     ${SUDO} apt-get install -y software-properties-common
-    ${SUDO} apt-add-repository "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty main"
+    ${SUDO} apt-add-repository "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main"
     ${SUDO} apt-get update
 
     ${SUDO} apt-get install -y clang-format-5.0
