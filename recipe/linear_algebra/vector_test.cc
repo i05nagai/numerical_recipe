@@ -1,6 +1,8 @@
 #include "recipe/linear_algebra/vector.h"
 #include <gtest/gtest.h>
+#include <limits>
 #include <sstream>
+#include "recipe/linear_algebra/test_util/gtest_assertion.h"
 #include "recipe/linear_algebra/test_util/test_data.h"
 
 namespace recipe {
@@ -13,7 +15,8 @@ TEST(VectorTest, CopyConstructor) {
   Vector expect(3);
   Vector actual(expect);
 
-  EXPECT_EQ(expect, actual);
+  EXPECT_VECTOR_ELEMENT_NEAR(expect, actual,
+                             std::numeric_limits<double>::epsilon());
 }
 
 TEST(VectorTest, ConstructorInitializer) {

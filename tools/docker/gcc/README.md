@@ -2,11 +2,11 @@
 Build docker images with the command
 
 ```
-./docker_build.sh
+./docker_build_ubuntu1604.sh
 ```
 
 Run docker container and attach to it
 
 ```
-./docker_run.sh
+./docker_run_ubuntu1604.sh
 ```

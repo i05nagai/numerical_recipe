@@ -58,7 +58,8 @@ install_bazel_osx()
     brew update
   fi
 
-  brew cask install homebrew/cask-versions/java8
-  brew install \
-    bazel
+  # tap and install
+  brew tap bazelbuild/tap
+  brew tap-pin bazelbuild/tap
+  brew install bazel
 }

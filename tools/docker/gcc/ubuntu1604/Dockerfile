@@ -8,6 +8,7 @@ COPY ci /tmp/ci
 RUN \
     apt-get update \
     && /tmp/ci/linux/install_bazel.sh \
+    && /tmp/ci/linux/install_buildifier.sh \
     && /tmp/ci/linux/install_clang_format.sh \
     && /tmp/ci/linux/install_gcc.sh \
     && rm -rf /var/lib/apt/lists/* \

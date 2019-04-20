@@ -1,29 +1,29 @@
 #!/bin/bash
 
 do_buildifier(){
-  local BUILD_FILES=$(find . -type f -name BUILD -or -name 'BUILD.*' -or -name BUILD.bazel)
-  local NUM_BUILD_FILES=$(echo ${BUILD_FILES} | wc -w)
+  local build_files=$(find . -type f -name BUILD -or -name 'BUILD.*' -or -name BUILD.bazel)
+  local num_build_files=$(echo ${build_files} | wc -w)
 
-  echo "Running do_buildifier on ${NUM_BUILD_FILES} files"
+  echo "Running do_buildifier on ${num_build_files} files"
   echo ""
 
-  local BUILDIFIER_START_TIME=$(date +'%s')
-  local BUILDIFIER_OUTPUT_FILE="$(mktemp)_buildifier_output.log"
+  local buildifier_start_time=$(date +'%s')
+  local buildifier_output_file="$(mktemp)_buildifier_output.log"
 
-  rm -rf ${BUILDIFIER_OUTPUT_FILE}
+  rm -rf ${buildifier_output_file}
 
   buildifier -showlog -v -mode=check \
-    ${BUILD_FILES} 2>&1 | tee ${BUILDIFIER_OUTPUT_FILE}
+    ${build_files} 2>&1 | tee ${buildifier_output_file}
   local BUILDIFIER_END_TIME=$(date +'%s')
 
   echo ""
-  echo "buildifier took $((BUILDIFIER_END_TIME - BUILDIFIER_START_TIME)) s"
+  echo "buildifier took $((BUILDIFIER_END_TIME - buildifier_start_time)) s"
   echo ""
 
-  if [[ -s ${BUILDIFIER_OUTPUT_FILE} ]]; then
+  if [[ -s ${buildifier_output_file} ]]; then
     echo "FAIL: buildifier found errors and/or warnings in above BUILD files."
     echo "buildifier suggested the following changes:"
-    buildifier -showlog -v -mode=diff ${BUILD_FILES}
+    buildifier -showlog -v -mode=diff ${build_files}
     echo "Please fix manually or run buildifier <file> to auto-fix."
     return 1
   else
@@ -74,16 +74,18 @@ do_clang_format_check() {
     return 1
   fi
 
-  if [[ "$1" == "--incremental" ]]; then
-    CLANG_SRC_FILES=$(get_clang_files_to_check --incremental)
+  local clang_src_files
 
-    if [[ -z "${CLANG_SRC_FILES}" ]]; then
+  if [[ "$1" == "--incremental" ]]; then
+    clang_src_files=$(get_clang_files_to_check --incremental)
+
+    if [[ -z "${clang_src_files}" ]]; then
       echo "do_clang_format_check will NOT run due to --incremental flag and "\
 "due to the absence of .h or .cc code changes in the last commit."
       return 0
     fi
   elif [[ -z "$1" ]]; then
-    CLANG_SRC_FILES=$(get_clang_files_to_check)
+    clang_src_files=$(get_clang_files_to_check)
   else
     echo "Invalid syntax for invoking do_clang_format_check"
     echo "Usage: do_clang_format_check [--incremental]"
@@ -92,13 +94,12 @@ do_clang_format_check() {
 
   CLANG_FORMAT=${CLANG_FORMAT:-clang-format}
 
-  success=1
-  for filename in $CLANG_SRC_FILES; do
-    local diff=$($CLANG_FORMAT --style=google $filename | diff $filename -)
+  local success=1
+  for filename in $clang_src_files; do
+    local diff=$($CLANG_FORMAT $filename | diff $filename -)
     if [[ "$diff" != "" ]]; then
       success=0
-      echo File $filename is not properly formatted with "clang-format "\
-"--style=google"
+      echo File $filename is not properly formatted with "clang-format"
     fi
   done
 
@@ -109,5 +110,26 @@ do_clang_format_check() {
   echo Clang format check success.
 }
 
+while [ $# -gt 0 ];
+do
+  case ${1} in
+    --skip-clang-format|-c)
+      shift || true  # in case of set -e
+      skip_clang_format=1
+    ;;
+
+    *)
+      echo "[ERROR] Invalid option '${1}'"
+      exit 1
+    ;;
+  esac
+  shift || true  # in case of set -e
+done
+
 do_buildifier
-do_clang_format_check
+
+echo ""
+
+if [[ -z ${skip_clang_format} ]]; then
+  do_clang_format_check
+fi

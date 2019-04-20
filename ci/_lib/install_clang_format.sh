@@ -24,10 +24,18 @@ install_clang_format_linux()
 
   UBUNTU_VERSION=`get_ubuntu_version`
   if [[ "$UBUNTU_VERSION" == "14.04" ]]; then
-    ${SUDO} apt-get install -y clang-format-3.9
+    # to install newer version
+    ${SUDO} apt-get install -y software-properties-common
+    ${SUDO} apt-add-repository "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main"
+    ${SUDO} apt-get update
+
+    ${SUDO} apt-get install -y --allow-unauthenticated clang-format-5.0
+    ${SUDO} ln -f -s /usr/bin/clang-format-5.0 /usr/bin/clang-format
   else
-    ${SUDO} apt-get install -y clang-format
+    ${SUDO} apt-get install -y clang-format-5.0
+    ${SUDO} ln -f -s /usr/bin/clang-format-5.0 /usr/bin/clang-format
   fi
+  clang-format --version
 }
 
 #

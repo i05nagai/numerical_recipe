@@ -70,7 +70,9 @@ matrix:
 install:
 - ci/travis/install.sh
 script:
-- ci/build/check_sanity.sh
+  # behavior of clang-formatter depends on the version of clang. In OSX, it's hard to install specified version. We only checks files on Linux
+- if [ "$TRAVIS_OS_NAME" == "linux" ]; then ci/build/check_sanity.sh; fi
+- if [ "$TRAVIS_OS_NAME" == "osx" ]; then ci/build/check_sanity.sh --skip-clang-format; fi
 - ci/build/build.sh
 after_success:
 - ci/travis/after_success.sh
