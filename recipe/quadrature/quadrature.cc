@@ -1,8 +1,76 @@
+#include "recipe/core/core.h"
+#include "recipe/quadrature/change_variable.h"
 #include "recipe/quadrature/quadrature.h"
 #include <cassert>
+#include <cmath>
+#include <iostream>
 
 namespace recipe {
 namespace quadrature {
+
+// double QuadratureImproper(
+//     const Integrand& integrand, const double left, const double right,
+//     const unsigned int num_partition) {
+//   assert(left <= right);
+// 
+//   Integral integral;
+//   // TODO: Criteria for choosing appropriate variable transformation
+//   if (std::isinf(left) && right * left > 0) {
+//     integral = ChangeVariableInverse(integrand, left, right);
+//   } else if (std::isinf(right) && right * left > 0) {
+//     integral = ChangeVariableInverse(integrand, left, right);
+//   } else if (IsChangeVariablePowerLaw(integrand, left, right)) {
+//     integral = ChangeVariablePowerLawLeft(integrand, left, right);
+//   } else if (0 <= left && right < RECIPE_DOUBLE_INF) {
+//     // if left point is singularity
+//     double left_new = left;
+//     if (std::isnan(integrand(left)) && std::isfinite(left) && std::isfinite(right)) {
+//       left_new += (right - left) / num_partition;
+//     }
+//   } else if (-RECIPE_DOUBLE_INF < left && right < RECIPE_DOUBLE_INF) {
+//     integral = ChangeVariableDoubleExponential(integrand, left, right);
+//   } else {
+//     integral = ChangeVariableMixed(integrand, left, right);
+//   }
+//   return TrapezoidalRuleOpenOrder2(
+//       integral.Integrand(), integral.Left(), integral.Right(), num_partition);
+// }
+
+//
+// Trapezoidal
+//
+
+double TrapezoidalRuleStep(
+    const Integrand& integrand,
+    const double step_size,
+    const int num_step,
+    const double step_from) {
+  double integral = 0.0;
+  for (int i = 0; i < num_step; i++) {
+    integral += integrand(step_from + step_size * i);
+  }
+
+  return step_size * integral;
+}
+
+double TrapezoidalRuleOpenOrder2(
+    const Integrand& integrand,
+    const double left,
+    const double right,
+    const unsigned int num_of_partition) {
+  assert(num_of_partition >= 3);
+  assert(left <= right);
+  assert(std::isfinite(left) && std::isfinite(right));
+  const double h = (right - left) / num_of_partition;
+  // calculate endpoints
+  double integral = (integrand(right - h) + integrand(left + h)) * 3.0 / 2.0;
+
+  for (int i = 2; i <= num_of_partition - 2; i++) {
+    integral += integrand(left + i * h);
+  }
+
+  return h * integral;
+}
 
 double TrapezoidalRule(double (*f)(double), const double a, const double b,
                        const int num_of_partition) {
