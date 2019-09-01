@@ -20,7 +20,7 @@ public:
   }
 
   Integral(const Integrand& integrand, const double left, const double right)
-    : integrand_(integrand), left_(left), right_(right)
+  : integrand_(integrand), left_(left), right_(right)
   {
   }
 
@@ -35,7 +35,7 @@ public:
     return 0.0;
   }
 
-  const Integrand& Integrand() const {
+  const Integrand& GetIntegrand() const {
     return integrand_;
   }
 
@@ -48,7 +48,7 @@ public:
   }
 
 private:
-  std::function<double (const double)> integrand_;
+  Integrand integrand_;
   double left_;
   double right_;
 };

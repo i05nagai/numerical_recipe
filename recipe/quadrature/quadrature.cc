@@ -1,6 +1,6 @@
 #include "recipe/core/core.h"
-#include "recipe/quadrature/change_variable.h"
 #include "recipe/quadrature/quadrature.h"
+#include "recipe/quadrature/change_variable.h"
 #include <cassert>
 #include <cmath>
 #include <iostream>
@@ -65,7 +65,7 @@ double TrapezoidalRuleOpenDegree2(
   // calculate endpoints
   double integral = (integrand(right - h) + integrand(left + h)) * 3.0 / 2.0;
 
-  for (int i = 2; i <= num_of_partition - 2; i++) {
+  for (size_t i = 2; i <= num_of_partition - 2; i++) {
     integral += integrand(left + i * h);
   }
 
@@ -90,7 +90,7 @@ double TrapezoidalRuleOpenDegree5(
       - integrand(right - 2.0 * h) * 1.0 / 6.0
       + integrand(right - 1.0 * h) * 55.0 / 24.0);
 
-  for (int i = 3; i <= num_of_partition - 4; i++) {
+  for (size_t i = 3; i <= num_of_partition - 4; i++) {
     integral += integrand(left + i * h);
   }
 

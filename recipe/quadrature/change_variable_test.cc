@@ -20,7 +20,7 @@ TEST(ChangeVariableInverseTest, Example)
   const double expect = 1.0 / (t * t * t);
   const double expect_left = 1.0 / right;
   const double expect_right = 1.0 / left;
-  EXPECT_DOUBLE_EQ(expect, actual.Integrand()(t));
+  EXPECT_DOUBLE_EQ(expect, actual.GetIntegrand()(t));
   EXPECT_DOUBLE_EQ(expect_left, actual.Left());
   EXPECT_DOUBLE_EQ(expect_right, actual.Right());
 }
@@ -41,7 +41,7 @@ TEST(ChangeVariablePowerLawLeftTest, Example)
     * (std::pow(t, 1.0 / (1.0 - gamma)) + left);
   const double expect_left = 0.0;
   const double expect_right = std::pow(right - left, 1.0 - gamma);
-  EXPECT_DOUBLE_EQ(expect, actual.Integrand()(t));
+  EXPECT_DOUBLE_EQ(expect, actual.GetIntegrand()(t));
   EXPECT_DOUBLE_EQ(expect_left, actual.Left());
   EXPECT_DOUBLE_EQ(expect_right, actual.Right());
 }
@@ -62,7 +62,7 @@ TEST(ChangeVariablePowerLawRightTest, Example)
     * (right - std::pow(t, 1.0 / (1.0 - gamma)));
   const double expect_left = 0.0;
   const double expect_right = std::pow(right - left, 1.0 - gamma);
-  EXPECT_DOUBLE_EQ(expect, actual.Integrand()(t));
+  EXPECT_DOUBLE_EQ(expect, actual.GetIntegrand()(t));
   EXPECT_DOUBLE_EQ(expect_left, actual.Left());
   EXPECT_DOUBLE_EQ(expect_right, actual.Right());
 }
@@ -81,7 +81,7 @@ TEST(ChangeVariableExpTest, Example)
   const double expect = -std::log(t) * 1.0 / t;
   const double expect_left = std::exp(-right);
   const double expect_right = std::exp(-left);
-  EXPECT_DOUBLE_EQ(expect, actual.Integrand()(t));
+  EXPECT_DOUBLE_EQ(expect, actual.GetIntegrand()(t));
   EXPECT_DOUBLE_EQ(expect_left, actual.Left());
   EXPECT_DOUBLE_EQ(expect_right, actual.Right());
 }
@@ -105,7 +105,7 @@ TEST(ChangeVariableHyperbolicTangentTest, Example)
     * 0.5 * (right - left) / (std::cosh(t) * std::cosh(t)));
   const double expect_left = -RECIPE_DOUBLE_INF;
   const double expect_right = RECIPE_DOUBLE_INF;
-  EXPECT_DOUBLE_EQ(expect, actual.Integrand()(t));
+  EXPECT_DOUBLE_EQ(expect, actual.GetIntegrand()(t));
   EXPECT_DOUBLE_EQ(expect_left, actual.Left());
   EXPECT_DOUBLE_EQ(expect_right, actual.Right());
 }
@@ -124,7 +124,7 @@ TEST(ChangeVariableHyperbolicTangentZeroInfinityTest, Example)
   const double expect = std::exp(t) * std::exp(t);
   const double expect_left = std::log(left);
   const double expect_right = std::log(right);
-  EXPECT_DOUBLE_EQ(expect, actual.Integrand()(t));
+  EXPECT_DOUBLE_EQ(expect, actual.GetIntegrand()(t));
   EXPECT_DOUBLE_EQ(expect_left, actual.Left());
   EXPECT_DOUBLE_EQ(expect_right, actual.Right());
 }
@@ -143,7 +143,7 @@ TEST(ChangeVariableHyperbolicTangentMinusInfinityPlusInfinityTest, Example)
   const double expect = std::sinh(t) * std::cosh(t);
   const double expect_left = std::asinh(left);
   const double expect_right = std::asinh(right);
-  EXPECT_DOUBLE_EQ(expect, actual.Integrand()(t));
+  EXPECT_DOUBLE_EQ(expect, actual.GetIntegrand()(t));
   EXPECT_DOUBLE_EQ(expect_left, actual.Left());
   EXPECT_DOUBLE_EQ(expect_right, actual.Right());
 }
@@ -167,7 +167,7 @@ TEST(ChangeVariableDoubleExponentialTest, Example)
     * (RECIPE_PI * std::cosh(t) / std::cosh(RECIPE_PI * std::sinh(t) / 2.0));
   const double expect_left = -RECIPE_DOUBLE_INF;
   const double expect_right = RECIPE_DOUBLE_INF;
-  EXPECT_DOUBLE_EQ(expect, actual.Integrand()(t));
+  EXPECT_DOUBLE_EQ(expect, actual.GetIntegrand()(t));
   EXPECT_DOUBLE_EQ(expect_left, actual.Left());
   EXPECT_DOUBLE_EQ(expect_right, actual.Right());
 }
@@ -187,7 +187,7 @@ TEST(ChangeVariableDoubleExponentialZeroInfinityTest, Example)
      * std::exp(2.0 * std::sinh(t)) * 2.0 * std::cosh(t);
   const double expect_left = std::asinh(std::log(left) / 2.0);
   const double expect_right = std::asinh(std::log(right) / 2.0);
-  EXPECT_DOUBLE_EQ(expect, actual.Integrand()(t));
+  EXPECT_DOUBLE_EQ(expect, actual.GetIntegrand()(t));
   EXPECT_DOUBLE_EQ(expect_left, actual.Left());
   EXPECT_DOUBLE_EQ(expect_right, actual.Right());
 }
@@ -211,7 +211,7 @@ TEST(ChangeVariableMixedTest, Example)
     * std::exp(t - std::exp(-t)) * (1.0 + std::exp(-t));
   const double expect_left = -4.0;
   const double expect_right = 4.0;
-  EXPECT_DOUBLE_EQ(expect, actual.Integrand()(t));
+  EXPECT_DOUBLE_EQ(expect, actual.GetIntegrand()(t));
   EXPECT_DOUBLE_EQ(expect_left, actual.Left());
   EXPECT_DOUBLE_EQ(expect_right, actual.Right());
 }
