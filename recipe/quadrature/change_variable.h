@@ -5,6 +5,14 @@
 namespace recipe {
 namespace quadrature {
 
+  ///@brief 
+  ///
+  ///@param integrand
+  ///@param left
+  ///@param right
+  ///
+  ///@return 
+  ///
 Integral ChangeVariableInverse(
     const Integrand& integrand, const double left, const double right);
 

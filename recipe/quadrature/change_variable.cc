@@ -11,8 +11,6 @@ namespace quadrature {
 Integral ChangeVariableInverse(
     const Integrand& integrand, const double left, const double right) {
   // only one of endpoints is infinity
-  // assert(std::isinf(left) && !std::isinf(right));
-  // assert(!std::isinf(left) && std::isinf(right));
   // range condition
   assert(left < right && right * left > 0.0);
   double left_new;
@@ -27,10 +25,13 @@ Integral ChangeVariableInverse(
   return Integral(integnrad_new, left_new, right_new);
 }
 
+// g(t) = - log(1 / t - 1)
+// g^{-1}(x) = - 1 / (1 + exp(-t))
+// dg/dt = - 1 / (t * (1 - t))
+// integrate f(g(t)) dg/dt dt from g^{-1}(a) to g^{-1}(b)
 Integral ChangeVariableToZeroOne(
     const Integrand& integrand, const double left, const double right)
 {
-  // only one of endpoints is infinity
   assert(left < right);
   const double left_new = 1.0 /  (1.0 + std::exp(-left));
   const double right_new = 1.0 / (1.0 + std::exp(-right));
@@ -42,22 +43,6 @@ Integral ChangeVariableToZeroOne(
     return integrand(x) * derivative;
   };
   return Integral(integnrad_new, left_new, right_new);
-}
-
-bool IsChangeVariablePowerLaw(
-    const Integrand& integrand,
-    const double left, const double right) {
-  const double left_val = integrand(left);
-  const double right_val = integrand(right);
-  // endpoits are not inf
-  // and
-  //
-  return ((!std::isinf(left) && !std::isinf(right))
-          && (
-                (std::isnan(left_val) && !std::isnan(right_val))
-                || (!std::isnan(left_val) && std::isnan(right_val))
-              )
-         );
 }
 
 // g(t) = t^{1/(1-gamma)} + a
@@ -80,29 +65,12 @@ Integral ChangeVariablePowerLawLeft(
     return integrand(x) * derivative;
   };
   return Integral(integnrad_new, left_new, right_new);
-
-  // left endpoint is singular point
-  // if (std::isnan(left_value)) {
-  //   const double left_new = 0.0;
-  //   const double right_new = std::pow(right - left, 1.0 - gamma);
-  //   const Integrand integnrad_new = [&integrand, &left, &gamma](const double t) {
-  //     const double x = std::pow(t, 1.0 / (1.0 - gamma)) + left;
-  //     const double derivative = std::pow(t, gamma / (1.0 - gamma)) * (1.0 - gamma);
-  //     return integrand(x) * derivative;
-  //   };
-  //   return Integral(integnrad_new, left_new, right_new);
-  // } else {
-  //   const double left_new = 0.0;
-  //   const double right_new = std::pow(right - left, 1.0 - gamma);
-  //   const Integrand integnrad_new = [&integrand, &right, &gamma](const double t) {
-  //     const double x = right - std::pow(t, 1.0 / (1.0 - gamma));
-  //     const double derivative = std::pow(t, gamma / (1.0 - gamma)) * (1.0 - gamma);
-  //     return integrand(x) * derivative;
-  //   };
-  //   return Integral(integnrad_new, left_new, right_new);
-  // }
 }
 
+// g(t) = b - t^{1/(1-gamma)}
+// g^{-1}(x) = (b - x)^{(1-gamma)}
+// dg/dt = t^{gamma/(1-gamma)} / (1-gamma)
+// int f(g(t)) dg/dt dt from g^{-1}(a) to g^{-1}(b)
 Integral ChangeVariablePowerLawRight(
     const Integrand& integrand,
     const double left, const double right, const double gamma) {
@@ -223,7 +191,7 @@ Integral ChangeVariableDoubleExponential(
 // int f(g(t)) dg/dt dt from g^{-1}(a) to g^{-1}(b)
 Integral ChangeVariableDoubleExponentialZeroInfinity(
     const Integrand& integrand, const double left, const double right, const double c) {
-  const Integrand integnrad_new = [&integrand, c](const double t) {
+  const Integrand integnrad_new = [&integrand, c, left, right](const double t) {
     const double x = std::exp(2.0 * c * std::sinh(t));
     const double derivative = std::exp(2.0 * c * std::sinh(t)) * 2.0 * c * std::cosh(t);
     const double val = integrand(x) * derivative;
