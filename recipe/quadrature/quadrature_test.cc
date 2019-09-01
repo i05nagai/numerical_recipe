@@ -12,7 +12,7 @@ namespace quadrature {
 // integrate log(x)log(1-x) from 0 to 1 = 2 - pi^2 / 6
 //
 
-TEST(IntegrateTest, Example01TrapezoidalRuleOpenOrder2)
+TEST(IntegrateTest, Example01TrapezoidalRuleOpenDegree2)
 {
   Integrand integrand = [](const double x) { 
     return std::log(x) * std::log(1.0 - x);
@@ -22,11 +22,28 @@ TEST(IntegrateTest, Example01TrapezoidalRuleOpenOrder2)
   const int num_partition = 50;
 
   // (0, 1)
-  const double actual = TrapezoidalRuleOpenOrder2(
+  const double actual = TrapezoidalRuleOpenDegree2(
       integrand, left, right, num_partition);
 
   const double expect = 2.0 - RECIPE_PI * RECIPE_PI / 6.0;
-  EXPECT_NEAR(expect, actual, 1e-2);
+  EXPECT_NEAR(expect, actual, 4e-3);
+}
+
+TEST(IntegrateTest, Example01TrapezoidalRuleOpenDegree5)
+{
+  Integrand integrand = [](const double x) { 
+    return std::log(x) * std::log(1.0 - x);
+  };
+  const double left = 0.0;
+  const double right = 1.0;
+  const int num_partition = 50;
+
+  // (0, 1)
+  const double actual = TrapezoidalRuleOpenDegree5(
+      integrand, left, right, num_partition);
+
+  const double expect = 2.0 - RECIPE_PI * RECIPE_PI / 6.0;
+  EXPECT_NEAR(expect, actual, 4e-3);
 }
 
 TEST(IntegrateTest, Example01DoubleExponentialZeroInfinityAndToZeroOne)
@@ -43,14 +60,14 @@ TEST(IntegrateTest, Example01DoubleExponentialZeroInfinityAndToZeroOne)
   const auto integral = ChangeVariableDoubleExponentialZeroInfinity(integrand, left, right);
   // (-inf, 0) -> (0, 0.5)
   const auto integral2 = ChangeVariableToZeroOne(integral.Integrand(), integral.Left(), integral.Right());
-  const double actual = TrapezoidalRuleOpenOrder2(
+  const double actual = TrapezoidalRuleOpenDegree2(
       integral2.Integrand(), integral2.Left(), integral2.Right(), num_partition);
 
   const double expect = 2.0 - RECIPE_PI * RECIPE_PI / 6.0;
   EXPECT_NEAR(expect, actual, 1e-2);
 }
 
-TEST(IntegrateTest, Example01DoubleExponentialZeroInfinityAndStep)
+TEST(IntegrateTest, Example01DoubleExponentialZeroInfinityAndToZeroOneDegree5)
 {
   Integrand integrand = [](const double x) { 
     assert(0.0 <= x && x <= 1.0);
@@ -58,17 +75,18 @@ TEST(IntegrateTest, Example01DoubleExponentialZeroInfinityAndStep)
   };
   const double left = 0.0;
   const double right = 1.0;
-
   const int num_partition = 50;
+
   // (0, 1) -> (-inf, 0)
   const auto integral = ChangeVariableDoubleExponentialZeroInfinity(integrand, left, right);
-  const double actual = TrapezoidalRuleStep(
-      integral.Integrand(), integral.Left(), integral.Right(), num_partition);
+  // (-inf, 0) -> (0, 0.5)
+  const auto integral2 = ChangeVariableToZeroOne(integral.Integrand(), integral.Left(), integral.Right());
+  const double actual = TrapezoidalRuleOpenDegree5(
+      integral2.Integrand(), integral2.Left(), integral2.Right(), num_partition);
 
   const double expect = 2.0 - RECIPE_PI * RECIPE_PI / 6.0;
   EXPECT_NEAR(expect, actual, 1e-5);
 }
-
 //
 // integrate 1.0 / (x^1/2 * (1 +x)) from 0 to inf equals pi
 //
@@ -83,7 +101,7 @@ TEST(IntegrateTest, Example02ToZeroOne)
   const int num_partition = 50;
   // (0, inf) -> (0.5, 1.0)
   const auto integral = ChangeVariableToZeroOne(integrand, left, right);
-  const double actual = TrapezoidalRuleOpenOrder2(
+  const double actual = TrapezoidalRuleOpenDegree2(
       integral.Integrand(), integral.Left(), integral.Right(), num_partition);
 
   const double expect = RECIPE_PI;
@@ -102,7 +120,7 @@ TEST(IntegrateTest, Example02DoubleExponentialZeroInfinityAndToZeroOne)
   const auto integral = ChangeVariableDoubleExponentialZeroInfinity(integrand, left, right);
   // (0, inf) -> (0.5, 1.0)
   const auto integral2 = ChangeVariableToZeroOne(integral.Integrand(), integral.Left(), integral.Right());
-  const double actual = TrapezoidalRuleOpenOrder2(
+  const double actual = TrapezoidalRuleOpenDegree2(
       integral2.Integrand(), integral2.Left(), integral2.Right(), num_partition);
 
   const double expect = RECIPE_PI;
@@ -123,7 +141,7 @@ TEST(IntegrateTest, Example03ToZeroOne)
   const int num_partition = 50;
   // (0, inf) -> (0.5, 1.0)
   const auto integral = ChangeVariableToZeroOne(integrand, left, right);
-  const double actual = TrapezoidalRuleOpenOrder2(
+  const double actual = TrapezoidalRuleOpenDegree2(
       integral.Integrand(), integral.Left(), integral.Right(), num_partition);
 
   const double expect = std::sqrt(RECIPE_PI * (std::sqrt(5.0) - 2.0));
@@ -142,7 +160,7 @@ TEST(IntegrateTest, Example03DoubleExponentialZeroInfinityToZeroOne)
   const auto integral = ChangeVariableDoubleExponentialZeroInfinity(integrand, left, right);
   // (0, inf) -> (0.5, 1.0)
   const auto integral2 = ChangeVariableToZeroOne(integral.Integrand(), integral.Left(), integral.Right());
-  const double actual = TrapezoidalRuleOpenOrder2(
+  const double actual = TrapezoidalRuleOpenDegree2(
       integral2.Integrand(), integral2.Left(), integral2.Right(), num_partition);
 
   const double expect = std::sqrt(RECIPE_PI * (std::sqrt(5.0) - 2.0));
@@ -164,7 +182,7 @@ TEST(IntegrateTest, Example04DoubleExponentialZeroInfinity)
 
   // (0, inf) -> (0.5, 1.0)
   const auto integral = ChangeVariableToZeroOne(integrand, left, right);
-  const double actual = TrapezoidalRuleOpenOrder2(
+  const double actual = TrapezoidalRuleOpenDegree2(
       integral.Integrand(), integral.Left(), integral.Right(), num_partition);
 
   const double expect = 0.5 * std::tgamma(5.0 / 14.0);
@@ -184,7 +202,7 @@ TEST(IntegrateTest, Example04DoubleExponentialZeroInfinityAndToZeroOne)
   const auto integral = ChangeVariableDoubleExponentialZeroInfinity(integrand, left, right);
   // (0, inf) -> (0.5, 1.0)
   const auto integral2 = ChangeVariableToZeroOne(integral.Integrand(), integral.Left(), integral.Right());
-  const double actual = TrapezoidalRuleOpenOrder2(
+  const double actual = TrapezoidalRuleOpenDegree2(
       integral2.Integrand(), integral2.Left(), integral2.Right(), num_partition);
 
   const double expect = 0.5 * std::tgamma(5.0 / 14.0);
@@ -231,7 +249,7 @@ TEST(SimpsonRuleTest, AssertInterval) {
 // TrapezoidalRule
 // 
 
-TEST(TrapezoidalRuleOpenOrder2Test, Example) {
+TEST(TrapezoidalRuleOpenDegree2Test, Example) {
   const int num_of_partition = 4;
   const double left = 0.5;
   const double right = 1.0;
@@ -247,7 +265,7 @@ TEST(TrapezoidalRuleOpenOrder2Test, Example) {
     (7.0 * 3.0 + 6.0) / 8.0 / 8.0 / 2.0,
   };
   const double expect = std::accumulate(p.begin(), p.end(), 0.0);
-  const double actual = TrapezoidalRuleOpenOrder2(integrand, left, right, num_of_partition);
+  const double actual = TrapezoidalRuleOpenDegree2(integrand, left, right, num_of_partition);
   EXPECT_NEAR(expect, actual, 1e-16);
 }
 

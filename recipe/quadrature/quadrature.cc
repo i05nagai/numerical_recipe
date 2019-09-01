@@ -53,7 +53,7 @@ double TrapezoidalRuleStep(
   return step_size * integral;
 }
 
-double TrapezoidalRuleOpenOrder2(
+double TrapezoidalRuleOpenDegree2(
     const Integrand& integrand,
     const double left,
     const double right,
@@ -66,6 +66,31 @@ double TrapezoidalRuleOpenOrder2(
   double integral = (integrand(right - h) + integrand(left + h)) * 3.0 / 2.0;
 
   for (int i = 2; i <= num_of_partition - 2; i++) {
+    integral += integrand(left + i * h);
+  }
+
+  return h * integral;
+}
+
+double TrapezoidalRuleOpenDegree5(
+    const Integrand& integrand,
+    const double left,
+    const double right,
+    const unsigned int num_of_partition) {
+  assert(num_of_partition >= 5);
+  assert(left <= right);
+  assert(std::isfinite(left) && std::isfinite(right));
+  const double h = (right - left) / num_of_partition;
+  // calculate endpoints
+  double integral = (
+      integrand(left + h) * 55.0 / 24.0
+      - integrand(left + 2.0 * h) / 6.0
+      + integrand(left + 3.0 * h) * 11.0 / 8.0
+      + integrand(right - 3.0 * h) * 11.0 / 8.0
+      - integrand(right - 2.0 * h) * 1.0 / 6.0
+      + integrand(right - 1.0 * h) * 55.0 / 24.0);
+
+  for (int i = 3; i <= num_of_partition - 4; i++) {
     integral += integrand(left + i * h);
   }
 

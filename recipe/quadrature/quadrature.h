@@ -62,7 +62,13 @@ double QuadratureImproper(
 // Trapezoidal Rule
 //
 
-double TrapezoidalRuleOpenOrder2(
+double TrapezoidalRuleOpenDegree2(
+    const Integrand& integrand,
+    const double left,
+    const double right,
+    const unsigned int num_of_partition);
+
+double TrapezoidalRuleOpenDegree5(
     const Integrand& integrand,
     const double left,
     const double right,
