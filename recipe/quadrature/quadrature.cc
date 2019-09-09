@@ -8,33 +8,61 @@
 namespace recipe {
 namespace quadrature {
 
-// double QuadratureImproper(
-//     const Integrand& integrand, const double left, const double right,
-//     const unsigned int num_partition) {
-//   assert(left <= right);
-// 
-//   Integral integral;
-//   // TODO: Criteria for choosing appropriate variable transformation
-//   if (std::isinf(left) && right * left > 0) {
-//     integral = ChangeVariableInverse(integrand, left, right);
-//   } else if (std::isinf(right) && right * left > 0) {
-//     integral = ChangeVariableInverse(integrand, left, right);
-//   } else if (IsChangeVariablePowerLaw(integrand, left, right)) {
-//     integral = ChangeVariablePowerLawLeft(integrand, left, right);
-//   } else if (0 <= left && right < RECIPE_DOUBLE_INF) {
-//     // if left point is singularity
-//     double left_new = left;
-//     if (std::isnan(integrand(left)) && std::isfinite(left) && std::isfinite(right)) {
-//       left_new += (right - left) / num_partition;
-//     }
-//   } else if (-RECIPE_DOUBLE_INF < left && right < RECIPE_DOUBLE_INF) {
-//     integral = ChangeVariableDoubleExponential(integrand, left, right);
-//   } else {
-//     integral = ChangeVariableMixed(integrand, left, right);
-//   }
-//   return TrapezoidalRuleOpenOrder2(
-//       integral.Integrand(), integral.Left(), integral.Right(), num_partition);
-// }
+//
+// Double Exponential
+//
+
+double QuadratureDoubleExponentialFinite(
+    const Integrand& integrand, const int num_partition, const double length) {
+  double sum = 0.0;
+
+  for (int i = -num_partition + 1; i < num_partition; i++) {
+    const double factor = RECIPE_PI * 0.5 * std::sinh(i * length);
+    const double denom = std::cosh(factor) * std::cosh(factor);
+    sum += (integrand(std::tanh(factor)) * std::cosh(i * length) / denom);
+  }
+  sum *= RECIPE_PI * 0.5 * length;
+  return sum;
+}
+
+double QuadratureDoubleExponentialFinite(
+    const Integral& integral, const int num_partition, const double length) {
+  return QuadratureDoubleExponentialFinite(integral.GetIntegrand(), num_partition, length);
+}
+
+double QuadratureDoubleExponentialHalf(
+    const Integrand& integrand, const int num_partition, const double length) {
+  double sum = 0.0;
+
+  for (int i = -num_partition + 1; i < num_partition; i++) {
+    const double factor = std::exp(RECIPE_PI * 0.5 * std::sinh(i * length));
+    sum += integrand(factor) * std::cosh(i * length) * factor;
+  }
+  sum *= RECIPE_PI * 0.5 * length;
+  return sum;
+}
+
+double QuadratureDoubleExponentialHalf(
+    const Integral& integral, const int num_partition, const double length) {
+  return QuadratureDoubleExponentialHalf(integral.GetIntegrand(), num_partition, length);
+}
+
+double QuadratureDoubleExponentialInfinite(
+    const Integrand& integrand, const int num_partition, const double length) {
+  double sum = 0.0;
+
+  for (int i = -num_partition + 1; i < num_partition; i++) {
+    const double factor = RECIPE_PI * 0.5 * std::sinh(i * length);
+    sum += integrand(std::sinh(factor)) * std::cosh(i * length) * std::cosh(factor);
+  }
+  sum *= RECIPE_PI * 0.5 * length;
+  return sum;
+}
+
+double QuadratureDoubleExponentialInfinite(
+    const Integral& integral, const int num_partition, const double length) {
+  return QuadratureDoubleExponentialInfinite(integral.GetIntegrand(), num_partition, length);
+}
 
 //
 // Trapezoidal

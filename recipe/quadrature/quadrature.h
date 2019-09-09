@@ -3,6 +3,8 @@
 #include <functional>
 #include <cmath>
 #include <cassert>
+#include <iostream>
+#include "recipe/core/core.h"
 
 namespace recipe {
 namespace quadrature {
@@ -31,10 +33,6 @@ public:
     return *this;
   }
 
-  double operator()() const {
-    return 0.0;
-  }
-
   const Integrand& GetIntegrand() const {
     return integrand_;
   }
@@ -53,9 +51,27 @@ private:
   double right_;
 };
 
-double QuadratureImproper(
-    const Integrand& integrand, const double left, const double right,
-    const unsigned int num_partition);
+//
+// Double Exponential
+//
+
+double QuadratureDoubleExponentialFinite(
+    const Integrand& integrand, const int num_partition, const double length);
+
+double QuadratureDoubleExponentialFinite(
+    const Integral& integral, const int num_partition, const double length);
+
+double QuadratureDoubleExponentialHalf(
+    const Integrand& integrand, const int num_partition, const double length);
+
+double QuadratureDoubleExponentialHalf(
+    const Integral& integral, const int num_partition, const double length);
+
+double QuadratureDoubleExponentialInfinite(
+    const Integrand& integrand, const int num_partition, const double length);
+
+double QuadratureDoubleExponentialInfinite(
+    const Integral& integral, const int num_partition, const double length);
 
 
 //
