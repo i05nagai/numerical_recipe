@@ -23,9 +23,9 @@ namespace quadrature {
 ///@param right right point in interval.
 ///
 ///@return Integral whose interval is (-1, 1)
-Integral ChangeVariableFiniteToMinusOnePlusOne(
-    const Integrand integrand, const double left, const double right);
+Integral ChangeVariableFiniteToMinusOnePlusOne(const Integrand integrand,
+                                               const double left,
+                                               const double right);
 
 }  // namespace quadrature
 }  // namespace recipe
-

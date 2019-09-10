@@ -1,13 +1,13 @@
 #include "recipe/quadrature/change_variable.h"
-#include "recipe/core/core.h"
 #include <iostream>
+#include "recipe/core/core.h"
 
 namespace recipe {
 namespace quadrature {
 
-Integral ChangeVariableFiniteToMinusOnePlusOne(
-    const Integrand integrand, const double left, const double right)
-{
+Integral ChangeVariableFiniteToMinusOnePlusOne(const Integrand integrand,
+                                               const double left,
+                                               const double right) {
   const Integrand integnrad_new = [integrand, left, right](const double t) {
     const double factor = (right - left) / 2.0;
     const double x = factor * (t + (right + left) / (right - left));

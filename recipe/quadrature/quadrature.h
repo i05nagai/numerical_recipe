@@ -1,30 +1,27 @@
 #pragma once
 
-#include <functional>
-#include <cmath>
 #include <cassert>
+#include <cmath>
+#include <functional>
 #include <iostream>
 #include "recipe/core/core.h"
 
 namespace recipe {
 namespace quadrature {
 
-typedef std::function<double (const double)> Integrand;
+typedef std::function<double(const double)> Integrand;
 
 class Integral {
-public:
-  Integral()
-  : integrand_(), left_(0.0), right_(0.0) {
-  }
+ public:
+  Integral() : integrand_(), left_(0.0), right_(0.0) {}
 
   Integral(const Integral& other)
-  : integrand_(other.integrand_), left_(other.left_), right_(other.right_) {
-  }
+      : integrand_(other.integrand_),
+        left_(other.left_),
+        right_(other.right_) {}
 
   Integral(const Integrand& integrand, const double left, const double right)
-  : integrand_(integrand), left_(left), right_(right)
-  {
-  }
+      : integrand_(integrand), left_(left), right_(right) {}
 
   Integral& operator=(const Integral& integral) {
     integrand_ = integral.integrand_;
@@ -33,19 +30,13 @@ public:
     return *this;
   }
 
-  const Integrand& GetIntegrand() const {
-    return integrand_;
-  }
+  const Integrand& GetIntegrand() const { return integrand_; }
 
-  double Left() const {
-    return left_;
-  }
+  double Left() const { return left_; }
 
-  double Right() const {
-    return right_;
-  }
+  double Right() const { return right_; }
 
-private:
+ private:
   Integrand integrand_;
   double left_;
   double right_;
@@ -57,7 +48,7 @@ private:
 
 /// @brief Compute the numerical integration with double exponential formula
 ///  for $(-1, 1)$.
-/// 
+///
 ///  $$
 ///    \\frac{\\pi}{2} h
 ///    \\sum_{i=-n}^{n}
@@ -73,9 +64,10 @@ private:
 /// @param num_partition
 /// @param length
 ///
-/// @return 
-double QuadratureDoubleExponentialFinite(
-    const Integrand& integrand, const int num_partition, const double length);
+/// @return
+double QuadratureDoubleExponentialFinite(const Integrand& integrand,
+                                         const int num_partition,
+                                         const double length);
 
 ///@brief Overloaded function.
 ///
@@ -83,13 +75,14 @@ double QuadratureDoubleExponentialFinite(
 ///@param num_partition
 ///@param length
 ///
-///@return 
-double QuadratureDoubleExponentialFinite(
-    const Integral& integral, const int num_partition, const double length);
+///@return
+double QuadratureDoubleExponentialFinite(const Integral& integral,
+                                         const int num_partition,
+                                         const double length);
 
 /// @brief Compute the numerical integration with double exponential formula
 /// for $(0, \\infty)$.
-/// 
+///
 /// $$
 ///    \\frac{\\pi}{2} h
 ///    \\sum_{i=-n}^{n}
@@ -101,9 +94,10 @@ double QuadratureDoubleExponentialFinite(
 ///@param num_partition
 ///@param length
 ///
-///@return 
-double QuadratureDoubleExponentialHalf(
-    const Integrand& integrand, const int num_partition, const double length);
+///@return
+double QuadratureDoubleExponentialHalf(const Integrand& integrand,
+                                       const int num_partition,
+                                       const double length);
 
 ///@brief Overloaded function
 ///
@@ -111,9 +105,10 @@ double QuadratureDoubleExponentialHalf(
 ///@param num_partition
 ///@param length
 ///
-///@return 
-double QuadratureDoubleExponentialHalf(
-    const Integral& integral, const int num_partition, const double length);
+///@return
+double QuadratureDoubleExponentialHalf(const Integral& integral,
+                                       const int num_partition,
+                                       const double length);
 
 ///@brief Compute numerical integration with Double exponetial formula
 /// for $(-\\infty, \\infty)$.
@@ -129,9 +124,10 @@ double QuadratureDoubleExponentialHalf(
 ///@param num_partition
 ///@param length
 ///
-///@return 
-double QuadratureDoubleExponentialInfinite(
-    const Integrand& integrand, const int num_partition, const double length);
+///@return
+double QuadratureDoubleExponentialInfinite(const Integrand& integrand,
+                                           const int num_partition,
+                                           const double length);
 
 ///@brief Overloaded function.
 ///
@@ -139,32 +135,25 @@ double QuadratureDoubleExponentialInfinite(
 ///@param num_partition
 ///@param length
 ///
-///@return 
-double QuadratureDoubleExponentialInfinite(
-    const Integral& integral, const int num_partition, const double length);
-
+///@return
+double QuadratureDoubleExponentialInfinite(const Integral& integral,
+                                           const int num_partition,
+                                           const double length);
 
 //
 // Trapezoidal Rule
 //
 
-double TrapezoidalRuleOpenDegree2(
-    const Integrand& integrand,
-    const double left,
-    const double right,
-    const unsigned int num_of_partition);
+double TrapezoidalRuleOpenDegree2(const Integrand& integrand, const double left,
+                                  const double right,
+                                  const unsigned int num_of_partition);
 
-double TrapezoidalRuleOpenDegree5(
-    const Integrand& integrand,
-    const double left,
-    const double right,
-    const unsigned int num_of_partition);
+double TrapezoidalRuleOpenDegree5(const Integrand& integrand, const double left,
+                                  const double right,
+                                  const unsigned int num_of_partition);
 
-double TrapezoidalRuleStep(
-    const Integrand& integrand,
-    const double step_size,
-    const int num_step,
-    const double step_from);
+double TrapezoidalRuleStep(const Integrand& integrand, const double step_size,
+                           const int num_step, const double step_from);
 
 ///@brief Compute $\int_a^b f(x) dx$, the integral of function f on interval [a,
 /// b]

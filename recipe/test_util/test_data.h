@@ -1,7 +1,7 @@
 #pragma once
+#include <memory>
 #include <random>
 #include <vector>
-#include <memory>
 
 namespace recipe {
 namespace test_util {
@@ -48,7 +48,6 @@ class RandomNumber {
   std::mt19937 engine_;
   std::uniform_real_distribution<double> distribution_;
 };  // class RandomNumber {
-
 
 ///
 /// @brief Common test data in linear_algebra.
