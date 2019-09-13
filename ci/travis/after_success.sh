@@ -29,3 +29,8 @@ if [[ `echo "${BUILD_TARGET}" | grep -E '(Coverage$|Coverage,)'` && "${TRAVIS_OS
   coveralls \
     --lcov-file ${path_coverage_file}
 fi
+
+# RECIPE_DEPLOY    true/false
+if [[ "${RECIPE_DEPLOY}" = "true" ]]; then
+  ${PATH_REPOSITORY}/ci/travis/deployment.sh ${PATH_REPOSITORY}
+fi
