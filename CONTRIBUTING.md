@@ -182,6 +182,7 @@ There is no visualization of the result of the test coverage for now.
         * [x] build libary, examples and benchmarks
         * [x] run unittests
         * [x] notify to Slack
+        * [x] push generated documents to 
     * [ ] Circle CI
 * templates
     * [ ] issue templates
