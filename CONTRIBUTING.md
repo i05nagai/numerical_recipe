@@ -158,8 +158,8 @@ There is no visualization of the result of the test coverage for now.
     * [ ] benchmarks
 * build with bazel
     * [x] library
-    * [ ] examples
-    * [ ] benchmarks
+    * [x] examples
+    * [x] benchmarks
 * [x] run unit tests
     * [google/googletest: Google Test](https://github.com/google/googletest)
 * [x] coverage report
@@ -172,7 +172,7 @@ There is no visualization of the result of the test coverage for now.
 * [x] benchmarking
     * [google/benchmark: A microbenchmark support library](https://github.com/google/benchmark)
 * [ ] checking memory leak
-    * valgrind
+    * Use valgrind
 * [x] logging
     * [google/glog: C\+\+ implementation of the Google logging module](https://github.com/google/glog)
 * [ ] packaging
@@ -180,6 +180,7 @@ There is no visualization of the result of the test coverage for now.
     * Travis CI
         * [x] check code format
         * [x] build libary, examples and benchmarks
+        * [ ] build examples
         * [x] run unittests
         * [x] notify to Slack
         * [x] push generated documents to 

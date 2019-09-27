@@ -7,6 +7,7 @@ Recipe's documentation.
 
    algorithms
    linear_algebra
+   quadrature
    test_util
 
 

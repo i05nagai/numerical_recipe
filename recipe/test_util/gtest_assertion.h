@@ -121,7 +121,7 @@ inline ::testing::AssertionResult IsElementEqual(
 inline ::testing::AssertionResult IsElementEqual(
     const char* expr1, const char* expr2, const char* size_expr,
     const double* v1, const double* v2, const int size) {
-  for (size_t i = 0; i < size; ++i) {
+  for (int i = 0; i < size; ++i) {
     const ::testing::internal::FloatingPoint<double> value1(v1[i]);
     const ::testing::internal::FloatingPoint<double> value2(v2[i]);
     if (!value1.AlmostEquals(value2)) {

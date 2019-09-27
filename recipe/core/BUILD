@@ -1,7 +1,7 @@
 package(default_visibility = ["//visibility:public"])
 
 cc_library(
-    name = "quadrature",
+    name = "core",
     srcs = glob(
         ["*.cc"],
         exclude = ["*_test.cc"],
@@ -11,7 +11,6 @@ cc_library(
         "-std=c++11",
     ],
     deps = [
-        "//recipe/core",
     ],
 )
 
@@ -23,7 +22,7 @@ cc_test(
         "-std=c++11",
     ],
     deps = [
-        ":quadrature",
+        ":core",
         "//recipe/test_util",
         "@gtest",
     ],

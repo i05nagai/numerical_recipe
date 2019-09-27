@@ -1,8 +1,11 @@
 #pragma once
+#include <memory>
 #include <random>
+#include <vector>
 
 namespace recipe {
 namespace test_util {
+
 /// @brief Create random numbers.
 ///
 /// Example:
@@ -45,6 +48,53 @@ class RandomNumber {
   std::mt19937 engine_;
   std::uniform_real_distribution<double> distribution_;
 };  // class RandomNumber {
+
+///
+/// @brief Common test data in linear_algebra.
+///
+/// Example:
+///
+/// ```
+///   std::vector<double> data = TestData::GetRandomNumbers(10);
+/// ```
+class TestData {
+  // private typedef
+ private:
+  // public typedef
+ public:
+  // public function
+ public:
+  ///
+  /// @brief Generate random values whose value is within [0, 1).
+  ///
+  /// @param size
+  ///
+  /// @return vector of random values.
+  ///
+  static std::vector<double> GetRandomNumbers(const std::size_t size) {
+    static test_util::RandomNumber generator;
+
+    std::vector<double> x(size);
+    std::generate(x.begin(), x.end(), generator);
+    return x;
+  }
+
+  static std::vector<double> GetRandomNumbersSorted(
+      const std::size_t size, const bool ascending = true) {
+    std::vector<double> x = TestData::GetRandomNumbers(size);
+    if (ascending) {
+      std::sort(x.begin(), x.end());
+    } else {
+      std::sort(x.begin(), x.end(), std::greater<double>());
+    }
+    return x;
+  }
+
+  // private function
+ private:
+  // private members
+ private:
+};  // class TestData {
 
 }  // namespace test_util
 }  // namespace recipe
