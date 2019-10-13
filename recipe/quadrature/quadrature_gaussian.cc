@@ -1,14 +1,13 @@
 #include "recipe/quadrature/quadrature_gaussian.h"
-#include <iostream>
 #include <array>
+#include <iostream>
 
 namespace recipe {
 namespace quadrature {
 
-double QuadratureGuassianLegendre5(
-    const Integrand integrand,
-    const double left,
-    const double right) {
+double QuadratureGuassianLegendre5(const Integrand integrand, const double left,
+                                   const double right) {
+  // clang-format off
   std::array<double, 5> points = {
     -0.906179845938664,
     -0.5384693101056831,
@@ -23,6 +22,7 @@ double QuadratureGuassianLegendre5(
     0.4786286704993664,
     0.236926885056189,
   };
+  // clang-format on
   double result = 0.0;
   for (int i = 0; i < 5; ++i) {
     result += integrand(points[i]) * weights[i];
@@ -30,10 +30,9 @@ double QuadratureGuassianLegendre5(
   return result;
 }
 
-double QuadratureGuassianLegendre16(
-    const Integrand integrand,
-    const double left,
-    const double right) {
+double QuadratureGuassianLegendre16(const Integrand integrand,
+                                    const double left, const double right) {
+  // clang-format off
   std::array<double, 8> points = {
       0.095012509837637,
       0.281603550779259,
@@ -54,19 +53,19 @@ double QuadratureGuassianLegendre16(
     0.062253523938648,
     0.027152459411754,
   };
+  // clang-format on
 
   double result = 0.0;
   for (int i = 0; i < 8; ++i) {
-    result += (integrand(points[i]) * weights[i]
-               + integrand(-points[i]) * weights[i]);
+    result += (integrand(points[i]) * weights[i] +
+               integrand(-points[i]) * weights[i]);
   }
   return result;
 }
 
-double QuadratureGuassianHermite5(
-    const Integrand integrand,
-    const double left,
-    const double right) {
+double QuadratureGuassianHermite5(const Integrand integrand, const double left,
+                                  const double right) {
+  // clang-format off
   std::array<double, 8> points = {
     0.0,
     0.9585724646138185,
@@ -77,11 +76,12 @@ double QuadratureGuassianHermite5(
     0.3936193231522411,
     0.01995324205904586,
   };
+  // clang-format on
 
   double result = integrand(points[0]) * weights[0];
   for (int i = 1; i < 3; ++i) {
-    result += (integrand(points[i]) * weights[i]
-               + integrand(-points[i]) * weights[i]);
+    result += (integrand(points[i]) * weights[i] +
+               integrand(-points[i]) * weights[i]);
   }
   return result;
 }

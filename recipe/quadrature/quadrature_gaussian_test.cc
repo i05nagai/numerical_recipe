@@ -12,8 +12,7 @@ TEST(QuadratureGuassianLegendre5Test, Example) {
   };
   const double left = -1;
   const double right = 1;
-  const double actual =
-      QuadratureGuassianLegendre5(integrand, left, right);
+  const double actual = QuadratureGuassianLegendre5(integrand, left, right);
 
   const double expect = 2.0 / 3.0;
   EXPECT_NEAR(expect, actual, 1e-15);
@@ -25,18 +24,15 @@ TEST(QuadratureGuassianLegendre16Test, Example) {
   };
   const double left = -1;
   const double right = 1;
-  const double actual =
-      QuadratureGuassianLegendre16(integrand, left, right);
+  const double actual = QuadratureGuassianLegendre16(integrand, left, right);
 
   const double expect = 2.0 / 3.0;
   EXPECT_NEAR(expect, actual, 1e-12);
 }
 
-// Expectation of 
+// Expectation of
 TEST(QuadratureGuassianHermite5Test, Example) {
-  Integrand h = [](const double x) {
-    return x;
-  };
+  Integrand h = [](const double x) { return x; };
   Integrand integrand = [h](const double x) {
     const double variance = 1.0;
     const double mean = 1.0;
@@ -52,4 +48,3 @@ TEST(QuadratureGuassianHermite5Test, Example) {
 
 }  // namespace quadrature
 }  // namespace recipe
-
