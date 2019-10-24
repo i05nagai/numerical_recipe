@@ -66,12 +66,12 @@ double QuadratureGuassianLegendre16(const Integrand integrand,
 double QuadratureGuassianHermite5(const Integrand integrand, const double left,
                                   const double right) {
   // clang-format off
-  std::array<double, 8> points = {
+  std::array<double, 3> points = {
     0.0,
     0.9585724646138185,
     2.020182870456086,
   };
-  std::array<double, 8> weights = {
+  std::array<double, 3> weights = {
     0.9453087204829418,
     0.3936193231522411,
     0.01995324205904586,
