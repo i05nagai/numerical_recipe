@@ -17,6 +17,13 @@ Quadrature methods
    :project: recipe
    :path: ...
 
+.. doxygenfunction:: recipe::quadrature::QuadratureGuassianLegendre5(const Integrand&, const int, const double)
+   :project: recipe
+   :path: ...
+
+.. doxygenfunction:: recipe::quadrature::QuadratureGuassianHermite5(const Integrand&, const int, const double)
+   :project: recipe
+   :path: ...
 
 Integration by substitution
 -----------------------------
