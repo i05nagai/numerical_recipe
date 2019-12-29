@@ -1,0 +1,12 @@
+attrs
+atomicwrites
+importlib_metadata
+more_itertools
+packaging
+pluggy
+py
+pyparsing
+pytest
+six
+wcwidth
+zipp

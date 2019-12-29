@@ -1,11 +1,18 @@
 package(default_visibility = ["//visibility:public"])
 
-cc_library(
-    name = "core",
-    srcs = glob(
-        ["*.cc"],
+filegroup(
+    name = "srcfile",
+    srcs = glob([
+        "*.cc",
+        "*.h",
+        ],
         exclude = ["*_test.cc"],
     ),
+)
+
+cc_library(
+    name = "core",
+    srcs = [":srcfile"],
     hdrs = glob(["*.h"]),
     copts = [
         "-std=c++11",

@@ -49,3 +49,15 @@ doxygen_sqlite3.db
 /docs/_build/.doctrees
 /docs/_build/doctrees
 /lib*
+*.so
+*.o
+/python/build
+/python/dist
+/python/recipe
+python/recipepy/*/*.cpp
+
+#
+# python
+#
+__pycache__
+*.egg-info

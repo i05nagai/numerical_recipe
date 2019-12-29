@@ -1,11 +1,27 @@
 package(default_visibility = ["//visibility:public"])
 
-cc_library(
-    name = "quadrature",
-    srcs = glob(
-        ["*.cc"],
+filegroup(
+    name = "srcfile",
+    srcs = glob([
+        "*.cc",
+        "*.h",
+        ],
         exclude = ["*_test.cc"],
     ),
+)
+
+filegroup(
+    name = "testfile",
+    srcs = glob([
+        "*_test.cc",
+    ]),
+)
+
+cc_library(
+    name = "quadrature",
+    srcs = [
+        ":srcfile"
+    ],
     hdrs = glob(["*.h"]),
     copts = [
         "-std=c++11",
@@ -17,7 +33,9 @@ cc_library(
 
 cc_test(
     name = "test",
-    srcs = glob(["*_test.cc"]),
+    srcs = [
+        ":testfile"
+    ],
     copts = [
         "-Iexternal/gtest/include",
         "-std=c++11",
