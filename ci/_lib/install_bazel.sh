@@ -60,6 +60,5 @@ install_bazel_osx()
 
   # tap and install
   brew tap bazelbuild/tap
-  brew tap-pin bazelbuild/tap
-  brew install bazel
+  brew install bazelbuild/tap/bazel
 }
