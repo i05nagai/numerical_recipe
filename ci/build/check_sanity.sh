@@ -63,7 +63,7 @@ get_clang_files_to_check() {
 
     echo "${CLANG_FILES}"
   else
-    find benchmark recipe -name '*.h' -o -name '*.cc'
+    find benchmark numrecipe -name '*.h' -o -name '*.cc'
   fi
 }
 

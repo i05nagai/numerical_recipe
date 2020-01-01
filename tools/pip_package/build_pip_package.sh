@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+set -x
 
 function prepare_src() {
   if [ $# -lt 1 ] ; then
@@ -10,11 +11,11 @@ function prepare_src() {
 
   TMPDIR="${1%/}"
   mkdir -p "$TMPDIR"
-  EXTERNAL_INCLUDES="${TMPDIR}/recipe/include/external"
+  EXTERNAL_INCLUDES="${TMPDIR}/numrecipe/include/external"
 
   echo $(date) : "=== Preparing sources in dir: ${TMPDIR}"
 
-  if [ ! -d bazel-bin/recipe ]; then
+  if [ ! -d bazel-bin/numrecipe ]; then
     echo "Could not find bazel-bin.  Did you run from the root of the build tree?"
     exit 1
   fi
@@ -22,11 +23,11 @@ function prepare_src() {
   RUNFILES=bazel-bin/tools/pip_package/build_pip_package.runfiles/__main__
 
   # cp ${RUNFILES}/LICENSE ${TMPDIR}
-  mkdir -p ${TMPDIR}/recipe
-  mv ${RUNFILES}/recipe/python ${TMPDIR}/recipe
-  touch ${TMPDIR}/recipe/__init__.py
+  mkdir -p ${TMPDIR}/numrecipe
+  cp -r -L ${RUNFILES}/numrecipe/python ${TMPDIR}/numrecipe
+  touch ${TMPDIR}/numrecipe/__init__.py
   mkdir -p ${TMPDIR}/include
-  cp -R -L ${RUNFILES}/recipe ${TMPDIR}/include
+  cp -R -L ${RUNFILES}/numrecipe ${TMPDIR}/include
   cp -r -L ${RUNFILES}/external/eigen3/Eigen ${TMPDIR}/include
   cp -r -L ${RUNFILES}/external/eigen3/unsupported ${TMPDIR}/include
 
@@ -41,8 +42,8 @@ function build_wheel() {
     exit 1
   fi
 
-  TMPDIR="$1"
-  DEST="$2"
+  local TMPDIR="$1"
+  local DEST="$2"
 
   # Before we leave the top-level directory, make sure we know how to
   # call python.
@@ -50,13 +51,15 @@ function build_wheel() {
     source tools/python_bin_path.sh
   fi
 
-  pushd ${TMPDIR}
-
   echo $(date) : "=== Building wheel"
+
+  pushd ${TMPDIR}
   "${PYTHON_BIN_PATH:-python3}" setup.py bdist_wheel
-  mkdir -p ${DEST}
-  cp dist/* ${DEST}
   popd
+
+  mkdir -p ${DEST}
+  cp -f ${TEMPDIR}/dist/* ${DEST}
+
   echo $(date) : "=== Output wheel file is in: ${DEST}"
 }
 

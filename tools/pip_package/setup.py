@@ -80,7 +80,7 @@ def _package_data():
         matches.extend(
             ['./' + x for x in find_files('*', path) if '.py' not in x]
         )
-    EXTENSION_NAME = 'recipe/python/_pywrap_recipe.so'
+    EXTENSION_NAME = 'numrecipe/python/_pywrap_numrecipe.so'
     return matches + [
         EXTENSION_NAME
     ]
@@ -95,7 +95,7 @@ def main():
     print(_package_data())
 
     setuptools.setup(
-        name="recipe",
+        name="numrecipe",
         version="0.0.1.dev0",
         author="i05nagai",
         author_email="i05nagai.cellphone@gmail.com",

@@ -15,7 +15,7 @@ if [[ `echo "${BUILD_TARGET}" | grep -E '(Coverage$|Coverage,)'` && "${TRAVIS_OS
   ls -la
 
   path_coverage_file="${PATH_REPOSITORY}/coverage.dat"
-  coverage_files=$(find ${PATH_REPOSITORY}/bazel-testlogs/recipe -name "coverage.dat" -a -not -empty)
+  coverage_files=$(find ${PATH_REPOSITORY}/bazel-testlogs/numrecipe -name "coverage.dat" -a -not -empty)
   #
   # combine lcov capture files
   #

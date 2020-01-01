@@ -51,10 +51,7 @@ doxygen_sqlite3.db
 /lib*
 *.so
 *.o
-/python/build
-/python/dist
-/python/recipe
-python/recipepy/*/*.cpp
+/dist
 
 #
 # python

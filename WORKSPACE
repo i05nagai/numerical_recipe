@@ -114,8 +114,8 @@ git_repository(
 )
 load("@rules_python//python:pip.bzl", "pip3_import")
 pip3_import(
-   name = "recipepy_deps",
-   requirements = "//recipe/python:requirements.txt",
+   name = "numrecipepy_deps",
+   requirements = "//numrecipe/python:requirements.txt",
 )
-load("@recipepy_deps//:requirements.bzl", "pip_install")
+load("@numrecipepy_deps//:requirements.bzl", "pip_install")
 pip_install()

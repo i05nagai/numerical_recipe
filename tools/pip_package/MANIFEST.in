@@ -8,6 +8,6 @@ recursive-include * *.so.[0-9]
 recursive-include * *.dylib
 recursive-include * *.dll
 recursive-include * *.lib
-recursive-include recipe/include/recipe *.h
-recursive-include recipe/include/Eigen *
-recursive-include recipe/include/external *
+recursive-include numrecipe/include/numrecipe *.h
+recursive-include numrecipe/include/Eigen *
+recursive-include numrecipe/include/external *

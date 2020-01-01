@@ -1,13 +1,13 @@
 package(default_visibility = ["//visibility:private"])
 
-load("//:recipe.bzl", "transitive_hdrs")
+load("//:numrecipe.bzl", "transitive_hdrs")
 
 transitive_hdrs(
     name = "included_headers",
     deps = [
-        "//recipe/core",
-        "//recipe/quadrature",
-        "//recipe/util",
+        "//numrecipe/core",
+        "//numrecipe/quadrature",
+        "//numrecipe/util",
         "@eigen3",
     ],
 )
@@ -17,7 +17,7 @@ COMMON_PIP_DEPS = [
     "README.md",
     "setup.py",
     ":included_headers",
-    "//recipe/python:recipepy",
+    "//numrecipe/python:numrecipepy",
 ]
 
 sh_binary(

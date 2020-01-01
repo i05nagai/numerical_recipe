@@ -16,7 +16,7 @@ run_build() {
     --output_base=$HOME/.cache/bazel \
     build \
     ${BAZEL_OPTION} \
-    "//recipe/..."
+    "//numrecipe/..."
 }
 
 run_test() {
@@ -25,7 +25,7 @@ run_test() {
     test \
     --test_output=errors \
     ${BAZEL_OPTION} \
-    "//recipe/..."
+    "//numrecipe/..."
 }
 
 run_coverage() {
@@ -34,7 +34,7 @@ run_coverage() {
     coverage \
     --test_output=errors \
     ${BAZEL_OPTION} \
-    "//recipe/..."
+    "//numrecipe/..."
 }
 
 run_benchmark() {
