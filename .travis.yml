@@ -12,7 +12,7 @@
 #   * e.g. BUILD_TARGET="Coverage,Benchmark"
 #
 sudo: required
-dist: trusty
+dist: xenial
 language: cpp
 matrix:
   include:
