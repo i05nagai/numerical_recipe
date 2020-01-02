@@ -27,6 +27,7 @@ source ${PATH_TO_ROOT}/ci/travis/install_bazel.sh
 source ${PATH_TO_ROOT}/ci/travis/install_buildifier.sh
 source ${PATH_TO_ROOT}/ci/travis/install_clang_format.sh
 source ${PATH_TO_ROOT}/ci/travis/install_gcc.sh
+source ${PATH_TO_ROOT}/ci/travis/install_python3.sh
 # ${PATH_TO_ROOT}/ci/travis/install_valgrind.sh
 
 #
