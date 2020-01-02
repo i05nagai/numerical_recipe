@@ -42,9 +42,9 @@ int Foo() {
   a2 = a1 + m1.array();
   m2 = a1.matrix() + m1;
 
-  std::cout << m1 << std::endl;
-  std::cout << m2 << std::endl;
-  std::cout << v1.size() << std::endl;
+  // std::cout << m1 << std::endl;
+  // std::cout << m2 << std::endl;
+  // std::cout << v1.size() << std::endl;
   return 1;
 }
 }  // namespace sandbox
