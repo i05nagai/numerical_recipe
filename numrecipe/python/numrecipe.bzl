@@ -1,21 +1,11 @@
 # Shared libraries have different name pattern on different platforms,
 # but cc_binary cannot output correct artifact name yet,
 # so we generate multiple cc_binary targets with all name patterns when necessary.
-# TODO(pcloudy): Remove this workaround when https://github.com/bazelbuild/bazel/issues/4570
-# is done and cc_shared_library is available.
 SHARED_LIBRARY_NAME_PATTERNS = [
     "lib%s.so%s",  # On Linux, shared libraries are usually named as libfoo.so
     "lib%s%s.dylib",  # On macos, shared libraries are usually named as libfoo.dylib
     "%s%s.dll",  # On Windows, shared libraries are usually named as foo.dll
 ]
-
-
-def register_extension_info(**kwargs):
-    pass
-
-
-def clean_dep(dep):
-    return str(Label(dep))
 
 
 def cc_shared_object(
@@ -89,15 +79,6 @@ def cc_shared_object(
             linkshared = 1,
             data = data + data_extra,
             linkopts = linkopts,
-            # linkopts = linkopts + select({
-            #     clean_dep("//recipe:macos"): [
-            #         "-Wl,-install_name,@rpath/" + soname,
-            #     ],
-            #     clean_dep("//recipe:windows"): [],
-            #     "//conditions:default": [
-            #         "-Wl,-soname," + soname,
-            #     ],
-            # }),
             visibility = visibility,
             **kwargs
         )
@@ -111,11 +92,6 @@ def cc_shared_object(
             }),
             visibility = visibility,
         )
-
-register_extension_info(
-    extension_name = "cc_shared_object",
-    label_regex_for_dep = "{extension_name}",
-)
 
 
 def _get_repository_roots(ctx, files):
@@ -243,12 +219,8 @@ def py_wrap_cc(
         **kwargs):
     """Builds a Python extension module."""
     module_name = name
-
-    # Convert a rule name such as foo/bar/baz to foo/bar/_baz.so
-    # and use that as the name for the rule producing the .so file.
     cc_library_base = "_" + module_name
 
-    # TODO(b/137885063): tf_cc_shared_object needs to be cleaned up; we really
     # shouldn't be passing a name qualified with .so here.
     cc_library_name = cc_library_base + ".so"
     cc_library_pyd_name = cc_library_base + ".pyd"
