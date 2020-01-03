@@ -115,7 +115,7 @@ git_repository(
 load("@rules_python//python:pip.bzl", "pip3_import")
 pip3_import(
    name = "numrecipepy_deps",
-   requirements = "//numrecipe/python:requirements.txt",
+   requirements = "//tools/pip_package:requirements-dev-freeze.txt",
 )
 load("@numrecipepy_deps//:requirements.bzl", "pip_install")
 pip_install()
