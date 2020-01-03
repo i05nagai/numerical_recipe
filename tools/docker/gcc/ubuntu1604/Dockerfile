@@ -47,17 +47,22 @@ RUN \
     && install -v -m755 -d /usr/share/doc/swig-4.0.1 \
     && cp -v -R Doc/* /usr/share/doc/swig-4.0.1
 
+
+#
+# python3
+#
 RUN \
     apt-get install -y \
+        software-properties-common \
+    && add-apt-repository -y ppa:deadsnakes/ppa \
+    && apt-get update \
+    && apt-get install -y \
         python3.6 \
         python3.6-dev \
     && apt-get purge -y python3 \
     && apt-get -y autoremove \
     && ln -s /usr/bin/python3.6 /usr/bin/python3
 
-#
-# install
-#
 RUN \
     curl https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py \
     && python3 /tmp/get-pip.py \
