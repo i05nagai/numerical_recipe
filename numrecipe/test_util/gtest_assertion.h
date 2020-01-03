@@ -41,8 +41,9 @@
 ///   double actual[] = {1, 2, 3};
 ///   EXPECT_ARRAY_ELEMENT_EQ(expect, actual, 3);
 /// ```
-#define EXPECT_ARRAY_ELEMENT_EQ(expect, actual, size) \
-  EXPECT_PRED_FORMAT3(numrecipe::test_util::IsElementEqual, expect, actual, size)
+#define EXPECT_ARRAY_ELEMENT_EQ(expect, actual, size)                       \
+  EXPECT_PRED_FORMAT3(numrecipe::test_util::IsElementEqual, expect, actual, \
+                      size)
 
 /// @brief an assertion compares two arrays.
 /// Two arrays must have the same values of the elements.
@@ -55,9 +56,9 @@
 ///   double actual[] = {1, 2, 3};
 ///   EXPECT_ARRAY_ELEMENT_NEAR(expect, actual, 3, 1e-10);
 /// ```
-#define EXPECT_ARRAY_ELEMENT_NEAR(expect, actual, size, abs_error)           \
-  EXPECT_PRED_FORMAT4(numrecipe::test_util::IsElementNearEqual, expect, actual, \
-                      size, abs_error)
+#define EXPECT_ARRAY_ELEMENT_NEAR(expect, actual, size, abs_error)      \
+  EXPECT_PRED_FORMAT4(numrecipe::test_util::IsElementNearEqual, expect, \
+                      actual, size, abs_error)
 
 /// @brief an assertion checkes whether the statement passes.
 /// The message of `assert` function varies between compilers.

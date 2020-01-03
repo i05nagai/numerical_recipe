@@ -7,13 +7,13 @@
 
 /// @brief
 ///
-#define EXPECT_MATRIX_ELEMENT_NEAR(expect, actual, abs_error)             \
+#define EXPECT_MATRIX_ELEMENT_NEAR(expect, actual, abs_error)                \
   EXPECT_PRED_FORMAT3(numrecipe::linear_algebra::IsElementNearEqual, expect, \
                       actual, abs_error)
 
 /// @brief
 ///
-#define EXPECT_VECTOR_ELEMENT_NEAR(expect, actual, abs_error)             \
+#define EXPECT_VECTOR_ELEMENT_NEAR(expect, actual, abs_error)                \
   EXPECT_PRED_FORMAT3(numrecipe::linear_algebra::IsElementNearEqual, expect, \
                       actual, abs_error)
 
