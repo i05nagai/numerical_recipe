@@ -1,7 +1,3 @@
-#
-# This build file is imported from the Tensorflow repository.
-#
-
 # Description:
 #   Eigen is a C++ template library for linear algebra: vectors,
 #   matrices, and related algorithms.
@@ -73,6 +69,8 @@ cc_library(
     ],
     includes = ["."],
     visibility = ["//visibility:public"],
+    deps = [
+    ],
 )
 
 filegroup(

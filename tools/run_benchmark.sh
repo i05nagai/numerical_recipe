@@ -15,7 +15,7 @@ run_benchmark()
     --output_base=$HOME/.cache/bazel \
     run \
     --compilation_mode=opt \
-    "//benchmark/recipe/${subpackage}"
+    "//benchmark/numrecipe/${subpackage}"
 }
 
 pwd

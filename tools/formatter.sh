@@ -16,7 +16,7 @@ cd $PATH_TO_REPOSITORY
 #
 # under recipe/
 #
-formatting recipe
+formatting numrecipe
 
 #
 # under benchmark/

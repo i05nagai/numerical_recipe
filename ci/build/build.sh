@@ -16,7 +16,7 @@ run_build() {
     --output_base=$HOME/.cache/bazel \
     build \
     ${BAZEL_OPTION} \
-    "//recipe/..."
+    "//numrecipe/..."
 }
 
 run_test() {
@@ -25,16 +25,19 @@ run_test() {
     test \
     --test_output=errors \
     ${BAZEL_OPTION} \
-    "//recipe/..."
+    "//numrecipe/..."
 }
 
 run_coverage() {
-  bazel \
-    --output_base=$HOME/.cache/bazel \
-    coverage \
-    --test_output=errors \
-    ${BAZEL_OPTION} \
-    "//recipe/..."
+  # py_test doesn't support coverage
+  for target in $(ls numrecipe | grep -v python); do
+    bazel \
+      --output_base=$HOME/.cache/bazel \
+      coverage \
+      --test_output=errors \
+      ${BAZEL_OPTION} \
+      "//numrecipe/${target}/..."
+  done
 }
 
 run_benchmark() {
@@ -69,7 +72,7 @@ fi
 run_build
 
 if is_covereage; then
-  # bazel-coverage run tests so we can exclude to execute bazel-test
+  run_test
   run_coverage
 elif is_benchmark; then
   run_test

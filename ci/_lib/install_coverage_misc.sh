@@ -24,8 +24,8 @@ install_coverage_misc_linux()
     curl
 
   ${SUDO} curl https://bootstrap.pypa.io/get-pip.py -o $HOME/get-pip.py
-  ${SUDO} python $HOME/get-pip.py
-  ${SUDO} pip install cpp-coveralls
+  ${SUDO} python3 $HOME/get-pip.py
+  ${SUDO} pip3 install cpp-coveralls
 }
 
 #

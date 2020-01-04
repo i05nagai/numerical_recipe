@@ -2,21 +2,21 @@
 To build the library, you need to run
 
 ```
-bazel build //recipe/...
+bazel build //numrecipe/...
 ```
 
 You can build only specific sub packages
 
 ```
-bazel build //recipe/integrate:integrate
-bazel build //recipe/sandbox:sandbox
-bazel build //recipe/util:util
+bazel build //numrecipe/integrate:integrate
+bazel build //numrecipe/sandbox:sandbox
+bazel build //numrecipe/util:util
 ```
 
 Debug build
 
 ```
-bazel build //recipe --compilation_mode=dbg
+bazel build //numrecipe --compilation_mode=dbg
 ```
 
 ## Test
@@ -28,15 +28,15 @@ We use gtest for testing. Take a look at official documents:
 You can run all tests with command
 
 ```
-bazel test --test_output=errors "//recipe/..."
+bazel test --test_output=errors "//numrecipe/..."
 ```
 
 Executing tests for specific subpackages is also possible
 
 ```
-bazel test --test_output=errors //recipe/integrate:test
-bazel test --test_output=errors //recipe/sandbox:test
-bazel test --test_output=errors //recipe/util:test
+bazel test --test_output=errors //numrecipe/integrate:test
+bazel test --test_output=errors //numrecipe/sandbox:test
+bazel test --test_output=errors //numrecipe/util:test
 ```
 
 ## Documentation
@@ -139,7 +139,7 @@ We recommend to use the docker image.
 ```
 ./tools/docker/gcc/docker_build_ubuntu1604.sh
 ./tools/docker/gcc/docker_run_ubuntu1604.sh
-bazel coverage //recipe/... --compilation_mode=dbg
+bazel coverage //numrecipe/... --compilation_mode=dbg
 ```
 
 There is no visualization of the result of the test coverage for now.
