@@ -28,6 +28,7 @@ cc_library(
     ],
     deps = [
         "//numrecipe/core",
+        "@glog",
     ],
 )
 
