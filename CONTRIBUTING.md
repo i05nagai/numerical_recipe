@@ -34,7 +34,7 @@ bazel test --test_output=errors "//numrecipe/..."
 Executing tests for specific subpackages is also possible
 
 ```
-bazel test --test_output=errors //numrecipe/integrate:test
+bazel test --test_output=errors //numrecipe/quadrature:test
 bazel test --test_output=errors //numrecipe/sandbox:test
 bazel test --test_output=errors //numrecipe/util:test
 ```
