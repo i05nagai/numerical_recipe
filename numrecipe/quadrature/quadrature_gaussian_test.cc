@@ -46,5 +46,18 @@ TEST(QuadratureGuassianHermite5Test, Example) {
   EXPECT_NEAR(expect, actual, 1e-15);
 }
 
+// Expectation of
+TEST(QuadratureGaussKronrodHermite15Test, Example) {
+  Integrand integrand = [](const double x) {
+    return 7.0 * x * x * x - 8.0 * x * x - 3.0 * x + 3.0;
+  };
+  const double left = -1;
+  const double right = 1;
+  const double actual = QuadratureGaussKronrodHermite15(integrand, left, right);
+
+  const double expect = 2.0 / 3.0;
+  EXPECT_NEAR(expect, actual, 1e-14);
+}
+
 }  // namespace quadrature
 }  // namespace numrecipe

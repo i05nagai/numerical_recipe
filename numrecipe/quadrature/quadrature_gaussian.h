@@ -55,5 +55,8 @@ double QuadratureGuassianLegendre16(const Integrand integrand,
 double QuadratureGuassianHermite5(const Integrand integrand, const double left,
                                   const double right);
 
+double QuadratureGaussKronrodHermite15(const Integrand integrand,
+                                       const double left, const double right);
+
 }  // namespace quadrature
 }  // namespace numrecipe

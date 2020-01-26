@@ -86,5 +86,38 @@ double QuadratureGuassianHermite5(const Integrand integrand, const double left,
   return result;
 }
 
+double QuadratureGaussKronrodHermite15(const Integrand integrand,
+                                       const double left, const double right) {
+  // clang-format off
+  std::array<double, 8> points = {
+    0.000000000000000,
+    0.207784955007898,
+    0.405845151377397,
+    0.586087235467691,
+    0.741531185599394,
+    0.864864423359769,
+    0.949107912342759,
+    0.991455371120813,
+  };
+  std::array<double, 8> kronrod_weights = {
+    0.209482141084728,
+    0.204432940075298,
+    0.190350578064785,
+    0.169004726639267,
+    0.140653259715525,
+    0.104790010322250,
+    0.063092092629979,
+    0.022935322010529,
+  };
+  // clang-format on
+
+  double result = +integrand(points[0]) * kronrod_weights[0];
+  for (int i = 1; i < 8; ++i) {
+    result +=
+        (integrand(points[i]) + integrand(-points[i])) * kronrod_weights[i];
+  }
+  return result;
+}
+
 }  // namespace quadrature
 }  // namespace numrecipe
